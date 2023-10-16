@@ -207,7 +207,7 @@ The UI will be constructed with React and employ `TypeScript` and employ `FullCa
 
 ### API Checklist
 
-#### [ ] SQL Schema
+#### [ ] SQL Schema (8 Hours Total)
 
 ##### [ ] Create Production Schema (4.0 hours)
 
@@ -228,13 +228,13 @@ The UI will be constructed with React and employ `TypeScript` and employ `FullCa
 * Create data for `insert`
 * Craft CRUD queries for all tables (for Data Mappers)
 
-##### [ ] Create Test Schema (2.0 hours)
+##### [ ] Create Test Schema (2.0 Hours)
 
 - Duplicate Production Schema
 
 - Create `KnownGoodState` procedure
 
-#### [ ]  Create Models (2.0 hours)
+#### [ ]  Create Models (2.0 Hours Total)
 
 ```java
 public class Appointment{
