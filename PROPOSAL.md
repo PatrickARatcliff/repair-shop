@@ -3,7 +3,7 @@
 
 ## About / Synopsis
 
-* Construct an application to schedule service appointment at a car repair shop. View, add, edit, and delete appointments, customers, cars, appointments, and users.
+* Construct an application to schedule service appointment at a car repair shop. View, add, edit, and delete appointments, customers, cars, and users.
 
 Links:
 
@@ -17,7 +17,7 @@ Links:
         <li><a href="#dev10-capstone-proposal-repair-shop--repair-shop">Title / Repository Name</a></li>
             <ul>   
                 <li><a href="#about--synopsis">About / Synopsis</a></li>
-                <li><a href="#overview">High-level Requirements</a></li>
+                <li><a href="#overview">Overview</a></li>
                       <ul>
                         <li><a href="#api">API</a></li>
                           <ul>
