@@ -11,9 +11,9 @@ Links:
 * <https://dev-10.teachable.com/courses/java-fundamentals-academy-2023/lectures/48330729>
 
 ### API Wire-Frame
-> ![api-wireframe.jpeg](./api-wireframe.jpeg)
+> ![api-wireframe.jpeg](api-wireframe.jpeg)
 ### UI Wire-Frame
-> ![ui-wireframe.jpeg](./ui-wireframe.jpeg)
+> ![ui-wireframe.jpeg](ui-wireframe.jpeg)
 
 ## Table of Contents
 <div id = "user-content-toc">
