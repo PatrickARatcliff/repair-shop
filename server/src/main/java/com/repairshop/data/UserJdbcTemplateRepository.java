@@ -99,14 +99,17 @@ public class UserJdbcTemplateRepository implements UserRepository {
 
     @Override
     @Transactional
-    public boolean deleteUser(int userId) {
-            String deleteUserRoleSQL = "delete from user_role where user_id = ?";
-            jdbcTemplate.update(deleteUserRoleSQL, userId);
+    public boolean deleteUserById(int userId) {
+        String updateAppointmentsSQL = "update appointment set user_id = 0 where user_id = ?";
+        jdbcTemplate.update(updateAppointmentsSQL, userId);
 
-            String deleteUserSQL = "delete from `user` where user_id = ?";
-            int rowsAffected = jdbcTemplate.update(deleteUserSQL, userId);
+        String deleteUserRoleSQL = "delete from user_role where user_id = ?";
+        jdbcTemplate.update(deleteUserRoleSQL, userId);
 
-            return rowsAffected > 0;
+        String deleteUserSQL = "delete from `user` where user_id = ?";
+        int rowsAffected = jdbcTemplate.update(deleteUserSQL, userId);
+
+        return rowsAffected > 0;
     }
 
     private void updateRoles(User user) {

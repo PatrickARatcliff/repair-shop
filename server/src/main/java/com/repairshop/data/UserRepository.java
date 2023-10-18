@@ -21,5 +21,5 @@ public interface UserRepository {
     boolean updateUser(User user);
 
     @Transactional
-    boolean deleteUser(int userId);
+    boolean deleteUserById(int userId);
 }

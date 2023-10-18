@@ -25,7 +25,7 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository {
     @Transactional
     public List<Customer> findAllCustomers() {
 
-        final String sql = "select customer_id, first_name, last_name, customer_phone, customer_email, important"
+        final String sql = "select customer_id, first_name, last_name, customer_phone, customer_email, important "
                 + "from customer;";
 
         return jdbcTemplate.query(sql, new CustomerMapper());
@@ -35,7 +35,7 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository {
     @Transactional
     public Customer findCustomerById(int customerId) {
 
-        final String sql = "select customer_id, first_name, last_name, customer_phone, customer_email, important"
+        final String sql = "select customer_id, first_name, last_name, customer_phone, customer_email, important "
                 + "from customer "
                 + "where customer_id = ?;";
 
@@ -91,7 +91,13 @@ public class CustomerJdbcTemplateRepository implements CustomerRepository {
     @Override
     @Transactional
     public boolean deleteCustomerById(int customerId) {
-        final String sql = "delete from customer where customer_id = ?";
-        return jdbcTemplate.update(sql, customerId) > 0;
+        final String deleteAppointmentsSQL = "delete from appointment where vehicle_id in (select vehicle_id from vehicle where customer_id = ?)";
+        jdbcTemplate.update(deleteAppointmentsSQL, customerId);
+
+        final String deleteVehiclesSQL = "delete from vehicle where customer_id = ?";
+        jdbcTemplate.update(deleteVehiclesSQL, customerId);
+
+        final String deleteCustomerSQL = "delete from customer where customer_id = ?";
+        return jdbcTemplate.update(deleteCustomerSQL, customerId) > 0;
     }
 }
