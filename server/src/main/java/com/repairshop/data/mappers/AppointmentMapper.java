@@ -11,7 +11,7 @@ public class AppointmentMapper implements RowMapper<Appointment> {
     public Appointment mapRow(ResultSet resultSet, int i) throws SQLException {
         Appointment appointment = new Appointment();
         appointment.setAppointmentId(resultSet.getInt("appointment_id"));
-        appointment.setAppointmentDate(resultSet.getDate("appointment_date"));
+        appointment.setAppointmentDate(resultSet.getDate("appointment_date").toLocalDate());
         appointment.setVehicleId(resultSet.getInt("vehicle_id"));
         appointment.setUserId(resultSet.getInt("user_id"));
         return appointment;

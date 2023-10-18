@@ -31,13 +31,13 @@ class CustomerJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void findAllCustomers() {
+    void shouldFindAllCustomers() {
         List<Customer> actual = repository.findAllCustomers();
         assertTrue(actual.size() > 1 && actual.size() < 5);
     }
 
     @Test
-    void findCustomerOneById() {
+    void shouldFindCustomerOneById() {
         Customer actual = repository.findCustomerById(1);
 
         assertEquals("One", actual.getCustomerLastName());

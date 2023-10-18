@@ -1,18 +1,19 @@
 package com.repairshop.models;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Appointment{
     private int appointmentId;
-    private Date appointmentDate;
+    private LocalDate appointmentDate;
     private int vehicleId;
     private int userId;
 
     public Appointment() {
     }
 
-    public Appointment(int appointmentId, Date appointmentDate, int vehicleId, int userId) {
+    public Appointment(int appointmentId, LocalDate appointmentDate, int vehicleId, int userId) {
         this.appointmentId = appointmentId;
         this.appointmentDate = appointmentDate;
         this.vehicleId = vehicleId;
@@ -27,11 +28,11 @@ public class Appointment{
         this.appointmentId = appointmentId;
     }
 
-    public Date getAppointmentDate() {
+    public LocalDate getAppointmentDate() {
         return appointmentDate;
     }
 
-    public void setAppointmentDate(Date appointmentDate) {
+    public void setAppointmentDate(LocalDate appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 

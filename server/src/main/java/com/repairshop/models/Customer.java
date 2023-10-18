@@ -1,5 +1,7 @@
 package com.repairshop.models;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class Customer{
@@ -7,6 +9,8 @@ public class Customer{
     private String customerFirstName;
     private String customerLastName;
     private String customerPhone;
+    @Email(message = "Please provide a valid email address.")
+    @NotNull(message = "Customer email is required.")
     private String customerEmail;
     private boolean important;
 

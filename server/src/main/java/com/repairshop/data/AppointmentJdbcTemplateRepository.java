@@ -4,12 +4,15 @@ import com.repairshop.data.mappers.AppointmentMapper;
 import com.repairshop.models.Appointment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
+@Repository
 public class AppointmentJdbcTemplateRepository implements AppointmentRepository {
     private final JdbcTemplate jdbcTemplate;
 
@@ -21,7 +24,7 @@ public class AppointmentJdbcTemplateRepository implements AppointmentRepository 
     @Transactional
     public List<Appointment> findAllAppointments() {
 
-        final String sql = "select appointment_id, appointment_date, vehicle_id, user_id"
+        final String sql = "select appointment_id, appointment_date, vehicle_id, user_id "
                 + "from appointment;";
 
         return jdbcTemplate.query(sql, new AppointmentMapper());
@@ -31,7 +34,7 @@ public class AppointmentJdbcTemplateRepository implements AppointmentRepository 
     @Transactional
     public Appointment findAppointmentById(int appointmentId) {
 
-        final String sql = "select appointment_id, appointment_date, vehicle_id, user_id"
+        final String sql = "select appointment_id, appointment_date, vehicle_id, user_id "
                 + "from appointment "
                 + "where appointment_id = ?;";
 
@@ -44,7 +47,7 @@ public class AppointmentJdbcTemplateRepository implements AppointmentRepository 
     @Transactional
     public List<Appointment> findAppointmentsByVehicleId(int vehicleId) {
 
-        final String sql = "select appointment_id, appointment_date, vehicle_id, user_id"
+        final String sql = "select appointment_id, appointment_date, vehicle_id, user_id "
                 + "from appointment "
                 + "where vehicle_id = ?;";
 
@@ -55,7 +58,7 @@ public class AppointmentJdbcTemplateRepository implements AppointmentRepository 
     @Transactional
     public List<Appointment> findAppointmentsByUserId(int userId) {
 
-        final String sql = "select appointment_id, appointment_date, vehicle_id, user_id"
+        final String sql = "select appointment_id, appointment_date, vehicle_id, user_id "
                 + "from appointment "
                 + "where user_id = ?;";
 
@@ -71,7 +74,7 @@ public class AppointmentJdbcTemplateRepository implements AppointmentRepository 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setDate(1, appointment.getAppointmentDate());
+            ps.setDate(1, Date.valueOf(appointment.getAppointmentDate()));
             ps.setInt(2, appointment.getVehicleId());
             ps.setInt(3, appointment.getUserId());
             return ps;

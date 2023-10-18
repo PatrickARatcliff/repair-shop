@@ -23,7 +23,7 @@ public class VehicleJdbcTemplateRepository implements VehicleRepository {
     @Transactional
     public List<Vehicle> findAllVehicles() {
 
-        final String sql = "select vehicle_id, vehicle_make, vehicle_model, vehicle_year, customer_id"
+        final String sql = "select vehicle_id, vehicle_make, vehicle_model, vehicle_year, customer_id "
                 + "from vehicle;";
 
         return jdbcTemplate.query(sql, new VehicleMapper());
@@ -33,7 +33,7 @@ public class VehicleJdbcTemplateRepository implements VehicleRepository {
     @Transactional
     public Vehicle findVehicleById(int vehicleId) {
 
-        final String sql = "select vehicle_id, vehicle_make, vehicle_model, vehicle_year, customer_id"
+        final String sql = "select vehicle_id, vehicle_make, vehicle_model, vehicle_year, customer_id "
                 + "from vehicle "
                 + "where vehicle_id = ?;";
 
@@ -46,7 +46,7 @@ public class VehicleJdbcTemplateRepository implements VehicleRepository {
     @Transactional
     public List<Vehicle> findVehiclesByCustomerId(int customerId) {
 
-        final String sql = "select vehicle_id, vehicle_make, vehicle_model, vehicle_year, customer_id"
+        final String sql = "select vehicle_id, vehicle_make, vehicle_model, vehicle_year, customer_id "
                 + "from vehicle "
                 + "where customer_id = ?;";
 
@@ -98,6 +98,9 @@ public class VehicleJdbcTemplateRepository implements VehicleRepository {
     @Override
     @Transactional
     public boolean deleteVehicleById(int vehicleId) {
+        final String deleteAppointmentsSQL = "delete from appointment where vehicle_id = ?";
+        jdbcTemplate.update(deleteAppointmentsSQL, vehicleId);
+
         final String sql = "delete from vehicle where vehicle_id = ?";
         return jdbcTemplate.update(sql, vehicleId) > 0;
     }
