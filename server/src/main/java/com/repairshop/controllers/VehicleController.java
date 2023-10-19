@@ -58,7 +58,7 @@ public class VehicleController {
         return new ResponseEntity<>(getStatus(result, HttpStatus.NO_CONTENT));
     }
 
-    @DeleteMapping("/{customerId}")
+    @DeleteMapping("/{vehicleId}")
     public ResponseEntity<Void> deleteVehicle(@PathVariable int vehicleId) {
         Result<Vehicle> result = service.deleteVehicleById(vehicleId);
         return new ResponseEntity<>(getStatus(result, HttpStatus.NO_CONTENT));
