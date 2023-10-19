@@ -84,11 +84,12 @@ public class UserJdbcTemplateRepository implements UserRepository {
 
         final String sql = "update user set "
                 + "username = ?, "
+                + "password = ?, "
                 + "enabled = ? "
                 + "where user_id = ?";
 
         boolean updated = jdbcTemplate.update(sql,
-                user.getUsername(), user.isEnabled(), user.getUserId()) > 0;
+                user.getUsername(), user.getPassword(), user.isEnabled(), user.getUserId()) > 0;
 
         if (updated) {
             updateRoles(user);

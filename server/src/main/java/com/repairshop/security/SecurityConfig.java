@@ -31,11 +31,11 @@ public class SecurityConfig {
                 .antMatchers("/refresh_token").authenticated()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/appointment", "/appointment/*").permitAll()
+                        "/appointment", "/appointment/*", "/appointment/vehicle/*", "/appointment/user/*").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/customer", "/customer/*").permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/vehicle", "/vehicle/*").permitAll()
+                        "/vehicle", "/vehicle/*", "/vehicle/customer/*").permitAll()
                 .antMatchers(HttpMethod.GET,
                         "/user", "/user/*").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST,
@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST,
                         "/vehicle").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,
-                        "/user").hasAnyAuthority("ADMIN")
+                        "/user/*").hasAnyAuthority("ADMIN")
                 .antMatchers(HttpMethod.PUT,
                         "/appointment/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT,

@@ -69,7 +69,9 @@ public class UserService implements UserDetailsService {
 
         String password = encoder.encode(user.getPassword());
 
-        User newUser = new User(0, user.getUsername(), password, user.isEnabled(), List.of(user.getAuthorities().toString()));
+        User newUser = new User(user.getUserId(), user.getUsername(), password, user.isEnabled(), List.of(String.valueOf(user.getAuthorities())));
+
+        System.out.println(newUser);
 
         try {
             boolean success = repository.updateUser(newUser);

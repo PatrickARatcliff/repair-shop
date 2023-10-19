@@ -1,0 +1,98 @@
+@url = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZXBhaXItc2hvcCIsInN1YiI6ImZpdHRpQHB1cHB5LmNvbSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiQURNSU4iLCJleHAiOjE2OTc3NTMzMDl9.ZuPkYCy38OcGLsOpUHqgJzV46jnjNNH_VHb886Hk6b4
+
+###
+// sign-in "ADMIN"
+// 200
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "fitti@puppy.com",
+    "password": "P@ssw0rd!"
+}
+
+###
+// sign-in "USER"
+// 200
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "patrick@ratcliff.com",
+    "password": "P@ssw0rd!"
+}
+
+### 
+// sign-in non-existent user
+// 403
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bad-username",
+    "password": "bad-password"
+}
+
+###
+
+POST {{url}}/refresh_token HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZXBhaXItc2hvcCIsInN1YiI6ImZpdHRpQHB1cHB5LmNvbSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiQURNSU4iLCJleHAiOjE2OTc3NDY2ODl9.x9Vx8QIl_hzFV-FvLK5ux3D93AuXjxbEvJ9ONBcDK74
+
+###
+// view all users
+
+GET {{url}}/user HTTP/1.1
+Authorization: Bearer {{token}}
+
+
+###
+// view userName 1
+
+# GET {{url}}/user/1 HTTP/1.1
+# Authorization: Bearer {{token}}
+
+### 
+// create user
+// 201
+
+POST {{url}}/create_account HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "username": "izzy@ratcliff.com",
+  "password": "P@ssw0rd!"
+}
+
+### 
+// update user
+// 201
+
+PUT {{url}}/user/6 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "userId": 6,
+  "username": "izzy@ratcliff.com",
+  "password": "P@ssw0rd!",
+  "enabled": true,
+  "roles": ["ADMIN"],
+  "accountNonExpired": true,
+  "accountNonLocked": true,
+  "credentialsNonExpired": true
+}
+
+
+###
+// delete user
+
+DELETE {{url}}/user/5 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###

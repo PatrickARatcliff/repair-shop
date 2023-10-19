@@ -41,7 +41,7 @@ create table vehicle (
 	vehicle_id int primary key auto_increment,
     vehicle_make varchar(25),
     vehicle_model varchar(25) ,
-    vehicle_year year,
+    vehicle_year int default(0),
 	customer_id int not null,
     constraint fk_customer_customer_id
         foreign key (customer_id)
@@ -50,12 +50,12 @@ create table vehicle (
 
 create table appointment (
 	appointment_id int primary key auto_increment,
-    appointmentDate date not null,
+    appointment_date date not null,
 	vehicle_id int not null,
     constraint fk_vehicle_vehicle_id
         foreign key (vehicle_id)
         references vehicle(vehicle_id),
-	user_id int not null,
+	user_id int,
     constraint fk_user_user_id
         foreign key (user_id)
         references `user`(user_id)
@@ -93,7 +93,7 @@ insert into vehicle (vehicle_make, vehicle_model, vehicle_year, customer_id)
     ('Nissan', 'Altima', 2021, 5),
     ('Hyundai', 'Elantra', 2016, 1);
 
-insert into appointment (appointmentDate, vehicle_id, user_id)
+insert into appointment (appointment_date, vehicle_id, user_id)
 values
     ('2023-10-20', 1, 1),
     ('2023-10-23', 2, 2),

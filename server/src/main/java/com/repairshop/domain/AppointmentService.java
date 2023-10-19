@@ -46,7 +46,7 @@ public class AppointmentService {
         return appointmentRepository.findAppointmentsByUserId(userId);
     }
 
-    Result<Appointment> createAppointment(Appointment appointment) {
+    public Result<Appointment> createAppointment(Appointment appointment) {
         Result<Appointment> result = validate(appointment);
         if (result.getStatus() != ActionStatus.SUCCESS) {
             return result;
@@ -62,7 +62,7 @@ public class AppointmentService {
         return result;
     }
 
-    Result<Appointment> updateAppointment(Appointment appointment) {
+    public Result<Appointment> updateAppointment(Appointment appointment) {
         Result<Appointment> result = validate(appointment);
 
         if (result.getStatus() != ActionStatus.SUCCESS) {
@@ -82,7 +82,7 @@ public class AppointmentService {
     }
 
 
-    Result<Appointment> deleteAppointmentById(int appointmentId) {
+    public Result<Appointment> deleteAppointmentById(int appointmentId) {
         Result<Appointment> result = new Result<>();
         boolean deleted = appointmentRepository.deleteAppointmentById(appointmentId);
         if (!deleted) {

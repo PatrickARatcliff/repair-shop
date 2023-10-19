@@ -1,5 +1,7 @@
 package com.repairshop.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +17,9 @@ public class User implements UserDetails {
     private final String username;
     private final String password;
     private boolean enabled;
+
+    @JsonSerialize(using = GrantedAuthoritySerializer.class)
+    @JsonDeserialize(using = GrantedAuthorityDeserializer.class)
     private final Collection<GrantedAuthority> authorities;
 
     public User(int userId, String username, String password, boolean enabled, List<String> roles) {
