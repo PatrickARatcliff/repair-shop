@@ -61,10 +61,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setSignedIn(true);
   };
 
-  // const signIn = (userData: User) => {
-  //   setUser(userData);
-  //   setSignedIn(true);
-  // };
 
   const signOut = () => {
     setUser(null);
