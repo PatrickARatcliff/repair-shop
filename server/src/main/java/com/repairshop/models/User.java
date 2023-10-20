@@ -14,13 +14,16 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
     private int userId;
-    private final String username;
-    private final String password;
+    private String username;
+    private String password;
     private boolean enabled;
 
-    @JsonSerialize(using = GrantedAuthoritySerializer.class)
-    @JsonDeserialize(using = GrantedAuthorityDeserializer.class)
-    private final Collection<GrantedAuthority> authorities;
+//    @JsonSerialize(using = GrantedAuthoritySerializer.class)
+//    @JsonDeserialize(using = GrantedAuthorityDeserializer.class)
+    private Collection<GrantedAuthority> authorities;
+
+    public User() {
+    }
 
     public User(int userId, String username, String password, boolean enabled, List<String> roles) {
         this.userId = userId;

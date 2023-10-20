@@ -11,7 +11,7 @@ interface AuthContextType {
   setErrors: (newErrors: string[]) => void;
 }
 
-const LOCAL_STORAGE_TOKEN_KEY = "repairShopToken";
+const LOCAL_STORAGE_TOKEN_KEY = "RS_TOKEN";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 

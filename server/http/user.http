@@ -1,5 +1,5 @@
 @url = http://localhost:8080
-@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZXBhaXItc2hvcCIsInN1YiI6ImZpdHRpQHB1cHB5LmNvbSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiQURNSU4iLCJleHAiOjE2OTc3NTQyMTh9.i7DqwnChk47T73ZU9AqJbAKM1ZvjESCBlLsL0M9a0nU
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZXBhaXItc2hvcCIsInN1YiI6ImZpdHRpQHB1cHB5LmNvbSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiQURNSU4iLCJleHAiOjE2OTc4MjgxNjV9.t4sT1nMk-e2u70ysBYpfU0onrvtAJ7_E3trKCM7_uS4
 
 ###
 // sign-in "ADMIN"
@@ -72,26 +72,26 @@ Authorization: Bearer {{token}}
 // update user
 // 201
 
-PUT {{url}}/user/6 HTTP/1.1
+PUT {{url}}/user/4 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "userId": 6,
-  "username": "izzy@ratcliff.com",
-  "password": "P@ssw0rd!",
-  "enabled": true,
-  "roles": ["ADMIN"],
-  "accountNonExpired": true,
-  "accountNonLocked": true,
-  "credentialsNonExpired": true
+    "userId": 4,
+    "username": "izzy@ratcliff.com",
+    "password": "$2a$10$H3iXz5lJ4BUUsl1oKoHBl.nCXUe/ZVzYCKF238RcXVWlfOzYId5qu",
+    "enabled": true,
+    "authorities": ["ADMIN"],
+    "accountNonExpired": true,
+    "accountNonLocked": true,
+    "credentialsNonExpired": true
 }
 
 
 ###
 // delete user
 
-DELETE {{url}}/user/6 HTTP/1.1
+DELETE {{url}}/user/3 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 

@@ -84,7 +84,7 @@ public class UserJdbcTemplateRepository implements UserRepository {
 
         final String sql = "update user set "
                 + "username = ?, "
-                + "password = ?, "
+                + "password_hash = ?, "
                 + "enabled = ? "
                 + "where user_id = ?";
 

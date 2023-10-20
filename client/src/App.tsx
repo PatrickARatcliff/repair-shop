@@ -8,6 +8,7 @@ import { Navbar, Container, Nav, Button, Form } from "react-bootstrap";
 
 import NavBar from "./components/NavBar"
 import Landing from "./pages/Landing";
+import Appointments from './pages/_appointment/Appointments';
 import logo from './logo.svg';
 import './App.css';
 
@@ -24,6 +25,7 @@ function App() {
       <main className="container">
       <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/appointment" element={<Appointments />} />
         </Routes>
       </main>
 
