@@ -7,7 +7,6 @@ interface AuthContextType {
   signedIn: boolean;
   errors: string[];
   login: (token: string) => void;
-  // signIn: (userData: User) => void;
   signOut: () => void;
   setErrors: (newErrors: string[]) => void;
 }
