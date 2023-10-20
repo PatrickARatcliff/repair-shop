@@ -1,6 +1,9 @@
 interface User {
-    userId: number;
-    userName: string;
+    username: string,
+    roles: string[],
+    token: string,
+    hasRole: (role: string) => boolean;
 }
+
 
 export default User;

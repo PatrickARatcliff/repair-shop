@@ -1,124 +1,100 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import User from "../interfaces/User"
 import FormErrors from "./FormErrors";
-import { useAuth } from "../context/AuthProvider";
-import User from "../interfaces/User";
-// import { findAllUsers, login } from "../services/userService";
 
 interface SignInModalProps {
     showSignInModal: boolean;
     toggleSignInModal: () => void;
-    toggleSignUpModal: () => void;
-    handleSignInSuccess: (user: User) => void;
-    setUserName: (userName: string) => void;
-    setPassWord: (password: string) => void;
-    userName: string;
-    passWord: string;
-    user: User; 
-    errors: string[]; // If you use errors, make sure to define its type
+    login: (token: string) => void;
+    user: User | null;
+    errors: string[];
     setErrors: (errors: string[]) => void;
-  }
+};
 
 export default function SignInModal(props: SignInModalProps) {
-  const { user, errors, setErrors } = useAuth();
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
-  });
-  const [showSignUpLink, setShowSignUpLink] = useState(false);
-  // const [users, setUsers] = useState([]);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-  const handleSignIn = (evt: any) => {
-      evt.preventDefault();
+    const handleSignIn = async (event: any) => {
+        event.preventDefault();
 
 
-      props.setErrors([]);
-    //   login(credentials)
-    //     .then((user) => {
-    //       // handleLoggedIn(user);
+        const response = await fetch("http://localhost:8080/authenticate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username,
+                password,
+            }),
+        });
 
-    let newUser = {userId: 99, userName: props.userName, passWord: props.passWord}
-          if (newUser) {
-            props.handleSignInSuccess(newUser);
+        if (response.status === 200) {
+            const { jwt_token } = await response.json();
+            props.login(jwt_token);
             props.toggleSignInModal();
-    //       } else {
-    //         setErrors(["Username and/or Password do not match."]);
-    //         setShowSignUpLink(true);
-    //       }
-    //     })
-    //     .catch((err: Error) => {
-    //       console.error("An error occurred during sign-in:", err);
-    //       props.setErrors([err.message]);
-    //     });
-  };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const allUsers = await findAllUsers();
-  //       setUsers(allUsers);
-  //     } catch (error) {
-  //       console.error("An error occurred while fetching users:", error);
-  //       setErrors(error);
-  //     }
+        } else if (response.status === 403) {
+            props.setErrors(["Login failed."]);
+        } else {
+            props.setErrors(["Unknown error."]);
+        }
     };
 
-  //   fetchData();
-  // }, [user]);
+    useEffect(() => {
+        if (props.showSignInModal) {
+            resetModal();
+        }
+    }, [props.showSignInModal]);
+    
 
-  const handleSignUpClick = () => {
-    props.toggleSignInModal();
-    props.toggleSignUpModal();
-  };
+    const resetModal = () => {
+        setUsername("");
+        setPassword("");
+        props.setErrors([]);
+      };
 
-
-  return (
-    <>
-      <Modal show={props.showSignInModal} onHide={props.toggleSignInModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Sign In</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="username">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                onChange={(e) => props.setUserName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                onChange={(e) => props.setPassWord(e.target.value)}
-              />
-            </Form.Group>
-            <FormErrors errors={errors} />
-          </Form>
-          {showSignUpLink && (
-            <p>
-              Don't have an account?{" "}
-              <span
-                style={{ cursor: "pointer", color: "blue" }}
-                onClick={handleSignUpClick}
-              >
-                Sign Up
-              </span>{" "}
-            </p>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={props.toggleSignInModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSignIn}>
-            Sign In
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
+    return (
+        <>
+            <Modal show={props.showSignInModal} onHide={props.toggleSignInModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Sign In</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group controlId="username">
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control
+                                type="text"
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="password">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
+                                type="password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </Form.Group>
+                        <FormErrors errors={props.errors} />
+                    </Form>
+                    <br></br>
+                        <p>
+                            Don't have an account? Contact your Administrator.
+                        </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={props.toggleSignInModal}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleSignIn}>
+                        Sign In
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    );
 }
 
 

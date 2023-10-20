@@ -1,43 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { Navbar, Container, Nav, Button, Form } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import User from "../interfaces/User"
-// import "bootstrap-icons/font/bootstrap-icons.css";
-// import "../styles/NavBar.css";
 import Logo from "../logo.svg"
 
 import SignInModal from "./SignInModal";
-// import SignUpModal from "./SignUpModal";
 
 export default function NavBar() {
     const [showSignInModal, setShowSignInModal] = useState(false);
-    const [showSignUpModal, setShowSignUpModal] = useState(false);
-    const [userName, setUserName] = useState("");
-    const [passWord, setPassWord] = useState("");
-    const [userData, setUserData] = useState({ userId: 1, userName: "test@test.com" })
-    const { user, signedIn, signIn, signOut, errors, setErrors } = useAuth();
 
-    const handleSignInSuccess = (user: User) => {
-        console.log("sign-in")
-        signIn(user);
-    };
+    const { user, signedIn, login, signOut, errors, setErrors } = useAuth();
 
     const toggleSignInModal = () => {
-        resetModal();
         setShowSignInModal(!showSignInModal);
       };
-    
-      const toggleSignUpModal = () => {
-        resetModal();
-        setShowSignUpModal(!showSignUpModal);
-      };
-    
-      const resetModal = () => {
-        setUserName("");
-        setPassWord("");
-        setErrors([]);
-      };
+
+    //  TODO: remove after production
+    useEffect(() => {
+        console.log(user)
+    }, [])
 
     return (
         <header>
@@ -71,7 +52,7 @@ export default function NavBar() {
                             <Navbar.Text>
                                 {user && signedIn ? (
                                     <>
-                                        Signed in as: {user.userName}{" "}
+                                        Signed in as: {user.username}{" "}
                                         <Button
                                             className="btn btn-danger"
                                             style={{ height: "30px", fontSize: "10px" }}
@@ -99,15 +80,10 @@ export default function NavBar() {
                 <SignInModal
                     showSignInModal={showSignInModal}
                     toggleSignInModal={toggleSignInModal}
-                    toggleSignUpModal={toggleSignUpModal}
-                    setUserName={setUserName}
-                    setPassWord={setPassWord}
-                    user={userData}
-                    userName={userName}
-                    passWord={passWord}
-                    handleSignInSuccess={handleSignInSuccess}
-                    setErrors={setErrors}
+                    login={login}
+                    user={user}
                     errors={errors}
+                    setErrors={setErrors}
                 />
             </div>
         </header>
