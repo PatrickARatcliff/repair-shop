@@ -1,36 +1,26 @@
-import { useEffect, useState } from 'react';
-import {
-    findAllAppointments,
-    deleteById,
-} from '../../services/appointmentService';
+import React, { useEffect, useState } from 'react';
+import { deleteAppointmentById } from '../../services/appointmentService';
 import Appointment from '../../interfaces/Appointment';
-import formatDate from '../../utils/formatDate';
 import AppointmentTableItem from "./AppointmentTableItem"
 
 import Table from 'react-bootstrap/Table';
 
-export default function AppointmentTable() {
-    const [appointments, setAppointments] = useState<Appointment[]>([]);
+import '../../styles/_appointment/AppointmentTable.css'
 
-    useEffect(() => {
-        findAllAppointments()
-            .then((data) => {
-                setAppointments(data);
-            })
-            .catch((error) => {
-                console.error('Error fetching appointments:', error);
-            });
-    }, []);
+interface AppointmentTableProps {
+    appointments: Appointment[];
+    height: string;
+}
 
+export default function AppointmentTable({ appointments, height }: AppointmentTableProps) {
     return (
-        <>
+        <div className="table-container" style={{ height: height }}>
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Date</th>
-                        <th>Vehicle ID</th>
-                        <th>User ID</th>
+                        <th>Vehicle</th>
+                        <th>Customer</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -40,6 +30,6 @@ export default function AppointmentTable() {
                     ))}
                 </tbody>
             </Table>
-        </>
+        </div>
     )
 }

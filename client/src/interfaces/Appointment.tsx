@@ -1,6 +1,6 @@
 interface Appointment {
     appointmentId: number,
-    appointmentDate: Date,
+    appointmentDate: string,
     vehicleId: number,
     userId: number
   }

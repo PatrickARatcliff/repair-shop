@@ -69,14 +69,13 @@ public class UserService implements UserDetailsService {
 
         String password = encoder.encode(user.getPassword());
 
-        User newUser = new User(user.getUserId(), user.getUsername(), password, user.isEnabled(), List.of(String.valueOf(user.getAuthorities())));
-
-        System.out.println(newUser);
+        user.setPassword(password);
+        System.out.println(user);
 
         try {
-            boolean success = repository.updateUser(newUser);
+            boolean success = repository.updateUser(user);
             if (success) {
-                result.setPayload(newUser);
+                result.setPayload(user);
             } else {
                 result.addMessage(ActionStatus.INVALID, "Update operation failed. Please try again later.");
             }

@@ -27,6 +27,22 @@ export async function login(credentials: Credentials) {
     }
 }
 
+export async function findByUsername(username: string) {
+    const response = await fetch(endpointUrl + `/${username}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
+      },
+    });
+  
+    if (response.status === 200) {
+      const userData = await response.json();
+      return userData;
+    } else {
+      return Promise.reject('User not found or unauthorized.');
+    }
+  }
+
 function makeUserFromJwt(jwtToken: JwtToken) {
     const jwtParts = jwtToken.split('.');
     if (jwtParts.length === 3) {

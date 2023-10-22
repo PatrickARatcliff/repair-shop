@@ -18,8 +18,8 @@ public class User implements UserDetails {
     private String password;
     private boolean enabled;
 
-//    @JsonSerialize(using = GrantedAuthoritySerializer.class)
-//    @JsonDeserialize(using = GrantedAuthorityDeserializer.class)
+    @JsonSerialize(using = GrantedAuthoritySerializer.class)
+    @JsonDeserialize(using = GrantedAuthorityDeserializer.class)
     private Collection<GrantedAuthority> authorities;
 
     public User() {
@@ -42,6 +42,14 @@ public class User implements UserDetails {
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
         return new ArrayList<>(authorities);
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
