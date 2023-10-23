@@ -1,0 +1,14 @@
+.calendar-container {
+    padding-right: 5px;
+  }
+
+.fc-toolbar-title {
+    font-size: 18px;
+  }
+  
+  @media (max-width: 505px) {
+    .fc-toolbar-title {
+      font-size: 14px;
+    }
+  }
+  

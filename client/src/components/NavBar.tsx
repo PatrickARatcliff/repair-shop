@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
-import { Navbar, Container, Nav, Button, Form } from "react-bootstrap";
+import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Logo from "../logo.svg"
 
@@ -9,16 +9,20 @@ import SignInModal from "./SignInModal";
 export default function NavBar() {
     const [showSignInModal, setShowSignInModal] = useState(false);
 
-    const { user, signedIn, login, signOut, errors, setErrors } = useAuth();
+    const { user, signedIn, login, signOut, errors, setErrors, userData } = useAuth();
 
     const toggleSignInModal = () => {
         setShowSignInModal(!showSignInModal);
-      };
+    };
 
-    //  TODO: remove after production
     useEffect(() => {
-        console.log(user)
-    }, [])
+        console.log(user);
+        if (user) {
+            console.log(user.hasRole("ADMIN"))
+        }
+    }, [user]);
+
+    const isAdmin = user && user.hasRole("ADMIN");
 
     return (
         <header>
@@ -33,21 +37,27 @@ export default function NavBar() {
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
-                                <LinkContainer to="/">
-                                    <Nav.Link>Home</Nav.Link>
-                                </LinkContainer>
-                                <LinkContainer to="/appointment">
-                                    <Nav.Link>Appointments</Nav.Link>
-                                </LinkContainer>
-                                <LinkContainer to="/vehicle">
-                                    <Nav.Link>Vehicles</Nav.Link>
-                                </LinkContainer>
-                                <LinkContainer to="/customer">
-                                    <Nav.Link>Customers</Nav.Link>
-                                </LinkContainer>
-                                <LinkContainer to="/user">
-                                    <Nav.Link>Users</Nav.Link>
-                                </LinkContainer>
+                                {user && (
+                                    <>
+                                        <LinkContainer to="/home">
+                                            <Nav.Link>Home</Nav.Link>
+                                        </LinkContainer>
+                                        <LinkContainer to="/appointment">
+                                            <Nav.Link>Appointments</Nav.Link>
+                                        </LinkContainer>
+                                        <LinkContainer to="/vehicle">
+                                            <Nav.Link>Vehicles</Nav.Link>
+                                        </LinkContainer>
+                                        <LinkContainer to="/customer">
+                                            <Nav.Link>Customers</Nav.Link>
+                                        </LinkContainer>
+                                    </>
+                                )}
+                                {isAdmin && (
+                                    <LinkContainer to="/user">
+                                        <Nav.Link>Users</Nav.Link>
+                                    </LinkContainer>
+                                )}
                             </Nav>
                             <Navbar.Text>
                                 {user && signedIn ? (
@@ -70,7 +80,6 @@ export default function NavBar() {
                                         >
                                             Sign In
                                         </Button>
-
                                     </>
                                 )}
                             </Navbar.Text>
@@ -87,5 +96,5 @@ export default function NavBar() {
                 />
             </div>
         </header>
-    )
+    );
 }
