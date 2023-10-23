@@ -56,9 +56,11 @@ function AppointmentDetail() {
 
             setIsAccordionOpen(false);
             //  TODO: Error while saving appointment: SyntaxError: Unexpected end of JSON input Uncaught (in promise) SyntaxError: Unexpected end of JSON input
-            saveAppointment(updatedAppointment).then((savedAppointment) => {
-                fetchAppointmentDetails();
-            });
+            saveAppointment(updatedAppointment).then((errors) => {
+                if (!errors) {
+                    fetchAppointmentDetails();
+                } else { console.log(errors)}
+            }).catch(error => {console.log(error)})
         }
     };
 

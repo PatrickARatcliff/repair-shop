@@ -1,6 +1,5 @@
 @url = http://localhost:8080
-@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZXBhaXItc2hvcCIsInN1YiI6ImZpdHRpQHB1cHB5LmNvbSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiQURNSU4iLCJleHAiOjE2OTgwMTgxNjV9.Vy4kTRKXKAA2sVStzz2BiAcZrEswhP_FS_iBkWN7YcI
-
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZXBhaXItc2hvcCIsInN1YiI6ImZpdHRpQHB1cHB5LmNvbSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiQURNSU4iLCJleHAiOjE2OTgwNzM0MjN9.6JPKq1HXjNCuc4RhZsMuXXmXjX9gWo4OJly4FEXQm9A
 
 ###
 // sign-in "ADMIN"
@@ -63,14 +62,14 @@ Authorization: Bearer {{token}}
 ###
 // update appointment
 
-PUT {{url}}/appointment/14 HTTP/1.1
+PUT {{url}}/appointment/24 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "appointmentId": 14,
-  "appointmentDate": "2024-01-01",
-  "vehicleId": 2,
+  "appointmentId": 24,
+  "appointmentDate": "2099-01-01",
+  "vehicleId": 1,
   "userId": 1
 }
 

@@ -1,5 +1,6 @@
 package com.repairshop.controllers;
 
+import com.repairshop.domain.ActionStatus;
 import com.repairshop.security.UserService;
 import com.repairshop.domain.Result;
 import com.repairshop.models.User;
@@ -36,12 +37,12 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<Void> updateUser(@PathVariable int userId, @RequestBody User user) {
+    public ResponseEntity<?> updateUser(@PathVariable int userId, @RequestBody User user) {
         if (user != null && user.getUserId() != userId) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         Result<User> result = service.update(user);
-        return new ResponseEntity<>(getStatus(result, HttpStatus.NO_CONTENT));
+        return new ResponseEntity<>(result.getStatus() == ActionStatus.INVALID ? result.getMessages() : null, getStatus(result, HttpStatus.NO_CONTENT));
     }
 
     @DeleteMapping("/{userId}")
@@ -53,7 +54,7 @@ public class UserController {
     private HttpStatus getStatus(Result<User> result, HttpStatus statusDefault) {
         switch (result.getStatus()) {
             case INVALID:
-                return HttpStatus.PRECONDITION_FAILED;
+                return HttpStatus.BAD_REQUEST;
             case DUPLICATE:
                 return HttpStatus.FORBIDDEN;
             case NOT_FOUND:

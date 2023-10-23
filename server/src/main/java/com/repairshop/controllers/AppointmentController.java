@@ -1,5 +1,6 @@
 package com.repairshop.controllers;
 
+import com.repairshop.domain.ActionStatus;
 import com.repairshop.domain.AppointmentService;
 import com.repairshop.domain.Result;
 import com.repairshop.models.Appointment;
@@ -60,12 +61,12 @@ public class AppointmentController {
     }
 
     @PutMapping("/{appointmentId}")
-    public ResponseEntity<Void> updateAppointment(@PathVariable int appointmentId, @RequestBody Appointment appointment) {
+    public ResponseEntity<?> updateAppointment(@PathVariable int appointmentId, @RequestBody Appointment appointment) {
         if (appointment != null && appointment.getAppointmentId() != appointmentId) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         Result<Appointment> result = service.updateAppointment(appointment);
-        return new ResponseEntity<>(getStatus(result, HttpStatus.NO_CONTENT));
+        return new ResponseEntity<>(result.getStatus() == ActionStatus.INVALID ? result.getMessages() : null, getStatus(result, HttpStatus.NO_CONTENT));
     }
 
     @DeleteMapping("/{appointmentId}")
@@ -77,7 +78,7 @@ public class AppointmentController {
     private HttpStatus getStatus(Result<Appointment> result, HttpStatus statusDefault) {
         switch (result.getStatus()) {
             case INVALID:
-                return HttpStatus.PRECONDITION_FAILED;
+                return HttpStatus.BAD_REQUEST;
             case DUPLICATE:
                 return HttpStatus.FORBIDDEN;
             case NOT_FOUND:

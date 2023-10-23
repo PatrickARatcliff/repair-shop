@@ -47,22 +47,45 @@ async function sendBody(instance: Object, method: string, theUrl: string) {
         body: JSON.stringify(instance)
     }
 
-    const response = await fetch(theUrl, config);
-    if (response.ok) {
-        return response.json();
-    }
+    // try {
+        const response = await fetch(theUrl, config);
+        console.log(`sendBody: ${response}`);
 
-    if (response.status === 400) {
-        const errors = await response.json();
-        return Promise.reject(errors);
-    }
+        if(!response || response === null) {
+            console.log('sendBody: no response');
+            return null;
+        }
+
+        if (response.status === 204) {
+            console.log("sendBody: 204")
+            return null;
+        }
+
+        if (response.status === 201) {
+            console.log("sendBody: 200")
+            return response.json();
+        }
+
+        if (response.status === 400) {
+            const errors = await response.json();
+            return errors;
+        }
+
+    // } catch {
+    //     console.error("Error in SendBody response")
+    //     return Promise.reject();
+    // }
+
+
     return Promise.reject();
 }
 
 export async function save(model: string, instance: Object, id: number) {
     if (id) {
+        console.log(`save: put`);
         return sendBody(instance, "PUT", `${BASE_URL}/${model}/${id}`);
     } else {
+        console.log(`save: post`);
         return sendBody(instance, "POST", `${BASE_URL}/${model}`);
     }
 }

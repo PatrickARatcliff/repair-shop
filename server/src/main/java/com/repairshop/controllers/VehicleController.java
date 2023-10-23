@@ -1,5 +1,6 @@
 package com.repairshop.controllers;
 
+import com.repairshop.domain.ActionStatus;
 import com.repairshop.domain.VehicleService;
 import com.repairshop.domain.Result;
 import com.repairshop.models.Vehicle;
@@ -50,12 +51,12 @@ public class VehicleController {
     }
 
     @PutMapping("/{vehicleId}")
-    public ResponseEntity<Void> updateVehicle(@PathVariable int vehicleId, @RequestBody Vehicle vehicle) {
+    public ResponseEntity<?> updateVehicle(@PathVariable int vehicleId, @RequestBody Vehicle vehicle) {
         if (vehicle != null && vehicle.getVehicleId() != vehicleId) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         Result<Vehicle> result = service.updateVehicle(vehicle);
-        return new ResponseEntity<>(getStatus(result, HttpStatus.NO_CONTENT));
+        return new ResponseEntity<>(result.getStatus() == ActionStatus.INVALID ? result.getMessages() : null, getStatus(result, HttpStatus.NO_CONTENT));
     }
 
     @DeleteMapping("/{vehicleId}")
@@ -67,7 +68,7 @@ public class VehicleController {
     private HttpStatus getStatus(Result<Vehicle> result, HttpStatus statusDefault) {
         switch (result.getStatus()) {
             case INVALID:
-                return HttpStatus.PRECONDITION_FAILED;
+                return HttpStatus.BAD_REQUEST;
             case DUPLICATE:
                 return HttpStatus.FORBIDDEN;
             case NOT_FOUND:
