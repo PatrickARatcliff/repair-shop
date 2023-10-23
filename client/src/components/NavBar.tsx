@@ -5,15 +5,21 @@ import { LinkContainer } from "react-router-bootstrap";
 import Logo from "../logo.svg"
 
 import SignInModal from "./SignInModal";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
+    const navigate = useNavigate();
     const [showSignInModal, setShowSignInModal] = useState(false);
-
     const { user, signedIn, login, signOut, errors, setErrors, userData } = useAuth();
 
     const toggleSignInModal = () => {
         setShowSignInModal(!showSignInModal);
     };
+
+    const handleSignOutClick = () => {
+        signOut();
+        navigate("/");
+    }
 
     useEffect(() => {
         console.log(user);
@@ -66,7 +72,7 @@ export default function NavBar() {
                                         <Button
                                             className="btn btn-danger"
                                             style={{ height: "30px", fontSize: "10px" }}
-                                            onClick={signOut}
+                                            onClick={handleSignOutClick}
                                         >
                                             Sign Out
                                         </Button>
