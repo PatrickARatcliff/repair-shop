@@ -1,0 +1,21 @@
+.table-container {
+    overflow-y: scroll; 
+    overflow-x: hidden;
+    height: 80vh; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 1;
+}
+
+th {
+    background-color: #fff;
+}

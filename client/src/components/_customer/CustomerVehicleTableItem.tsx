@@ -1,25 +1,24 @@
 import { useNavigate } from 'react-router-dom';
-import Customer from '../../interfaces/Customer';
+import Vehicle from '../../interfaces/Vehicle';
 import Button from 'react-bootstrap/Button';
-import { deleteCustomerById } from '../../services/customerService';
+import { deleteVehicleById } from '../../services/vehicleService';
 
-export default function CustomerTableItem({ data }: { data: Customer }) {
+export default function CustomerVehicleTableItem({ data }: { data: Vehicle }) {
     const navigate = useNavigate();
 
-
     const onInfoClick = () => {
-        navigate(`/customer/${data.customerId}`);
+        navigate(`/vehicle/${data.vehicleId}`);
     }
 
     const onDeleteClick = () => {
-        console.log("Implement delete for customerId:", data.customerId);
+        console.log("Implement delete for vehicleId:", data.vehicleId);
     }
 
     return (
         <tr>
-            <td>{data.important ? (<i className="bi bi-star-fill text-warning"></i> ) : (<i className="bi bi-star caution"></i>)}  {data.customerLastName}, {data.customerFirstName}</td>
-            <td>{data.customerPhone}</td>
-            <td>{data.customerEmail}</td>
+            <td>{data.vehicleMake}</td>
+            <td>{data.vehicleModel}</td>
+            <td>{data.vehicleYear}</td>
             <td className="d-flex justify-content-end">
                 <Button variant="info" className="me-1" onClick={onInfoClick}>
                     <i className="bi bi-info-circle"></i>

@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react';
-import AppointmentTable from '../../components/_appointment/AppointmentTable';
-import { Spinner, Button, Accordion, Form } from 'react-bootstrap';
+import { Spinner, Button, Accordion } from 'react-bootstrap';
 
-
-import Appointment from "../../interfaces/Appointment";
 import { saveAppointment, findAllAppointments } from '../../services/appointmentService';
 import { useAuth } from "../../context/AuthProvider";
-import FormErrors from "../../components/FormErrors";
 import { sortDates } from "../../utils/formatDates";
+
+import Appointment from "../../interfaces/Appointment";
+import AppointmentTable from '../../components/_appointment/AppointmentTable';
 import AppointmentForm from '../../components/_appointment/AppointmentForm';
+import FormErrors from "../../components/FormErrors";
+
+import '../../styles/_appointment/Appointments.css'
 
 
 function Appointments() {
-    const { user, errors, setErrors, userData } = useAuth();
+    const { errors, setErrors, userData } = useAuth();
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const userId = userData ? userData.userId : 0;
@@ -23,7 +25,7 @@ function Appointments() {
         userId: userId,
     });
     const [appointments, setAppointments] = useState<Appointment[]>([]);
-    const containerHeight = isAccordionOpen ? '58.5vh' : '80vh';
+    const containerHeight = isAccordionOpen ? '46vh' : '75vh';
 
     const handleScheduleAppointmentClick = () => {
         setIsAccordionOpen((prevIsAccordionOpen) => !prevIsAccordionOpen);
@@ -101,11 +103,11 @@ function Appointments() {
                 </Accordion.Collapse>
             </Accordion>
             {isLoading ? (
-                <div className="text-center">
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
-                </div>
+                <div className="container mt-3 spinner-container">
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
+            </div>
             ) : (
                 <div>
                     <FormErrors errors={errors} />

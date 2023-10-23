@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Spinner, Button, Accordion } from 'react-bootstrap';
+
+import { findAppointmentById, saveAppointment, deleteAppointmentById } from '../../services/appointmentService';
+import { useAuth } from "../../context/AuthProvider";
+
 import FormErrors from '../../components/FormErrors';
 import Appointment from '../../interfaces/Appointment';
 import AppointmentForm from '../../components/_appointment/AppointmentForm';
-import { findAppointmentById, saveAppointment, deleteAppointmentById } from '../../services/appointmentService';
-import { useAuth } from "../../context/AuthProvider";
-import '../../styles/_appointment/AppointmentForm.css';
 import AppointmentCard from '../../components/_appointment/AppointmentCard';
+
+import '../../styles/_appointment/AppointmentDetail.css'
 
 function AppointmentDetail() {
     const { user, errors, setErrors, userData } = useAuth();
@@ -21,7 +24,8 @@ function AppointmentDetail() {
         vehicleId: 0,
         userId: userId,
     });
-    const containerHeight = isAccordionOpen ? '53vh' : '80vh';
+    const navigate = useNavigate();
+    const containerHeight = isAccordionOpen ? '46vh' : '75vh';
 
     useEffect(() => {
         fetchAppointmentDetails();
@@ -42,36 +46,40 @@ function AppointmentDetail() {
         setIsAccordionOpen(prevIsAccordionOpen => !prevIsAccordionOpen);
     };
 
-    const handleFormSubmit = (e: React.FormEvent) => {
+    const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+    
         if (appointment) {
             const formattedDate = appointment.appointmentDate;
-
+    
             const updatedAppointment = {
                 ...appointment,
                 appointmentDate: formattedDate,
                 userId: userId,
             };
-
+    
             setIsAccordionOpen(false);
-            //  TODO: Error while saving appointment: SyntaxError: Unexpected end of JSON input Uncaught (in promise) SyntaxError: Unexpected end of JSON input
-            saveAppointment(updatedAppointment).then((errors) => {
+    
+            try {
+                const errors = await saveAppointment(updatedAppointment);
                 if (!errors) {
-                    fetchAppointmentDetails();
-                } else { console.log(errors)}
-            }).catch(error => {console.log(error)})
+                    await fetchAppointmentDetails();
+                } else {
+                    console.log(errors);
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
     };
-
-    const handleDeleteAppointment = (appointmentId: number) => {
-        deleteAppointmentById(appointmentId)
-            .then(() => {
-                // TODO: handle successful deletion, redirect or refresh
-            })
-            .catch((error) => {
-                setErrors([`Error deleting appointment: ${error}`]);
-            });
+    
+    const handleDeleteAppointment = async (appointmentId: number) => {
+        try {
+            await deleteAppointmentById(appointmentId);
+            navigate("/appointment");
+        } catch (error) {
+            setErrors([`Error deleting appointment: ${error}`]);
+        }
     };
 
     return (
@@ -100,7 +108,7 @@ function AppointmentDetail() {
                 </Accordion.Collapse>
             </Accordion>
             {isLoading ? (
-                <div className="text-center">
+                <div className="container mt-3 spinner-container">
                     <Spinner animation="border" role="status">
                         <span className="visually-hidden">Loading...</span>
                     </Spinner>
@@ -109,9 +117,10 @@ function AppointmentDetail() {
                 <div>
                     <FormErrors errors={errors} />
                     {appointment && (
-                        <AppointmentCard
+                        <AppointmentCard 
                             appointment={appointment}
                             onDeleteClick={handleDeleteAppointment}
+                            height={containerHeight}
                         />
                     )}
                 </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import Appointment from '../../interfaces/Appointment';
 import { findVehicleById } from '../../services/vehicleService';
@@ -11,9 +11,10 @@ import '../../styles/_appointment/AppointmentCard.css'
 interface AppointmentCardProps {
     appointment: Appointment;
     onDeleteClick: (appointmentId: number) => void;
+    height: string;
 }
 
-function AppointmentCard({ appointment, onDeleteClick }: AppointmentCardProps) {
+function AppointmentCard({ appointment, onDeleteClick, height }: AppointmentCardProps) {
     const [vehicleInfo, setVehicleInfo] = useState<string>('Loading...');
     const [customerInfo, setCustomerInfo] = useState<string>('Loading...');
     const { user } = useAuth();
@@ -47,7 +48,7 @@ function AppointmentCard({ appointment, onDeleteClick }: AppointmentCardProps) {
     }
 
     return (
-        <Card className="appointment-card">
+        <Card className="appointment-card" style={{ maxHeight: height }}>
             <Card.Header>
                 <Card.Title>Appointment {appointment && `ID: ${appointment.appointmentId}`}</Card.Title>    
                 </Card.Header>

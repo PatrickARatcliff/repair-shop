@@ -1,5 +1,8 @@
 .calendar-container {
     padding-right: 5px;
+    max-height: 75vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
 .fc-toolbar-title {

@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { deleteAppointmentById } from '../../services/appointmentService';
 import Appointment from '../../interfaces/Appointment';
 import AppointmentTableItem from "./AppointmentTableItem"
 
