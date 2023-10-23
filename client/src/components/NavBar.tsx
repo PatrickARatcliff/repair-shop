@@ -39,7 +39,7 @@ export default function NavBar() {
                             <Nav className="me-auto">
                                 {user && (
                                     <>
-                                        <LinkContainer to="/home">
+                                        <LinkContainer to="/">
                                             <Nav.Link>Home</Nav.Link>
                                         </LinkContainer>
                                         <LinkContainer to="/appointment">
