@@ -32,29 +32,9 @@ export async function findAppointmentsByUserId(userId: number) {
     }
     return Promise.reject(`could not find ${model}s for user id ${userId}`);
 }
-//  TODO: Error while saving appointment: SyntaxError: Unexpected end of JSON input Uncaught (in promise) SyntaxError: Unexpected end of JSON input
-export async function saveAppointment(appointment: Appointment) {
 
-        const response = await base.save(model, appointment, appointment.appointmentId);
-        console.log(`saveAppointment: ${response}`)
-        // if(!response || response === null) {
-        //     console.log('saveAppointment: no response || null');
-        //     return null;
-        // } else if (response.status === 200) {
-        //     const data = await response.text();
-        //     if (data) {
-        //         return JSON.parse(data);
-        //     } else {
-        //         return null;
-        //     }
-        // } else if (response.status >= 400 && response.status < 600) {
-        //     console.error('Unexpected response status:', response.status);
-        //     throw new Error(`Unexpected response status: ${response.status}`);
-        // } else {
-        //     console.error('Unexpected response status:', response.status);
-        //     throw new Error('Unexpected response status');
-        // }
-        return response;
+export async function saveAppointment(appointment: Appointment) {
+        return base.save(model, appointment, appointment.appointmentId);;
 }
 
 
