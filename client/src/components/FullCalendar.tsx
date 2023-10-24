@@ -36,7 +36,7 @@ const FullCalendar: React.FC = () => {
         headerToolbar: {
           left: 'prev,next',
           center: 'title',
-          right: `today${screenWidth > 1200 ? ',customToggle' : ''}`,
+          right: `customToday${screenWidth > 1200 ? ',customToggle' : ''}`,
         },
         events: [],
         titleFormat: { month: 'short', year: '2-digit' },
@@ -46,6 +46,14 @@ const FullCalendar: React.FC = () => {
             click: () => {
               const newView = currentView === 'listMonth' ? 'dayGridMonth' : 'listMonth';
               setCurrentView(newView);
+            },
+          },
+          customToday: {
+            text: 'Today',
+            click: () => {
+              if (calendar.current) {
+                calendar.current.gotoDate(new Date());
+              }
             },
           },
         },
@@ -83,7 +91,7 @@ const FullCalendar: React.FC = () => {
     }));
   }
 
-  return <div className="calendar-container" ref={calendarEl}></div>;
+  return <div className="calendar-container rounded" ref={calendarEl}></div>;
 };
 
 export default FullCalendar;

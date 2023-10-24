@@ -23,10 +23,13 @@ function App() {
 
   return (
     <Router>
+      <div className="background-scroll-container">
+        <div className="background-scroll" />
+      
       <header>
         <NavBar />
       </header>
-      <main className="container">
+      <main className="container main-container mt-3 rounded">
         <Routes>
           <Route path="/" element={user ? <Home /> : <Landing />} />
           <Route path="/" element={<Home />} />
@@ -38,7 +41,7 @@ function App() {
           <Route path="/customer/:customerId" element={<CustomerDetail />} />
         </Routes>
       </main>
-
+      </div>
     </Router>
   );
 }

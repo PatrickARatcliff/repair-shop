@@ -36,7 +36,7 @@ function CustomerCard({ customer, onDeleteClick, height }: CustomerCardProps) {
 
     const handleUpdateCustomer = async (newIsImportant: boolean) => {
         const updatedCustomer = { ...customer, important: newIsImportant };
-        
+
         try {
             await saveCustomer(updatedCustomer);
             setIsImportant(newIsImportant);
@@ -76,7 +76,9 @@ function CustomerCard({ customer, onDeleteClick, height }: CustomerCardProps) {
                     <strong>Phone:</strong> {customer.customerPhone}<br />
                     <strong>Email:</strong> {customer.customerEmail}<br />
                     <br></br>
-                    <CustomerVehicleTable data={vehicleInfo} /><br />
+                    <div>
+                        <CustomerVehicleTable data={vehicleInfo} />
+                    </div><br />
                 </Card.Text>
                 <Button className="w-100" variant="danger" onClick={() => onDeleteClick(customer.customerId)}>
                     <i className="bi bi-trash3"></i> Delete

@@ -7,6 +7,8 @@ import Logo from "../logo.svg"
 import SignInModal from "./SignInModal";
 import { useNavigate } from "react-router-dom";
 
+import '../styles/NavBar.css'
+
 export default function NavBar() {
     const navigate = useNavigate();
     const [showSignInModal, setShowSignInModal] = useState(false);
@@ -33,7 +35,7 @@ export default function NavBar() {
     return (
         <header>
             <div className="navbar-container">
-                <Navbar expand="lg" bg="dark" data-bs-theme="dark">
+                <Navbar expand="lg" className="custom-navbar" data-bs-theme="dark">
                     <Container>
                         <LinkContainer to="/">
                             <Navbar.Brand>
@@ -71,10 +73,10 @@ export default function NavBar() {
                                         Signed in as: {user.username}{" "}
                                         <Button
                                             className="btn btn-danger"
-                                            style={{ height: "30px", fontSize: "10px" }}
+                                            style={{ height: "30px", fontSize: "10px", marginLeft: "10px" }}
                                             onClick={handleSignOutClick}
                                         >
-                                            Sign Out
+                                            <i className="bi bi-box-arrow-left"></i> Sign Out
                                         </Button>
                                     </>
                                 ) : (
@@ -84,7 +86,7 @@ export default function NavBar() {
                                             style={{ height: "30px", fontSize: "10px" }}
                                             onClick={toggleSignInModal}
                                         >
-                                            Sign In
+                                            <i className="bi bi-box-arrow-in-right"></i> Sign In
                                         </Button>
                                     </>
                                 )}
