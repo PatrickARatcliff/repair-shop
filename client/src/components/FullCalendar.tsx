@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { findAllAppointments } from '../services/appointmentService';
+import { findVehicleById } from '../services/vehicleService';
 import { useAuth } from '../context/AuthProvider';
 import AppointmentData from '../interfaces/AppointmentData';
 
@@ -72,9 +73,8 @@ const FullCalendar: React.FC = () => {
   async function fetchAndAddAllAppointments() {
     try {
       const appointmentsData = await findAllAppointments();
-
       if (calendar.current) {
-        const events = convertAppointmentsToEvents(appointmentsData);
+        const events = await convertAppointmentsToEvents(appointmentsData);
         calendar.current.addEventSource(events);
       }
     } catch (error) {
@@ -82,13 +82,23 @@ const FullCalendar: React.FC = () => {
     }
   }
 
-  function convertAppointmentsToEvents(appointmentsData: AppointmentData[]) {
-    return appointmentsData.map(appointment => ({
-      id: appointment.appointmentId.toString(),
-      title: `Appointment #${appointment.appointmentId}`,
-      start: appointment.appointmentDate,
-      url: `/appointment/${appointment.appointmentId}`,
-    }));
+  async function convertAppointmentsToEvents(appointmentsData: AppointmentData[]) {
+    const events = [];
+
+    for (const appointment of appointmentsData) {
+      const vehicle = await findVehicleById(appointment.vehicleId);
+      if (vehicle) {
+        const title = `${vehicle.vehicleYear} ${vehicle.vehicleMake} ${vehicle.vehicleModel}`;
+        events.push({
+          id: appointment.appointmentId.toString(),
+          title,
+          start: appointment.appointmentDate,
+          url: `/appointment/${appointment.appointmentId}`,
+        });
+      }
+    }
+
+    return events;
   }
 
   return <div className="calendar-container rounded" ref={calendarEl}></div>;
