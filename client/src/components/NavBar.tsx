@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import Logo from "../logo.svg"
+import Logo from "../images/landing-gears-logo.gif"
 
 import SignInModal from "./SignInModal";
 import { useNavigate } from "react-router-dom";
@@ -16,19 +16,13 @@ export default function NavBar() {
 
     const toggleSignInModal = () => {
         setShowSignInModal(!showSignInModal);
+        setErrors([]);
     };
 
     const handleSignOutClick = () => {
         signOut();
         navigate("/");
     }
-
-    useEffect(() => {
-        console.log(user);
-        if (user) {
-            console.log(user.hasRole("ADMIN"))
-        }
-    }, [user]);
 
     const isAdmin = user && user.hasRole("ADMIN");
 
@@ -39,7 +33,7 @@ export default function NavBar() {
                     <Container>
                         <LinkContainer to="/">
                             <Navbar.Brand>
-                                <span className="navbar-title">Repair Shop</span><img src={Logo} alt="Repair Shop logo." className="navbar-logo" style={{ height: "25px" }}></img>
+                                <span className="navbar-title">Repair Shop</span><img src={Logo} alt="Repair Shop logo." className="navbar-logo" style={{ height: "30px" }}></img>
                             </Navbar.Brand>
                         </LinkContainer>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
