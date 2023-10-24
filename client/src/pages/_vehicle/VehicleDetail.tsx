@@ -5,7 +5,6 @@ import { Spinner, Button, Accordion } from 'react-bootstrap';
 import { findVehicleById, saveVehicle, deleteVehicleById } from '../../services/vehicleService';
 import { useAuth } from "../../context/AuthProvider";
 
-import FormErrors from '../../components/FormErrors';
 import Vehicle from '../../interfaces/Vehicle';
 import VehicleForm from '../../components/_vehicle/VehicleForm';
 import VehicleCard from '../../components/_vehicle/VehicleCard';
@@ -109,7 +108,6 @@ function VehicleDetail() {
                 </div>
             ) : (
                 <div>
-                    <FormErrors errors={errors} />
                     {vehicle && (
                         <VehicleCard 
                             vehicle={vehicle}

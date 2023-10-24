@@ -5,7 +5,6 @@ import { Spinner, Button, Accordion } from 'react-bootstrap';
 import { findCustomerById, saveCustomer, deleteCustomerById } from '../../services/customerService';
 import { useAuth } from "../../context/AuthProvider";
 
-import FormErrors from '../../components/FormErrors';
 import Customer from '../../interfaces/Customer';
 import CustomerForm from '../../components/_customer/CustomerForm';
 import CustomerCard from '../../components/_customer/CustomerCard';
@@ -110,7 +109,6 @@ function VehicleDetail() {
                 </div>
             ) : (
                 <div>
-                    <FormErrors errors={errors} />
                     {customer && (
                         <CustomerCard 
                             customer={customer}

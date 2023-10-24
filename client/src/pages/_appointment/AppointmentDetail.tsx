@@ -5,7 +5,6 @@ import { Spinner, Button, Accordion } from 'react-bootstrap';
 import { findAppointmentById, saveAppointment, deleteAppointmentById } from '../../services/appointmentService';
 import { useAuth } from "../../context/AuthProvider";
 
-import FormErrors from '../../components/FormErrors';
 import Appointment from '../../interfaces/Appointment';
 import AppointmentForm from '../../components/_appointment/AppointmentForm';
 import AppointmentCard from '../../components/_appointment/AppointmentCard';
@@ -115,7 +114,6 @@ function AppointmentDetail() {
                 </div>
             ) : (
                 <div>
-                    <FormErrors errors={errors} />
                     {appointment && (
                         <AppointmentCard 
                             appointment={appointment}

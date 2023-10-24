@@ -75,11 +75,8 @@ function CustomerCard({ customer, onDeleteClick, height }: CustomerCardProps) {
                     <strong>Last:</strong> {customer.customerLastName}<br />
                     <strong>Phone:</strong> {customer.customerPhone}<br />
                     <strong>Email:</strong> {customer.customerEmail}<br />
-                    <br></br>
-                    <div>
-                        <CustomerVehicleTable data={vehicleInfo} />
-                    </div><br />
                 </Card.Text>
+                <CustomerVehicleTable data={vehicleInfo} />
                 <Button className="w-100" variant="danger" onClick={() => onDeleteClick(customer.customerId)}>
                     <i className="bi bi-trash3"></i> Delete
                 </Button>

@@ -7,7 +7,6 @@ import { useAuth } from "../../context/AuthProvider";
 import Vehicle from "../../interfaces/Vehicle";
 import VehicleTable from '../../components/_vehicle/VehicleTable';
 import VehicleForm from '../../components/_vehicle/VehicleForm';
-import FormErrors from "../../components/FormErrors";
 
 import '../../styles/_vehicle/Vehicles.css'
 
@@ -96,7 +95,6 @@ function Vehicles() {
             </div>
             ) : (
                 <div>
-                    <FormErrors errors={errors} />
                     <VehicleTable vehicles={vehicles} height={containerHeight} />
                 </div>
             )}

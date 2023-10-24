@@ -7,7 +7,6 @@ import { useAuth } from "../../context/AuthProvider";
 import Customer from "../../interfaces/Customer";
 import CustomerTable from '../../components/_customer/CustomerTable';
 import CustomerForm from '../../components/_customer/CustomerForm';
-import FormErrors from "../../components/FormErrors";
 
 import '../../styles/_customer/Customers.css'
 
@@ -98,7 +97,6 @@ function Customers() {
             </div>
             ) : (
                 <div>
-                    <FormErrors errors={errors} />
                     <CustomerTable customers={customers} height={containerHeight} />
                 </div>
             )}

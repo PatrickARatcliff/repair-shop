@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import User from "../interfaces/User"
-import FormErrors from "./FormErrors";
 
 interface SignInModalProps {
     showSignInModal: boolean;
@@ -57,7 +56,7 @@ export default function SignInModal(props: SignInModalProps) {
 
     return (
         <>
-            <Modal show={props.showSignInModal} onHide={props.toggleSignInModal}>
+            <Modal show={props.showSignInModal} onHide={props.toggleSignInModal} className="custom-modal">
                 <Modal.Header closeButton>
                     <Modal.Title>Sign In</Modal.Title>
                 </Modal.Header>
@@ -77,7 +76,6 @@ export default function SignInModal(props: SignInModalProps) {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </Form.Group>
-                        <FormErrors errors={props.errors} />
                     </Form>
                     <br></br>
                         <p>

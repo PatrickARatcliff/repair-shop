@@ -1,5 +1,5 @@
 @url = http://localhost:8080
-@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZXBhaXItc2hvcCIsInN1YiI6ImZpdHRpQHB1cHB5LmNvbSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiQURNSU4iLCJleHAiOjE2OTgwMjMxNTJ9.3SpVh1TvzjmLCmQYP1jcED0oGXqy_pkk6Fjj7ASh0WE
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZXBhaXItc2hvcCIsInN1YiI6ImZpdHRpQHB1cHB5LmNvbSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiQURNSU4iLCJleHAiOjE2OTgxMjAwODV9.3ELr3T8scuwxNVqg5Y8ChF0acUXLXO3H1tZ473rqJoA
 
 ###
 // sign-in "ADMIN"

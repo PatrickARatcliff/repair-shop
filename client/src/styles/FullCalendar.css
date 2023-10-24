@@ -1,5 +1,4 @@
 .calendar-container {
-    padding-right: 5px;
     max-height: 75vh;
     background-color: rgba(255, 255, 255, 0.75);
     overflow-y: scroll;
@@ -10,11 +9,6 @@
     font-size: 18px;
   }
 
-  .custom-icon-class::before {
-    content: '\f073';
-    font-family: 'Font Awesome';
-    color: white;
-}
   
   @media (max-width: 505px) {
     .fc-toolbar-title {

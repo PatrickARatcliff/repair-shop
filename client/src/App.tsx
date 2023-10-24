@@ -25,22 +25,21 @@ function App() {
     <Router>
       <div className="background-scroll-container">
         <div className="background-scroll" />
-      
-      <header>
-        <NavBar />
-      </header>
-      <main className="container main-container mt-3 rounded">
-        <Routes>
-          <Route path="/" element={user ? <Home /> : <Landing />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/appointment" element={<Appointments />} />
-          <Route path="/appointment/:appointmentId" element={<AppointmentDetail />} />
-          <Route path="/vehicle" element={<Vehicles />} />
-          <Route path="/vehicle/:vehicleId" element={<VehicleDetail />} />
-          <Route path="/customer" element={<Customers />} />
-          <Route path="/customer/:customerId" element={<CustomerDetail />} />
-        </Routes>
-      </main>
+        <header>
+          <NavBar />
+        </header>
+        <main className="container main-container mt-3 rounded">
+          <Routes>
+            <Route path="/" element={user ? <Home /> : <Landing />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/appointment" element={<Appointments />} />
+            <Route path="/appointment/:appointmentId" element={<AppointmentDetail />} />
+            <Route path="/vehicle" element={<Vehicles />} />
+            <Route path="/vehicle/:vehicleId" element={<VehicleDetail />} />
+            <Route path="/customer" element={<Customers />} />
+            <Route path="/customer/:customerId" element={<CustomerDetail />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   );

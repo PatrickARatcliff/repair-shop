@@ -8,7 +8,6 @@ import { sortDates } from "../../utils/formatDates";
 import Appointment from "../../interfaces/Appointment";
 import AppointmentTable from '../../components/_appointment/AppointmentTable';
 import AppointmentForm from '../../components/_appointment/AppointmentForm';
-import FormErrors from "../../components/FormErrors";
 
 import '../../styles/_appointment/Appointments.css'
 
@@ -110,7 +109,6 @@ function Appointments() {
             </div>
             ) : (
                 <div>
-                    <FormErrors errors={errors} />
                     <AppointmentTable appointments={appointments} height={containerHeight} />
                 </div>
             )}

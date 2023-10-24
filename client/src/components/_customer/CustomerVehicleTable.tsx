@@ -9,7 +9,6 @@ interface CustomerVehicleTableProps {
 
 export default function CustomerVehicleTable({ data }: CustomerVehicleTableProps) {
     return (
-        <div>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -34,6 +33,5 @@ export default function CustomerVehicleTable({ data }: CustomerVehicleTableProps
                     )}
                 </tbody>
             </Table>
-        </div>
     );
 }
