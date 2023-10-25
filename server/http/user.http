@@ -1,5 +1,5 @@
 @url = http://localhost:8080
-@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZXBhaXItc2hvcCIsInN1YiI6ImZpdHRpQHB1cHB5LmNvbSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiQURNSU4iLCJleHAiOjE2OTgxMjAwODV9.3ELr3T8scuwxNVqg5Y8ChF0acUXLXO3H1tZ473rqJoA
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZXBhaXItc2hvcCIsInN1YiI6ImZpdHRpQHB1cHB5LmNvbSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiQURNSU4iLCJleHAiOjE2OTgxODc1Nzd9.zJ4005is6gO0y12EUhF-M-WLCb7Dgw4V2hEVvDddZIs
 
 ###
 // sign-in "ADMIN"
@@ -64,7 +64,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "username": "izzy@ratcliff.com",
+  "username": "abby@dog.com",
   "password": "P@ssw0rd!"
 }
 

@@ -1,12 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Vehicle from '../../interfaces/Vehicle';
-import Button from 'react-bootstrap/Button';
+
 import { findCustomerById } from '../../services/customerService';
 import { deleteVehicleById } from '../../services/vehicleService';
 
-export default function VehicleTableItem({ data }: { data: Vehicle }) {
+import Vehicle from '../../interfaces/Vehicle';
+import Button from 'react-bootstrap/Button';
+import DeleteConfirmModal from '../DeleteConfirmModal';
+
+interface VehicleTableItemProps {
+    data: Vehicle;
+    onDelete: (vehicleId: number) => void;
+  }
+
+  export default function VehicleTableItem({ data, onDelete }: VehicleTableItemProps) {
     const [customerInfo, setCustomerInfo] = useState<string>('Loading...');
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -18,7 +27,7 @@ export default function VehicleTableItem({ data }: { data: Vehicle }) {
     }
 
     const onDeleteClick = () => {
-        console.log("Implement delete for vehicleId:", data.vehicleId);
+        setShowDeleteModal(true);
     }
 
     const fetchCustomerInfo = async (customerId: number) => {
@@ -51,6 +60,15 @@ export default function VehicleTableItem({ data }: { data: Vehicle }) {
                     <i className="bi bi-trash3"></i>
                 </Button>
             </td>
+            <DeleteConfirmModal
+                show={showDeleteModal}
+                onHide={() => setShowDeleteModal(false)}
+                onConfirmDelete={() => {
+                    onDelete(data.vehicleId);
+                    setShowDeleteModal(false);
+                }}
+                message={`Delete vehicle ${data.vehicleMake} ${data.vehicleModel} (${data.vehicleYear})? This will delete all associated appointments!`}
+            />
         </tr>
     );
 }

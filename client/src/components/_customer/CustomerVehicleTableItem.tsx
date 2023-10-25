@@ -1,9 +1,17 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import Vehicle from '../../interfaces/Vehicle';
 import Button from 'react-bootstrap/Button';
-import { deleteVehicleById } from '../../services/vehicleService';
+import DeleteConfirmModal from '../DeleteConfirmModal';
 
-export default function CustomerVehicleTableItem({ data }: { data: Vehicle }) {
+interface CustomerVehicleTableItemProps {
+    data: Vehicle;
+    handleDelete: (vehicleId: number) => void;
+  }
+
+  export default function CustomerVehicleTableItem({ data, handleDelete }: CustomerVehicleTableItemProps) {
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const navigate = useNavigate();
 
     const onInfoClick = () => {
@@ -11,7 +19,7 @@ export default function CustomerVehicleTableItem({ data }: { data: Vehicle }) {
     }
 
     const onDeleteClick = () => {
-        console.log("Implement delete for vehicleId:", data.vehicleId);
+        setShowDeleteModal(true);
     }
 
     return (
@@ -26,6 +34,12 @@ export default function CustomerVehicleTableItem({ data }: { data: Vehicle }) {
                 <Button variant="danger" onClick={onDeleteClick}>
                     <i className="bi bi-trash3"></i>
                 </Button>
+                <DeleteConfirmModal
+                    show={showDeleteModal}
+                    onHide={() => setShowDeleteModal(false)}
+                    onConfirmDelete={() => handleDelete(data.vehicleId)}
+                    message={`Delete vehicle ${data.vehicleMake} ${data.vehicleModel} (${data.vehicleYear})? This will delete all associated appointments!`}
+                />
             </td>
         </tr>
     );

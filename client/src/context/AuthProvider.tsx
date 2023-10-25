@@ -7,6 +7,7 @@ import { BASE_URL } from "../services/baseUrl"
 interface AuthContextType {
   user: User | null;
   signedIn: boolean;
+  isAdmin: boolean;
   errors: string[];
   login: (token: string) => void;
   signOut: () => void;
@@ -27,6 +28,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [signedIn, setSignedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [restoreLoginAttemptCompleted, setRestoreLoginAttemptCompleted] = useState(false);
 
@@ -49,13 +51,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (response.status === 200) {
         const userData = await response.json();
-        console.log(userData);
         setUserData(userData);
       } else {
         setUserData(null);
       }
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      setErrors([`Error fetching user data:${error}`]);
       setUserData(null);
     }
   };
@@ -73,6 +74,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const { sub: username, authorities: authoritiesString } = decodedToken;
 
     const roles = authoritiesString.split(',');
+    if (roles.includes("ADMIN")) {
+      setIsAdmin(true);
+    }
 
     const user = {
       username: username,
@@ -96,7 +100,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, signedIn, login, signOut, errors, setErrors, setUserData, userData }}
+      value={{ user, signedIn, isAdmin, login, signOut, errors, setErrors, setUserData, userData }}
     >
       {children}
     </AuthContext.Provider>

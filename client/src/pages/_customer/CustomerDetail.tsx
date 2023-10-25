@@ -12,7 +12,7 @@ import CustomerCard from '../../components/_customer/CustomerCard';
 import '../../styles/_customer/CustomerDetail.css'
 
 function VehicleDetail() {
-    const { errors, setErrors, userData } = useAuth();
+    const { signedIn, errors, setErrors, userData } = useAuth();
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const userId = userData ? userData.userId : 0;
@@ -27,6 +27,10 @@ function VehicleDetail() {
     });
     const navigate = useNavigate();
     const containerHeight = isAccordionOpen ? '40vh' : '75vh';
+
+    if (!signedIn) {
+        navigate("/")
+    }
 
     useEffect(() => {
         fetchCustomerDetails();

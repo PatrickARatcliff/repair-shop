@@ -8,9 +8,10 @@ import '../../styles/_vehicle/VehicleTable.css'
 interface VehicleTableProps {
     vehicles: Vehicle[];
     height: string;
+    onDelete: (appointmentId: number) => void;
 }
 
-export default function VehicleTable({ vehicles, height }: VehicleTableProps) {
+export default function VehicleTable({ vehicles, height, onDelete }: VehicleTableProps) {
     return (
         <div className="table-container" style={{ height: height }}>
             <Table striped bordered hover>
@@ -25,7 +26,11 @@ export default function VehicleTable({ vehicles, height }: VehicleTableProps) {
                 </thead>
                 <tbody>
                     {vehicles.map((vehicle) => (
-                        <VehicleTableItem key={vehicle.vehicleId} data={vehicle} />
+                        <VehicleTableItem 
+                        key={vehicle.vehicleId} 
+                        data={vehicle} 
+                        onDelete={onDelete}
+                        />
                     ))}
                 </tbody>
             </Table>

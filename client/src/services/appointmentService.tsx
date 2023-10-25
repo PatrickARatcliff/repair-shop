@@ -1,6 +1,7 @@
 import { BASE_URL } from './baseUrl';
 import * as base from "./baseService";
 import Appointment from "../interfaces/Appointment"
+
 const model = "appointment";
 
 export function findAllAppointments() {
@@ -36,8 +37,6 @@ export async function findAppointmentsByUserId(userId: number) {
 export async function saveAppointment(appointment: Appointment) {
         return base.save(model, appointment, appointment.appointmentId);;
 }
-
-
 
 export async function deleteAppointmentById(appointmentId: number) {
     return base.deleteById(model, appointmentId);

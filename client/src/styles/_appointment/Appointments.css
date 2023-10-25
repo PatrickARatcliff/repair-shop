@@ -4,3 +4,9 @@
     justify-content: center;
     height: 80vh;
 }
+
+.appointment-container {
+    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}

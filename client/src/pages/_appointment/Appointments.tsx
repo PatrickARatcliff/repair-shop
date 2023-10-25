@@ -1,21 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Spinner, Button, Accordion } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 import { saveAppointment, findAllAppointments } from '../../services/appointmentService';
 import { useAuth } from "../../context/AuthProvider";
+import { deleteAppointmentById } from '../../services/appointmentService';
 import { sortDates } from "../../utils/formatDates";
 
 import Appointment from "../../interfaces/Appointment";
 import AppointmentTable from '../../components/_appointment/AppointmentTable';
 import AppointmentForm from '../../components/_appointment/AppointmentForm';
 
-import '../../styles/_appointment/Appointments.css'
+import '../../styles/_appointment/Appointments.css';
 
 
 function Appointments() {
-    const { errors, setErrors, userData } = useAuth();
+    const { signedIn, errors, setErrors, userData } = useAuth();
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const userId = userData ? userData.userId : 0;
     const [newAppointment, setNewAppointment] = useState<Appointment>({
         appointmentId: 0,
@@ -25,6 +28,11 @@ function Appointments() {
     });
     const [appointments, setAppointments] = useState<Appointment[]>([]);
     const containerHeight = isAccordionOpen ? '46vh' : '75vh';
+    const navigate = useNavigate();
+
+    if (!signedIn) {
+        navigate("/")
+    };
 
     const handleScheduleAppointmentClick = () => {
         setIsAccordionOpen((prevIsAccordionOpen) => !prevIsAccordionOpen);
@@ -41,8 +49,6 @@ function Appointments() {
             userId: userId,
         };
 
-        console.log(newAppointmentWithDate);
-
         saveAppointment(newAppointmentWithDate).then((savedAppointment: Appointment) => {
             const updatedAppointments = sortDates([...appointments, savedAppointment]);
             setAppointments(updatedAppointments.map(appointment => ({
@@ -57,6 +63,19 @@ function Appointments() {
             });
         });
     };
+
+    const handleDelete = async (appointmentId: number) => {
+        try {
+            await deleteAppointmentById(appointmentId);
+            const updatedAppointments = appointments.filter(appointment => appointment.appointmentId !== appointmentId);
+            setAppointments(updatedAppointments);
+        } catch (error) {
+            setErrors([`Error deleting appointment: ${error}`]);
+        } finally {
+            setShowDeleteModal(false);
+        }
+    }
+
 
     useEffect(() => {
         const fetchAppointments = async () => {
@@ -79,7 +98,7 @@ function Appointments() {
 
 
     return (
-        <div className="container mt-3">
+        <div className="container mt-3 appointment-container">
             <Accordion activeKey={isAccordionOpen ? '0' : ''}>
                 <Button
                     variant="success"
@@ -103,13 +122,17 @@ function Appointments() {
             </Accordion>
             {isLoading ? (
                 <div className="container mt-3 spinner-container">
-                <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </Spinner>
-            </div>
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </div>
             ) : (
                 <div>
-                    <AppointmentTable appointments={appointments} height={containerHeight} />
+                    <AppointmentTable
+                        appointments={appointments}
+                        height={containerHeight}
+                        onDelete={handleDelete}
+                    />
                 </div>
             )}
         </div>

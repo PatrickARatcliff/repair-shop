@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET,
                         "/vehicle", "/vehicle/*", "/vehicle/customer/*").permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/user", "/user/*").hasAnyAuthority("ADMIN")
+                        "/user", "/user/*").permitAll()
                 .antMatchers(HttpMethod.POST,
                         "/appointment").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,

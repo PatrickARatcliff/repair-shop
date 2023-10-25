@@ -1,13 +1,6 @@
 import { BASE_URL } from './baseUrl';
 
 export async function findAll(model: string) {
-    // const config = {
-    //     method: "GET",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //         "Authorization": `Bearer ${localStorage.getItem("RS_TOKEN")}`
-    //     },
-    // }
 
     const response = await fetch(`${BASE_URL}/${model}`);
     console.log(response);
@@ -52,28 +45,20 @@ async function sendBody(instance: Object, method: string, theUrl: string) {
 
 
     if (!response || response === null) {
-
         return null;
     }
-
     if (response.status === 204) {
 
         return null;
     }
-
     if (response.status === 201) {
 
         return response.json();
     }
-
     if (response.status === 400) {
         const errors = await response.json();
         return errors;
     }
-
-
-
-
     return Promise.reject();
 }
 

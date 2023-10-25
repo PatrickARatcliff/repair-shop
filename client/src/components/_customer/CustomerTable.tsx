@@ -8,9 +8,10 @@ import '../../styles/_customer/CustomerTable.css'
 interface CustomerTableProps {
     customers: Customer[];
     height: string;
+    onDelete: (customerId: number) => void;
 }
 
-export default function CustomerTable({ customers, height }: CustomerTableProps) {
+export default function CustomerTable({ customers, height, onDelete }: CustomerTableProps) {
     return (
         <div className="table-container" style={{ height: height }}>
             <Table striped bordered hover>
@@ -24,7 +25,11 @@ export default function CustomerTable({ customers, height }: CustomerTableProps)
                 </thead>
                 <tbody>
                     {customers.map((customer) => (
-                        <CustomerTableItem key={customer.customerId} data={customer} />
+                        <CustomerTableItem 
+                        key={customer.customerId} 
+                        data={customer}
+                        onDelete={onDelete}
+                         />
                     ))}
                 </tbody>
             </Table>

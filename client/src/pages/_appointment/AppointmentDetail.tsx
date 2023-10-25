@@ -12,7 +12,7 @@ import AppointmentCard from '../../components/_appointment/AppointmentCard';
 import '../../styles/_appointment/AppointmentDetail.css'
 
 function AppointmentDetail() {
-    const { user, errors, setErrors, userData } = useAuth();
+    const { signedIn, user, errors, setErrors, userData } = useAuth();
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const userId = userData ? userData.userId : 0;
@@ -25,6 +25,10 @@ function AppointmentDetail() {
     });
     const navigate = useNavigate();
     const containerHeight = isAccordionOpen ? '46vh' : '75vh';
+
+    if (!signedIn) {
+        navigate("/")
+    };
 
     useEffect(() => {
         fetchAppointmentDetails();
@@ -47,31 +51,31 @@ function AppointmentDetail() {
 
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-    
+
         if (appointment) {
             const formattedDate = appointment.appointmentDate;
-    
+
             const updatedAppointment = {
                 ...appointment,
                 appointmentDate: formattedDate,
                 userId: userId,
             };
-    
+
             setIsAccordionOpen(false);
-    
+
             try {
                 const errors = await saveAppointment(updatedAppointment);
                 if (!errors) {
                     await fetchAppointmentDetails();
                 } else {
-                    console.log(errors);
+                    setErrors([errors]);
                 }
             } catch (error) {
-                console.log(error);
+                setErrors([`${error}`]);
             }
         }
     };
-    
+
     const handleDeleteAppointment = async (appointmentId: number) => {
         try {
             await deleteAppointmentById(appointmentId);
@@ -115,7 +119,7 @@ function AppointmentDetail() {
             ) : (
                 <div>
                     {appointment && (
-                        <AppointmentCard 
+                        <AppointmentCard
                             appointment={appointment}
                             onDeleteClick={handleDeleteAppointment}
                             height={containerHeight}

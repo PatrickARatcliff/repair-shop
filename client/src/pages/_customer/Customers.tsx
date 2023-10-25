@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Spinner, Button, Accordion } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 import { saveCustomer, findAllCustomers } from '../../services/customerService';
 import { useAuth } from "../../context/AuthProvider";
+import { deleteCustomerById } from '../../services/customerService';
 
 import Customer from "../../interfaces/Customer";
 import CustomerTable from '../../components/_customer/CustomerTable';
@@ -12,10 +14,11 @@ import '../../styles/_customer/Customers.css'
 
 
 function Customers() {
-    const { errors, setErrors, userData } = useAuth();
+    const { signedIn, errors, setErrors, userData } = useAuth();
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const userId = userData ? userData.userId : 0;
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [newCustomer, setNewCustomer] = useState<Customer>({
         customerId: 0,
         customerFirstName: "",
@@ -25,7 +28,12 @@ function Customers() {
         important: false,
     });
     const [customers, setCustomers] = useState<Customer[]>([]);
-    const containerHeight = isAccordionOpen ? '40vh' : '75vh';
+    const containerHeight = isAccordionOpen ? '38vh' : '75vh';
+    const navigate = useNavigate();
+
+    if (!signedIn) {
+        navigate("/")
+    }
 
     const handleAddCustomerClick = () => {
         setIsAccordionOpen((prevIsAccordionOpen) => !prevIsAccordionOpen);
@@ -49,6 +57,18 @@ function Customers() {
             });
         });
     };
+
+    const handleDelete = async (customerId: number) => {
+        try {
+            await deleteCustomerById(customerId);
+            const updatedCustomers = customers.filter(customer => customer.customerId !== customerId);
+            setCustomers(updatedCustomers);
+        } catch (error) {
+            setErrors([`Error deleting appointment: ${error}`]);
+        } finally {
+            setShowDeleteModal(false);
+        }
+    }
 
     useEffect(() => {
         const fetchCustomers = async () => {
@@ -91,13 +111,17 @@ function Customers() {
             </Accordion>
             {isLoading ? (
                 <div className="container mt-3 spinner-container">
-                <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </Spinner>
-            </div>
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </div>
             ) : (
                 <div>
-                    <CustomerTable customers={customers} height={containerHeight} />
+                    <CustomerTable
+                        customers={customers}
+                        height={containerHeight}
+                        onDelete={handleDelete}
+                    />
                 </div>
             )}
         </div>

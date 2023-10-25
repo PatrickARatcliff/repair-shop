@@ -12,7 +12,7 @@ import VehicleCard from '../../components/_vehicle/VehicleCard';
 import '../../styles/_vehicle/VehicleDetail.css'
 
 function VehicleDetail() {
-    const { errors, setErrors, userData } = useAuth();
+    const { signedIn, errors, setErrors, userData } = useAuth();
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const userId = userData ? userData.userId : 0;
@@ -26,6 +26,10 @@ function VehicleDetail() {
     });
     const navigate = useNavigate();
     const containerHeight = isAccordionOpen ? '40vh' : '75vh';
+
+    if (!signedIn) {
+        navigate("/")
+    };
 
     useEffect(() => {
         fetchVehicleDetails();
@@ -48,11 +52,11 @@ function VehicleDetail() {
 
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-    
+
         if (vehicle) {
-    
+
             setIsAccordionOpen(false);
-    
+
             try {
                 const errors = await saveVehicle(vehicle);
                 if (!errors) {
@@ -65,7 +69,7 @@ function VehicleDetail() {
             }
         }
     };
-    
+
     const handleDeleteVehicle = async (vehicleId: number) => {
         try {
             await deleteVehicleById(vehicleId);
@@ -109,7 +113,7 @@ function VehicleDetail() {
             ) : (
                 <div>
                     {vehicle && (
-                        <VehicleCard 
+                        <VehicleCard
                             vehicle={vehicle}
                             onDeleteClick={handleDeleteVehicle}
                             height={containerHeight}

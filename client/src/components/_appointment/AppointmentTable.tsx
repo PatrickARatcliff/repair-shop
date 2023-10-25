@@ -8,9 +8,10 @@ import '../../styles/_appointment/AppointmentTable.css'
 interface AppointmentTableProps {
     appointments: Appointment[];
     height: string;
-}
+    onDelete: (appointmentId: number) => void;
+  }
 
-export default function AppointmentTable({ appointments, height }: AppointmentTableProps) {
+export default function AppointmentTable({ appointments, height, onDelete }: AppointmentTableProps) {
     return (
         <div className="table-container" style={{ height: height }}>
             <Table striped bordered hover>
@@ -24,7 +25,11 @@ export default function AppointmentTable({ appointments, height }: AppointmentTa
                 </thead>
                 <tbody>
                     {appointments.map((appointment) => (
-                        <AppointmentTableItem key={appointment.appointmentId} data={appointment} />
+                        <AppointmentTableItem 
+                        key={appointment.appointmentId} 
+                        data={appointment}
+                        onDelete={onDelete}
+                        />
                     ))}
                 </tbody>
             </Table>

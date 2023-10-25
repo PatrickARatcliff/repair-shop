@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Spinner, Button, Accordion } from 'react-bootstrap';
 
-import { saveVehicle, findAllVehicles } from '../../services/vehicleService';
+import { saveVehicle, findAllVehicles, deleteVehicleById } from '../../services/vehicleService';
 import { useAuth } from "../../context/AuthProvider";
+import { useNavigate } from 'react-router-dom';
 
 import Vehicle from "../../interfaces/Vehicle";
 import VehicleTable from '../../components/_vehicle/VehicleTable';
@@ -12,9 +13,10 @@ import '../../styles/_vehicle/Vehicles.css'
 
 
 function Vehicles() {
-    const { errors, setErrors, userData } = useAuth();
+    const { signedIn, errors, setErrors, userData } = useAuth();
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const userId = userData ? userData.userId : 0;
     const [newVehicle, setNewVehicle] = useState<Vehicle>({
         vehicleId: 0,
@@ -24,7 +26,12 @@ function Vehicles() {
         customerId: 0,
     });
     const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-    const containerHeight = isAccordionOpen ? '40vh' : '75vh';
+    const containerHeight = isAccordionOpen ? '38vh' : '75vh';
+    const navigate = useNavigate();
+
+    if (!signedIn) {
+        navigate("/")
+    }
 
     const handleAddVehicleClick = () => {
         setIsAccordionOpen((prevIsAccordionOpen) => !prevIsAccordionOpen);
@@ -47,6 +54,18 @@ function Vehicles() {
             });
         });
     };
+
+    const handleDelete = async (vehicleId: number) => {
+        try {
+            await deleteVehicleById(vehicleId);
+            const updatedVehicles = vehicles.filter(vehicle => vehicle.vehicleId !== vehicleId);
+            setVehicles(updatedVehicles);
+        } catch (error) {
+            setErrors([`Error deleting vehicle: ${error}`]);
+        } finally {
+            setShowDeleteModal(false);
+        }
+    }
 
     useEffect(() => {
         const fetchVehicles = async () => {
@@ -89,13 +108,17 @@ function Vehicles() {
             </Accordion>
             {isLoading ? (
                 <div className="container mt-3 spinner-container">
-                <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </Spinner>
-            </div>
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </div>
             ) : (
                 <div>
-                    <VehicleTable vehicles={vehicles} height={containerHeight} />
+                    <VehicleTable
+                        vehicles={vehicles}
+                        height={containerHeight}
+                        onDelete={handleDelete}
+                    />
                 </div>
             )}
         </div>

@@ -1,10 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Card, Button } from 'react-bootstrap';
+
+import { findVehiclesByCustomerId } from '../../services/vehicleService';
+import { saveCustomer } from '../../services/customerService';
+
 import Customer from '../../interfaces/Customer';
 import Vehicle from '../../interfaces/Vehicle';
 import CustomerVehicleTable from '../_customer/CustomerVehicleTable';
-import { findVehiclesByCustomerId } from '../../services/vehicleService';
-import { saveCustomer } from '../../services/customerService';
+import DeleteConfirmModal from '../DeleteConfirmModal';
 
 import '../../styles/_customer/CustomerCard.css';
 
@@ -18,6 +21,7 @@ function CustomerCard({ customer, onDeleteClick, height }: CustomerCardProps) {
     const [vehicleInfo, setVehicleInfo] = useState<Vehicle[]>([]);
     const [isImportant, setIsImportant] = useState(customer.important);
     const starRef = useRef<HTMLSpanElement | null>(null);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
         fetchVehicleInfo(customer);
@@ -53,6 +57,15 @@ function CustomerCard({ customer, onDeleteClick, height }: CustomerCardProps) {
         }
     }
 
+    const handleDeleteClick = () => {
+        setShowDeleteModal(true);
+    };
+
+    const handleDeleteConfirmed = () => {
+        onDeleteClick(customer.customerId);
+        setShowDeleteModal(false);
+    };
+
     return (
         <Card className="appointment-card" style={{ maxHeight: height }}>
             <Card.Header>
@@ -76,11 +89,20 @@ function CustomerCard({ customer, onDeleteClick, height }: CustomerCardProps) {
                     <strong>Phone:</strong> {customer.customerPhone}<br />
                     <strong>Email:</strong> {customer.customerEmail}<br />
                 </Card.Text>
-                <CustomerVehicleTable data={vehicleInfo} />
-                <Button className="w-100" variant="danger" onClick={() => onDeleteClick(customer.customerId)}>
+                <CustomerVehicleTable 
+                data={vehicleInfo} 
+                setVehicleInfo={setVehicleInfo}
+                />
+                <Button className="w-100" variant="danger" onClick={handleDeleteClick}>
                     <i className="bi bi-trash3"></i> Delete
                 </Button>
             </Card.Body>
+            <DeleteConfirmModal
+                show={showDeleteModal}
+                onHide={() => setShowDeleteModal(false)}
+                onConfirmDelete={handleDeleteConfirmed}
+                message={`Delete appointment for ${customer.customerLastName}, ${customer.customerFirstName}? This will delete all associated vehicles and appointments!`}
+            />
         </Card>
     );
 }
