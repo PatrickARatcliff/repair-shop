@@ -37,13 +37,14 @@ const FullCalendar: React.FC = () => {
         setEvents(events);
 
         if (calendarEl.current) {
+          // calendarEl.current.innerHTML = "";
           calendar.current = new Calendar(calendarEl.current, {
             plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
             initialView: currentView,
             headerToolbar: {
               left: 'prev,next',
               center: 'title',
-              right: `customToday${screenWidth > 1200 ? ',customToggle' : ''}`,
+              right: `customToday${window.innerWidth > 1200 ? ',customToggle' : ''}`,
             },
             events: events,
             titleFormat: { month: 'short', year: '2-digit' },
@@ -81,16 +82,10 @@ const FullCalendar: React.FC = () => {
       }
     };
 
+    // handleResize();
+
     setScreenWidth(window.innerWidth);
     fetchEventsAndInitializeCalendar();
-
-    const handleResize = () => {
-      const newScreenWidth = window.innerWidth;
-      setScreenWidth(newScreenWidth);
-
-      const newView = newScreenWidth < 1200 ? 'listMonth' : 'dayGridMonth';
-      setCurrentView(newView);
-    };
 
     window.addEventListener('resize', handleResize);
 
@@ -98,6 +93,14 @@ const FullCalendar: React.FC = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, [currentView, setErrors, navigate]);
+
+  const handleResize = () => {
+    // const newScreenWidth = window.innerWidth;
+    // setScreenWidth(newScreenWidth);
+
+    const newView = window.innerWidth < 1200 ? 'listMonth' : 'dayGridMonth';
+    setCurrentView(newView);
+  };
 
   async function convertAppointmentsToEvents(appointmentsData: AppointmentData[]) {
     const newEvents = [];
@@ -128,7 +131,7 @@ const FullCalendar: React.FC = () => {
   }
 
   return (
-    <div className="calendar-container rounded" ref={calendarEl}>
+    <div className="calendar-container rounded" >
       {isLoading ? (
         <div className="spinner-container">
           <Spinner animation="border" role="status">
