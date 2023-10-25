@@ -32,11 +32,11 @@ function AppointmentCard({ user, onDeleteClick, height }: UserCardProps) {
       <Card.Body>
         <Card.Text>
           <strong>Username:</strong> {user.username}<br />
-          <strong>Enabled:</strong> {user.enabled}<br />
+          <strong>Enabled:</strong> {(user.enabled).toString()}<br />
           <strong>Authorization:</strong> {user.authorities[0]}<br />
-          <strong>Account Expired:</strong> {!user.accountNonExpired}<br />
-          <strong>Account Locked:</strong> {!user.accountNonLocked}<br />
-          <strong>Credentials Expired:</strong> {!user.credentialsNonExpired}<br />
+          <strong>Account Expired:</strong> {(!user.accountNonExpired).toString()}<br />
+          <strong>Account Locked:</strong> {(!user.accountNonLocked).toString()}<br />
+          <strong>Credentials Expired:</strong> {(!user.credentialsNonExpired).toString()}<br />
         </Card.Text>
         <Button className="w-100" variant="danger" onClick={handleDeleteClick}>
           <i className="bi bi-trash3"></i> Delete

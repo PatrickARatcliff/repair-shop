@@ -7,16 +7,15 @@ import { findAllAppointments } from '../services/appointmentService';
 import { findVehicleById } from '../services/vehicleService';
 import { useAuth } from '../context/AuthProvider';
 import AppointmentData from '../interfaces/AppointmentData';
-
 import { toast } from 'react-toastify';
-
 import '../styles/FullCalendar.css';
+import { findCustomerById } from '../services/customerService';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 interface EventData {
   id: string;
   title: string;
   start: string;
-  url: string;
 }
 
 const FullCalendar: React.FC = () => {
@@ -26,6 +25,7 @@ const FullCalendar: React.FC = () => {
   const calendarEl = useRef<HTMLDivElement | null>(null);
   const calendar = useRef<Calendar | null>(null);
   const [events, setEvents] = useState<EventData[]>([]);
+  const navigate = useNavigate(); // Get the navigate function
 
   useEffect(() => {
     const fetchEventsAndInitializeCalendar = async () => {
@@ -62,6 +62,11 @@ const FullCalendar: React.FC = () => {
                 },
               },
             },
+            eventClick: (eventInfo) => {
+              const appointmentId = eventInfo.event.id;
+              navigate(`/appointment/${appointmentId}`);
+            },
+            eventClassNames: 'event-pointer',
           });
 
           calendar.current.render();
@@ -95,18 +100,27 @@ const FullCalendar: React.FC = () => {
 
     for (const appointment of appointmentsData) {
       const vehicle = await findVehicleById(appointment.vehicleId);
+      const customer = await findCustomerById(vehicle.customerId);
       if (vehicle) {
-        const title = `${vehicle.vehicleYear} ${vehicle.vehicleMake} ${vehicle.vehicleModel}`;
+        const title = customer.important
+          ? (`\u2605 ${vehicle.vehicleYear} ${vehicle.vehicleMake} ${vehicle.vehicleModel}`) : `${vehicle.vehicleYear} ${vehicle.vehicleMake} ${vehicle.vehicleModel}`;
+
         newEvents.push({
           id: appointment.appointmentId.toString(),
-          title,
+          title: titleToString(title),
           start: appointment.appointmentDate,
-          url: `/appointment/${appointment.appointmentId}`,
         });
       }
     }
 
     return newEvents;
+  }
+
+  function titleToString(title: JSX.Element | string): string {
+    if (typeof title === 'string') {
+      return title;
+    }
+    return title.props.children as string;
   }
 
   return <div className="calendar-container rounded" ref={calendarEl}></div>;

@@ -9,6 +9,10 @@
     font-size: 18px;
   }
 
+  .event-pointer {
+    cursor: pointer;
+  }
+
   
   @media (max-width: 505px) {
     .fc-toolbar-title {
