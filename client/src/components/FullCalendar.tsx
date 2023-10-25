@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Spinner } from 'react-bootstrap';
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -10,7 +11,7 @@ import AppointmentData from '../interfaces/AppointmentData';
 import { toast } from 'react-toastify';
 import '../styles/FullCalendar.css';
 import { findCustomerById } from '../services/customerService';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 
 interface EventData {
   id: string;
@@ -20,12 +21,13 @@ interface EventData {
 
 const FullCalendar: React.FC = () => {
   const { setErrors } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [currentView, setCurrentView] = useState(screenWidth < 1200 ? 'listMonth' : 'dayGridMonth');
   const calendarEl = useRef<HTMLDivElement | null>(null);
   const calendar = useRef<Calendar | null>(null);
   const [events, setEvents] = useState<EventData[]>([]);
-  const navigate = useNavigate(); // Get the navigate function
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEventsAndInitializeCalendar = async () => {
@@ -74,6 +76,8 @@ const FullCalendar: React.FC = () => {
       } catch (error) {
         setErrors([`Error fetching or adding appointments: ${error}`]);
         toast.error(`Error fetching or adding appointments: ${error}`);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -93,7 +97,7 @@ const FullCalendar: React.FC = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [currentView]);
+  }, [currentView, setErrors, navigate]);
 
   async function convertAppointmentsToEvents(appointmentsData: AppointmentData[]) {
     const newEvents = [];
@@ -123,7 +127,20 @@ const FullCalendar: React.FC = () => {
     return title.props.children as string;
   }
 
-  return <div className="calendar-container rounded" ref={calendarEl}></div>;
+  return (
+    <div className="calendar-container rounded" ref={calendarEl}>
+      {isLoading ? (
+        <div className="spinner-container">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      ) : (
+        <div ref={calendarEl} className="calendar-content">
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default FullCalendar;

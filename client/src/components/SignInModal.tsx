@@ -99,7 +99,7 @@ export default function SignInModal(props: SignInModalProps) {
                     </Form>
                     <br></br>
                     <p>
-                        Don't have an account? Contact your Administrator.
+                        Don't have an account? Contact your <a href="mailto:fitti@puppy.com">Administrator</a>.
                     </p>
                 </Modal.Body>
                 <Modal.Footer>

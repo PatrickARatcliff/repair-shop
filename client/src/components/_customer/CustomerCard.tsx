@@ -72,7 +72,7 @@ function CustomerCard({ customer, onDeleteClick, height }: CustomerCardProps) {
         <Card className="appointment-card" style={{ maxHeight: height }}>
             <Card.Header>
                 <div className="d-flex justify-content-between">
-                    <Card.Title className="mb-0">
+                    <Card.Title className="mb-0 card-title">
                         Customer {customer && `ID: ${customer.customerId}`}
                     </Card.Title>
                     <span className="star-checkbox" onClick={handleStarClick} ref={starRef}>

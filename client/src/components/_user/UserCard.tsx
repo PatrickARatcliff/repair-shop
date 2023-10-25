@@ -27,7 +27,7 @@ function AppointmentCard({ user, onDeleteClick, height }: UserCardProps) {
   return (
     <Card className="user-card" style={{ maxHeight: height }}>
       <Card.Header>
-        <Card.Title>User {user && `ID: ${user.userId}`}</Card.Title>
+        <Card.Title className="card-title">User {user && `ID: ${user.userId}`}</Card.Title>
       </Card.Header>
       <Card.Body>
         <Card.Text>

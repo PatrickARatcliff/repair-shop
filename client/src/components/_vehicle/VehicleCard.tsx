@@ -53,7 +53,7 @@ function VehicleCard({ vehicle, onDeleteClick, height }: VehicleCardProps) {
     return (
         <Card className="appointment-card" style={{ maxHeight: height }}>
             <Card.Header>
-                <Card.Title>Vehicle {vehicle && `ID: ${vehicle.vehicleId}`}</Card.Title>
+                <Card.Title className="card-title">Vehicle {vehicle && `ID: ${vehicle.vehicleId}`}</Card.Title>
             </Card.Header>
             <Card.Body>
                 <Card.Text>

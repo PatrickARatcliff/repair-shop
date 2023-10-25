@@ -8,3 +8,8 @@
     position: relative;
     top: -2px; 
   }
+
+  .card-title {
+    font-size: 3em !important;
+    font-family: 'Alumni Sans', sans-serif;
+  }
