@@ -1,4 +1,5 @@
 import { BASE_URL } from './baseUrl';
+import { toast } from 'react-toastify';
 
 export async function findAll(model: string) {
 
@@ -39,9 +40,7 @@ async function sendBody(instance: Object, method: string, theUrl: string) {
         body: JSON.stringify(instance)
     }
 
-
     const response = await fetch(theUrl, config);
-
 
     if (!response || response === null) {
         return null;
@@ -52,10 +51,16 @@ async function sendBody(instance: Object, method: string, theUrl: string) {
     }
     if (response.status === 201) {
 
-        return response.json();
+        return null;
     }
-    if (response.status === 400) {
+    if (response.status >= 400) {
         const errors = await response.json();
+        if (errors.length) {
+            errors.map((error: string) => toast.error(error));
+        } else {
+            toast.error(errors)
+        }
+
         return errors;
     }
     return Promise.reject();

@@ -39,8 +39,9 @@ export default function SignInModal(props: SignInModalProps) {
             props.login(jwt_token);
             props.toggleSignInModal();
         } else if (response.status === 403) {
+            console.log(response);
             props.setErrors(["Login failed."]);
-            toast.error("Login failed.");
+            toast.error("Username and password combination could not be found.");
         } else {
             props.setErrors(["Unknown error."]);
             toast.error("Unknown error.");
@@ -57,22 +58,25 @@ export default function SignInModal(props: SignInModalProps) {
     const resetModal = () => {
         setUsername("");
         setPassword("");
+        setShowPassword(false);
         props.setErrors([]);
     };
 
     return (
         <>
             <Modal show={props.showSignInModal} onHide={props.toggleSignInModal} className="custom-modal">
+                <Form onSubmit={handleSignIn}>
                 <Modal.Header closeButton>
                     <Modal.Title>Sign In</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    
                         <Form.Group controlId="username">
                             <Form.Label>Username</Form.Label>
                             <Form.Control
                                 type="text"
                                 onChange={(e) => setUsername(e.target.value)}
+                                required
                             />
                         </Form.Group>
                         <Form.Group controlId="password">
@@ -82,11 +86,13 @@ export default function SignInModal(props: SignInModalProps) {
                                     style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
                                     type={showPassword ? 'text' : 'password'}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    required
                                 />
                                 <Button
                                     style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
                                     variant="outline-secondary"
-                                    onClick={() => setShowPassword(!showPassword)}
+                                    onClick={() => setShowPassword
+                                        (!showPassword)}
                                 >
                                     {showPassword ? (
                                         <i className="bi bi-eye-slash-fill"></i>
@@ -96,7 +102,7 @@ export default function SignInModal(props: SignInModalProps) {
                                 </Button>
                             </div>
                         </Form.Group>
-                    </Form>
+                    
                     <br></br>
                     <p>
                         Don't have an account? Contact your <a href="mailto:fitti@puppy.com">Administrator</a>.
@@ -106,10 +112,11 @@ export default function SignInModal(props: SignInModalProps) {
                     <Button variant="secondary" onClick={props.toggleSignInModal}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSignIn}>
+                    <Button variant="primary" type="submit">
                         Sign In
                     </Button>
                 </Modal.Footer>
+                </Form>
             </Modal>
         </>
     );

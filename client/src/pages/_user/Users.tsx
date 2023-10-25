@@ -42,19 +42,16 @@ function Users() {
         e.preventDefault();
 
         try {
-            await createUser(newUser);
-            try {
-                const convertedUser = await findByUsername(newUser.username)
-                const updatedUsers = [...users, convertedUser];
-                setUsers(updatedUsers);
-            } catch (error) {
-                setErrors([`Error converting user: ${error}`]);
-                toast.error(`Error converting user: ${error}`);
+            const errors = await createUser(newUser);
+            if (errors === null) {
+                setIsAccordionOpen(false);
+                setNewUser({
+                    username: "",
+                    password: "",
+                });
+            } else {
+                toast.error("failed to create");
             }
-            setNewUser({
-                username: "",
-                password: "",
-            });
         } catch (error) {
             setErrors([`Error creating user: ${error}`]);
             toast.error(`Error creating user: ${error}`);
@@ -89,7 +86,7 @@ function Users() {
             }
         };
         fetchUsers();
-    }, []);
+    }, [isAccordionOpen]);
 
 
     return (

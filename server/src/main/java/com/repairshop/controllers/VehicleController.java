@@ -45,9 +45,9 @@ public class VehicleController {
     }
 
     @PostMapping
-    public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle vehicle) {
+    public ResponseEntity<?> createVehicle(@RequestBody Vehicle vehicle) {
         Result<Vehicle> result = service.createVehicle(vehicle);
-        return new ResponseEntity<>(result.getPayload(), getStatus(result, HttpStatus.CREATED));
+        return new ResponseEntity<>(result.getStatus() == ActionStatus.INVALID ? result.getMessages() : result.getPayload(), getStatus(result, HttpStatus.CREATED));
     }
 
     @PutMapping("/{vehicleId}")

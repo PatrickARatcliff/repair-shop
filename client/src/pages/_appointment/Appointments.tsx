@@ -51,19 +51,27 @@ function Appointments() {
             userId: userId,
         };
 
-        saveAppointment(newAppointmentWithDate).then((savedAppointment: Appointment) => {
-            const updatedAppointments = sortDates([...appointments, savedAppointment]);
-            setAppointments(updatedAppointments.map(appointment => ({
-                ...appointment,
-                appointmentDate: appointment.appointmentDate
-            })));
-            setNewAppointment({
-                appointmentId: 0,
-                appointmentDate: new Date().toISOString().split('T')[0],
-                vehicleId: 0,
-                userId: userId,
-            });
-        });
+        const saveAppointmentAsync = async (newAppointmentWithDate: Appointment) => {
+            try {
+                const errors = await saveAppointment(newAppointmentWithDate);
+                if (errors === null) {
+
+                    setNewAppointment({
+                        appointmentId: 0,
+                        appointmentDate: new Date().toISOString().split('T')[0],
+                        vehicleId: 0,
+                        userId: userId,
+                    });
+                    setIsAccordionOpen(false);
+                } else {
+                    toast.error("failed to create");
+                }
+            } catch (error) {
+                toast.error(`An error occurred: ${error}`);
+            }
+        };
+        saveAppointmentAsync(newAppointmentWithDate);
+
     };
 
     const handleDelete = async (appointmentId: number) => {
@@ -98,7 +106,7 @@ function Appointments() {
         };
 
         fetchAppointments();
-    }, []);
+    }, [isAccordionOpen]);
 
 
     return (

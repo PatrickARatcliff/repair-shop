@@ -55,9 +55,9 @@ public class AppointmentController {
     }
 
     @PostMapping
-    public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {
+    public ResponseEntity<?> createAppointment(@RequestBody Appointment appointment) {
         Result<Appointment> result = service.createAppointment(appointment);
-        return new ResponseEntity<>(result.getPayload(), getStatus(result, HttpStatus.CREATED));
+        return new ResponseEntity<>(result.getStatus() == ActionStatus.INVALID ? result.getMessages() : result.getPayload(), getStatus(result, HttpStatus.CREATED));
     }
 
     @PutMapping("/{appointmentId}")

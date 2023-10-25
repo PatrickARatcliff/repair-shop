@@ -62,13 +62,11 @@ function UserDetail() {
         e.preventDefault();
     
         if (user) {
-    
-            setIsAccordionOpen(false);
-    
             try {
                 const errors = await updateUser(user);
-                if (!errors) {
+                if (errors === null) {
                     await fetchUserDetails();
+                    setIsAccordionOpen(false);
                 } else {
                     setErrors([errors]);
                     toast.error(errors)

@@ -64,12 +64,11 @@ function AppointmentDetail() {
                 userId: userId,
             };
 
-            setIsAccordionOpen(false);
-
             try {
                 const errors = await saveAppointment(updatedAppointment);
-                if (!errors) {
+                if (errors === null) {
                     await fetchAppointmentDetails();
+                    setIsAccordionOpen(false);
                 } else {
                     setErrors([errors]);
                     toast.error(errors);

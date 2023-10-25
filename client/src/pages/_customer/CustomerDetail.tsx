@@ -58,13 +58,12 @@ function VehicleDetail() {
         e.preventDefault();
     
         if (customer) {
-    
-            setIsAccordionOpen(false);
-    
+  
             try {
                 const errors = await saveCustomer(customer);
-                if (!errors) {
+                if (errors === null) {
                     await fetchCustomerDetails();
+                    setIsAccordionOpen(false);
                 } else {
                     toast.error(errors)
                 }

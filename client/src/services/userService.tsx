@@ -3,6 +3,8 @@ import * as base from "./baseService";
 import UserData from "../interfaces/UserData"
 import Credentials from '../interfaces/Credentials';
 
+import { toast } from 'react-toastify';
+
 const endpointUrl = `${BASE_URL}/user`
 const model = "user";
 
@@ -25,6 +27,7 @@ export async function login(credentials: Credentials) {
     localStorage.setItem('jwt_token', jwtTokenResponse.jwt_token);
     return makeUserFromJwt(jwtTokenResponse.jwt_token);
   } else {
+    toast.error('Unauthorized.')
     return Promise.reject('Unauthorized.');
   }
 }
@@ -45,6 +48,7 @@ export async function findByUsername(username: string) {
     const userData = await response.json();
     return userData;
   } else {
+    toast.error('Unauthorized.')
     return Promise.reject('User not found or unauthorized.');
   }
 }

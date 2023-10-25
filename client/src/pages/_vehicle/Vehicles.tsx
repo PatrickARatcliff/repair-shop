@@ -19,7 +19,6 @@ function Vehicles() {
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const userId = userData ? userData.userId : 0;
     const [newVehicle, setNewVehicle] = useState<Vehicle>({
         vehicleId: 0,
         vehicleMake: "",
@@ -42,19 +41,28 @@ function Vehicles() {
     const handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        console.log(newVehicle);
-
-        saveVehicle(newVehicle).then((savedVehicle: Vehicle) => {
-            const updatedVehicles = [...vehicles, savedVehicle];
-            setVehicles(updatedVehicles);
-            setNewVehicle({
-                vehicleId: 0,
-                vehicleMake: "",
-                vehicleModel: "",
-                vehicleYear: 2023,
-                customerId: 0,
-            });
-        });
+        const saveVehicleAsync = async (newVehicle: Vehicle) => {
+            try {
+              const errors = await saveVehicle(newVehicle);
+          
+              if (errors === null) {
+                setNewVehicle({
+                  vehicleId: 0,
+                  vehicleMake: "",
+                  vehicleModel: "",
+                  vehicleYear: 2023,
+                  customerId: 0,
+                });
+          
+                setIsAccordionOpen(false);
+              } else {
+                toast.error("failed to create");
+              }
+            } catch (error) {
+                toast.error(`An error occurred: ${error}`);
+            }
+          };
+          saveVehicleAsync(newVehicle);    
     };
 
     const handleDelete = async (vehicleId: number) => {
@@ -84,7 +92,7 @@ function Vehicles() {
         };
 
         fetchVehicles();
-    }, []);
+    }, [isAccordionOpen]);
 
 
     return (

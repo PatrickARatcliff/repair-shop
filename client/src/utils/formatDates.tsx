@@ -1,12 +1,15 @@
 import Appointment from "../interfaces/Appointment"
 
 export function formatDateString(input: string) {
-  const parts = input.split('-');
-  if (parts.length === 3) {
-      return `${parts[1]}-${parts[2]}-${parts[0]}`;
-  } else {
-      return input;
-  }
+  if (input.split('').includes('-')) {
+    const parts = input.split('-');
+    if (parts.length === 3) {
+        return `${parts[1]}-${parts[2]}-${parts[0]}`;
+    } else {
+        return input;
+    }
+  } 
+  return input;
 }
 
 export function sortDates(appointments: Appointment[]) {

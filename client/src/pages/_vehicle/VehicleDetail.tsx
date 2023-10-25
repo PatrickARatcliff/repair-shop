@@ -56,16 +56,16 @@ function VehicleDetail() {
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (vehicle) {
-            setIsAccordionOpen(false);
             try {
                 const errors = await saveVehicle(vehicle);
-                if (!errors) {
+                if (errors === null) {
                     await fetchVehicleDetails();
+                    setIsAccordionOpen(false);
                 } else {
                     toast.error(errors);
                 }
             } catch (error) {
-                console.log(error);
+                toast.error(`${error}`);
             }
         }
     };

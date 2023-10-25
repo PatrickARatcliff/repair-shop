@@ -19,7 +19,6 @@ function Customers() {
     const { signedIn, errors, setErrors, userData } = useAuth();
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const userId = userData ? userData.userId : 0;
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [newCustomer, setNewCustomer] = useState<Customer>({
         customerId: 0,
@@ -44,20 +43,30 @@ function Customers() {
     const handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        console.log(newCustomer);
+        const saveCustomerAsync = async (newCustomer: Customer) => {
+            try {
+                const errors = await saveCustomer(newCustomer);
 
-        saveCustomer(newCustomer).then((savedCustomer: Customer) => {
-            const updatedCustomers = [...customers, savedCustomer];
-            setCustomers(updatedCustomers);
-            setNewCustomer({
-                customerId: 0,
-                customerFirstName: "",
-                customerLastName: "",
-                customerPhone: "",
-                customerEmail: "",
-                important: false,
-            });
-        });
+                if (errors === null) {
+                    setNewCustomer({
+                        customerId: 0,
+                        customerFirstName: "",
+                        customerLastName: "",
+                        customerPhone: "",
+                        customerEmail: "",
+                        important: false,
+                    });
+
+                    setIsAccordionOpen(false);
+                } else {
+                    toast.error("failed to create");
+                }
+            } catch (error) {
+                toast.error(`An error occurred: ${error}`);
+            }
+        };
+        
+        saveCustomerAsync(newCustomer);
     };
 
     const handleDelete = async (customerId: number) => {
@@ -87,7 +96,7 @@ function Customers() {
         };
 
         fetchCustomers();
-    }, []);
+    }, [isAccordionOpen]);
 
 
     return (

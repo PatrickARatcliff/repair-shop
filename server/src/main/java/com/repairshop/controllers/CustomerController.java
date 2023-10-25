@@ -36,9 +36,9 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
         Result<Customer> result = service.createCustomer(customer);
-        return new ResponseEntity<>(result.getPayload(), getStatus(result, HttpStatus.CREATED));
+        return new ResponseEntity<>(result.getStatus() == ActionStatus.INVALID ? result.getMessages() : result.getPayload(), getStatus(result, HttpStatus.CREATED));
     }
 
     @PutMapping("/{customerId}")

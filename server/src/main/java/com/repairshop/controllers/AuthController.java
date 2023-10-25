@@ -1,6 +1,8 @@
 package com.repairshop.controllers;
 
+import com.repairshop.domain.ActionStatus;
 import com.repairshop.domain.Result;
+import com.repairshop.models.Appointment;
 import com.repairshop.models.User;
 import com.repairshop.security.UserService;
 import com.repairshop.security.JwtConverter;
@@ -77,12 +79,24 @@ public class AuthController {
         Result<User> result = userService.create(username, password);
 
         if (!result.isSuccess()) {
-            return new ResponseEntity<>(result.getMessages(), HttpStatus.BAD_REQUEST);
+            new ResponseEntity<>(result.getStatus() == ActionStatus.INVALID ? result.getMessages() : result.getPayload(), getStatus(result, HttpStatus.CREATED));
         }
 
         HashMap<String, Integer> map = new HashMap<>();
         map.put("userId", result.getPayload().getUserId());
 
         return new ResponseEntity<>(map, HttpStatus.CREATED);
+    }
+
+    private HttpStatus getStatus(Result<User> result, HttpStatus statusDefault) {
+        switch (result.getStatus()) {
+            case INVALID:
+                return HttpStatus.BAD_REQUEST;
+            case DUPLICATE:
+                return HttpStatus.FORBIDDEN;
+            case NOT_FOUND:
+                return HttpStatus.NOT_FOUND;
+        }
+        return statusDefault;
     }
 }
