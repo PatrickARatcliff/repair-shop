@@ -1,17 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
+
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+
 import { findAllAppointments } from '../services/appointmentService';
 import { findVehicleById } from '../services/vehicleService';
-import { useAuth } from '../context/AuthProvider';
-import AppointmentData from '../interfaces/AppointmentData';
-import { toast } from 'react-toastify';
-import '../styles/FullCalendar.css';
 import { findCustomerById } from '../services/customerService';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider';
+
+import AppointmentData from '../interfaces/AppointmentData';
+
+import { toast } from 'react-toastify';
+
+import '../styles/FullCalendar.css';
 
 interface EventData {
   id: string;
@@ -37,7 +42,6 @@ const FullCalendar: React.FC = () => {
         setEvents(events);
 
         if (calendarEl.current) {
-          // calendarEl.current.innerHTML = "";
           calendar.current = new Calendar(calendarEl.current, {
             plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
             initialView: currentView,
@@ -82,8 +86,6 @@ const FullCalendar: React.FC = () => {
       }
     };
 
-    // handleResize();
-
     setScreenWidth(window.innerWidth);
     fetchEventsAndInitializeCalendar();
 
@@ -95,9 +97,6 @@ const FullCalendar: React.FC = () => {
   }, [currentView, setErrors, navigate]);
 
   const handleResize = () => {
-    // const newScreenWidth = window.innerWidth;
-    // setScreenWidth(newScreenWidth);
-
     const newView = window.innerWidth < 1200 ? 'listMonth' : 'dayGridMonth';
     setCurrentView(newView);
   };
