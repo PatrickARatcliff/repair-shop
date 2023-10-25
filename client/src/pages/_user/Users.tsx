@@ -11,6 +11,8 @@ import Credentials from "../../interfaces/Credentials";
 import UserTable from '../../components/_user/UserTable';
 import UserForm from '../../components/_user/UserForm';
 
+import { toast } from 'react-toastify';
+
 import '../../styles/_user/Users.css'
 
 
@@ -47,6 +49,7 @@ function Users() {
                 setUsers(updatedUsers);
             } catch (error) {
                 setErrors([`Error converting user: ${error}`]);
+                toast.error(`Error converting user: ${error}`);
             }
             setNewUser({
                 username: "",
@@ -54,6 +57,7 @@ function Users() {
             });
         } catch (error) {
             setErrors([`Error creating user: ${error}`]);
+            toast.error(`Error creating user: ${error}`);
         }
     };
 
@@ -65,6 +69,7 @@ function Users() {
             setUsers(updatedUsers);
         } catch (error) {
             setErrors([`Error deleting user: ${error}`]);
+            toast.error(`Error deleting user: ${error}`);
         } finally {
             setShowDeleteModal(false);
         }
@@ -79,6 +84,7 @@ function Users() {
                 setIsLoading(false);
             } catch (error) {
                 setErrors([`Error fetching users: ${error}`]);
+                toast.error(`Error fetching users: ${error}`);
                 setIsLoading(false);
             }
         };

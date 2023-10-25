@@ -5,6 +5,8 @@ import Customer from '../../interfaces/Customer';
 import { findAllCustomers } from '../../services/customerService';
 import '../../styles/_vehicle/VehicleForm.css';
 
+import { toast } from 'react-toastify';
+
 interface VehicleFormProps {
     newVehicle: Vehicle;
     handleFormSubmit: (e: React.FormEvent) => void;
@@ -26,6 +28,7 @@ function VehicleForm({ newVehicle, handleFormSubmit, setNewVehicle, errors, setE
             setCustomers(allCustomers);
         } catch (error) {
             setErrors([`Error fetching vehicles: ${error}`]);
+            toast.error(`Error fetching vehicles: ${error}`)
         }
     };
 

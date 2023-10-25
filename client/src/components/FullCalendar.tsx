@@ -8,6 +8,8 @@ import { findVehicleById } from '../services/vehicleService';
 import { useAuth } from '../context/AuthProvider';
 import AppointmentData from '../interfaces/AppointmentData';
 
+import { toast } from 'react-toastify';
+
 import '../styles/FullCalendar.css';
 
 interface EventData {
@@ -66,6 +68,7 @@ const FullCalendar: React.FC = () => {
         }
       } catch (error) {
         setErrors([`Error fetching or adding appointments: ${error}`]);
+        toast.error(`Error fetching or adding appointments: ${error}`);
       }
     };
 

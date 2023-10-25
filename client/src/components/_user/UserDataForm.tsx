@@ -1,7 +1,6 @@
 import { Form, Button } from 'react-bootstrap';
-
 import UserData from '../../interfaces/UserData';
-
+import { useState } from 'react'; // Import useState
 import '../../styles/_user/UserForm.css';
 
 interface UserDataFormProps {
@@ -11,6 +10,7 @@ interface UserDataFormProps {
 }
 
 function UserDataForm({ newUser, handleFormSubmit, setNewUser }: UserDataFormProps) {
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedValue = e.target.value;
@@ -39,16 +39,30 @@ function UserDataForm({ newUser, handleFormSubmit, setNewUser }: UserDataFormPro
                     </Form.Group>
                     <Form.Group controlId="formPassword" className="mb-2">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            value={""}
-                            onChange={(e) =>
-                                setNewUser({
-                                    ...newUser,
-                                    password: e.target.value,
-                                })
-                            }
-                        />
+                        <div className="d-flex">
+                            <Form.Control
+                                style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+                                type={showPassword ? 'text' : 'password'}
+                                value={newUser.password}
+                                onChange={(e) =>
+                                    setNewUser({
+                                        ...newUser,
+                                        password: e.target.value,
+                                    })
+                                }
+                            />
+                            <Button
+                                style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+                                variant="outline-secondary"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? (
+                                    <i className="bi bi-eye-slash-fill"></i>
+                                ) : (
+                                    <i className="bi bi-eye"></i>
+                                )}
+                            </Button>
+                        </div>
                     </Form.Group>
                     <Form.Group controlId="formAuthorities" className="mb-2">
                         <Form.Label>Authorities</Form.Label>

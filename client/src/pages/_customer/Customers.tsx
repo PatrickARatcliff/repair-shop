@@ -10,6 +10,8 @@ import Customer from "../../interfaces/Customer";
 import CustomerTable from '../../components/_customer/CustomerTable';
 import CustomerForm from '../../components/_customer/CustomerForm';
 
+import { toast } from 'react-toastify';
+
 import '../../styles/_customer/Customers.css'
 
 
@@ -65,6 +67,7 @@ function Customers() {
             setCustomers(updatedCustomers);
         } catch (error) {
             setErrors([`Error deleting appointment: ${error}`]);
+            toast.error(`Error deleting appointment: ${error}`);
         } finally {
             setShowDeleteModal(false);
         }
@@ -78,6 +81,7 @@ function Customers() {
                 setIsLoading(false);
             } catch (error) {
                 setErrors([`Error fetching customers: ${error}`]);
+                toast.error(`Error fetching customers: ${error}`);
                 setIsLoading(false);
             }
         };

@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthProvider';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/FormErrors.css';
 
@@ -8,8 +9,11 @@ interface FormErrorsProps {
 }
 
 function FormErrors({ errors }: FormErrorsProps) {
-  if (!errors || !errors.length) return null;
+  const { setErrors} = useAuth();
 
+
+  if (!errors || !errors.length) return null;
+  console.log(errors.length)
   errors.forEach((error) => {
     toast.error(error, {
       className: 'toast-notification',
@@ -17,6 +21,8 @@ function FormErrors({ errors }: FormErrorsProps) {
       autoClose: 5000,
     });
   });
+
+  setErrors([]);
 
   return null;
 }

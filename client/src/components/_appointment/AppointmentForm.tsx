@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { findAllVehicles } from '../../services/vehicleService';
+import { findCustomerById } from '../../services/customerService';
+
 import Appointment from '../../interfaces/Appointment';
 import Vehicle from '../../interfaces/Vehicle';
 import Customer from '../../interfaces/Customer';
-import { findAllVehicles } from '../../services/vehicleService';
-import { findCustomerById } from '../../services/customerService';
+
+import { toast } from 'react-toastify';
+
 import '../../styles/_appointment/AppointmentForm.css';
 
 interface AppointmentFormProps {
@@ -30,6 +34,7 @@ function AppointmentForm({ newAppointment, handleFormSubmit, setNewAppointment, 
             fetchVehicleCustomers(allVehicles);
         } catch (error) {
             setErrors([`Error fetching vehicles: ${error}`]);
+            toast.error(`Error fetching vehicles: ${error}`);
         }
     };
 
@@ -44,6 +49,7 @@ function AppointmentForm({ newAppointment, handleFormSubmit, setNewAppointment, 
             })
             .catch((error) => {
                 setErrors([`Error fetching vehicle customers: ${error}`]);
+                toast.error(`Error fetching vehicle customers: ${error}`);
             });
     };
 

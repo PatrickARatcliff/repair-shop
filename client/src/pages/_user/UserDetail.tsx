@@ -9,6 +9,8 @@ import UserData from '../../interfaces/UserData';
 import UserDataForm from '../../components/_user/UserDataForm';
 import UserCard from '../../components/_user/UserCard';
 
+import { toast } from 'react-toastify';
+
 import '../../styles/_user/UserDetail.css'
 
 function UserDetail() {
@@ -40,10 +42,14 @@ function UserDetail() {
     const fetchUserDetails = async () => {
         try {
             const userData = await findByUsername(String(userName));
-            setUser(userData);
+            setUser(() => ({
+                ...userData,
+                password: "Def@ultP@ssw0rd!",
+            }));
             setIsLoading(false);
         } catch (error) {
             setErrors([`Error fetching user details: ${error}`]);
+            toast.error(`Error fetching user details: ${error}`);
             setIsLoading(false);
         }
     };
@@ -65,9 +71,11 @@ function UserDetail() {
                     await fetchUserDetails();
                 } else {
                     setErrors([errors]);
+                    toast.error(errors)
                 }
             } catch (error) {
                 setErrors([`${error}`]);
+                toast.error(`${error}`)
             }
         }
     };
@@ -78,6 +86,7 @@ function UserDetail() {
             navigate("/user");
         } catch (error) {
             setErrors([`Error deleting user: ${error}`]);
+            toast.error(`Error deleting user: ${error}`);
         }
     };
 

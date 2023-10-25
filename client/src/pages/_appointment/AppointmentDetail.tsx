@@ -9,6 +9,8 @@ import Appointment from '../../interfaces/Appointment';
 import AppointmentForm from '../../components/_appointment/AppointmentForm';
 import AppointmentCard from '../../components/_appointment/AppointmentCard';
 
+import { toast } from 'react-toastify';
+
 import '../../styles/_appointment/AppointmentDetail.css'
 
 function AppointmentDetail() {
@@ -41,6 +43,7 @@ function AppointmentDetail() {
             setIsLoading(false);
         } catch (error) {
             setErrors([`Error fetching appointment details: ${error}`]);
+            toast.error(`Error fetching appointment details: ${error}`);
             setIsLoading(false);
         }
     };
@@ -69,9 +72,11 @@ function AppointmentDetail() {
                     await fetchAppointmentDetails();
                 } else {
                     setErrors([errors]);
+                    toast.error(errors);
                 }
             } catch (error) {
                 setErrors([`${error}`]);
+                toast.error(`${error}`);
             }
         }
     };

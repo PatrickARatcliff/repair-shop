@@ -9,6 +9,8 @@ import Vehicle from "../../interfaces/Vehicle";
 import VehicleTable from '../../components/_vehicle/VehicleTable';
 import VehicleForm from '../../components/_vehicle/VehicleForm';
 
+import { toast } from 'react-toastify';
+
 import '../../styles/_vehicle/Vehicles.css'
 
 
@@ -62,6 +64,7 @@ function Vehicles() {
             setVehicles(updatedVehicles);
         } catch (error) {
             setErrors([`Error deleting vehicle: ${error}`]);
+            toast.error(`Error deleting vehicle: ${error}`);
         } finally {
             setShowDeleteModal(false);
         }
@@ -75,6 +78,7 @@ function Vehicles() {
                 setIsLoading(false);
             } catch (error) {
                 setErrors([`Error fetching appointments: ${error}`]);
+                toast.error(`Error fetching appointments: ${error}`);
                 setIsLoading(false);
             }
         };

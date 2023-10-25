@@ -11,6 +11,8 @@ import Appointment from "../../interfaces/Appointment";
 import AppointmentTable from '../../components/_appointment/AppointmentTable';
 import AppointmentForm from '../../components/_appointment/AppointmentForm';
 
+import { toast } from 'react-toastify';
+
 import '../../styles/_appointment/Appointments.css';
 
 
@@ -71,6 +73,7 @@ function Appointments() {
             setAppointments(updatedAppointments);
         } catch (error) {
             setErrors([`Error deleting appointment: ${error}`]);
+            toast.error(`Error deleting appointment: ${error}`);
         } finally {
             setShowDeleteModal(false);
         }
@@ -89,6 +92,7 @@ function Appointments() {
                 setIsLoading(false);
             } catch (error) {
                 setErrors([`Error fetching appointments: ${error}`]);
+                toast.error(`Error fetching appointments: ${error}`);
                 setIsLoading(false);
             }
         };

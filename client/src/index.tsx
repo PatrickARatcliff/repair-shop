@@ -14,10 +14,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <AuthProvider>
-  <React.StrictMode>
-    <App />
-    <ToastContainer />
-  </React.StrictMode>
+    <React.StrictMode>
+      <ToastContainer />
+      <App />
+    </React.StrictMode>
   </AuthProvider>
 );
 

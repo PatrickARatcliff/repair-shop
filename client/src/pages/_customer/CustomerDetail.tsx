@@ -9,6 +9,8 @@ import Customer from '../../interfaces/Customer';
 import CustomerForm from '../../components/_customer/CustomerForm';
 import CustomerCard from '../../components/_customer/CustomerCard';
 
+import { toast } from 'react-toastify';
+
 import '../../styles/_customer/CustomerDetail.css'
 
 function VehicleDetail() {
@@ -43,6 +45,7 @@ function VehicleDetail() {
             setIsLoading(false);
         } catch (error) {
             setErrors([`Error fetching customer details: ${error}`]);
+            toast.error(`Error fetching customer details: ${error}`);
             setIsLoading(false);
         }
     };
@@ -63,10 +66,10 @@ function VehicleDetail() {
                 if (!errors) {
                     await fetchCustomerDetails();
                 } else {
-                    console.log(errors);
+                    toast.error(errors)
                 }
             } catch (error) {
-                console.log(error);
+                toast.error(`${error}`);
             }
         }
     };
@@ -77,6 +80,7 @@ function VehicleDetail() {
             navigate("/customer");
         } catch (error) {
             setErrors([`Error deleting customer: ${error}`]);
+            toast.error(`Error deleting customer: ${error}`);
         }
     };
 

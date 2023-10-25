@@ -9,6 +9,8 @@ import Vehicle from '../../interfaces/Vehicle';
 import VehicleForm from '../../components/_vehicle/VehicleForm';
 import VehicleCard from '../../components/_vehicle/VehicleCard';
 
+import { toast } from 'react-toastify';
+
 import '../../styles/_vehicle/VehicleDetail.css'
 
 function VehicleDetail() {
@@ -42,6 +44,7 @@ function VehicleDetail() {
             setIsLoading(false);
         } catch (error) {
             setErrors([`Error fetching vehicle details: ${error}`]);
+            toast.error(`Error fetching vehicle details: ${error}`);
             setIsLoading(false);
         }
     };
@@ -52,17 +55,14 @@ function VehicleDetail() {
 
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
         if (vehicle) {
-
             setIsAccordionOpen(false);
-
             try {
                 const errors = await saveVehicle(vehicle);
                 if (!errors) {
                     await fetchVehicleDetails();
                 } else {
-                    console.log(errors);
+                    toast.error(errors);
                 }
             } catch (error) {
                 console.log(error);
@@ -76,6 +76,7 @@ function VehicleDetail() {
             navigate("/vehicle");
         } catch (error) {
             setErrors([`Error deleting vehicle: ${error}`]);
+            toast.error(`Error deleting vehicle: ${error}`);
         }
     };
 

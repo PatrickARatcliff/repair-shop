@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import User from "../interfaces/User"
+
+import User from "../interfaces/User";
+
+import { toast } from 'react-toastify';
 
 interface SignInModalProps {
     showSignInModal: boolean;
@@ -12,6 +15,7 @@ interface SignInModalProps {
 };
 
 export default function SignInModal(props: SignInModalProps) {
+    const [showPassword, setShowPassword] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -36,8 +40,10 @@ export default function SignInModal(props: SignInModalProps) {
             props.toggleSignInModal();
         } else if (response.status === 403) {
             props.setErrors(["Login failed."]);
+            toast.error("Login failed.");
         } else {
             props.setErrors(["Unknown error."]);
+            toast.error("Unknown error.");
         }
     };
 
@@ -46,13 +52,13 @@ export default function SignInModal(props: SignInModalProps) {
             resetModal();
         }
     }, [props.showSignInModal]);
-    
+
 
     const resetModal = () => {
         setUsername("");
         setPassword("");
         props.setErrors([]);
-      };
+    };
 
     return (
         <>
@@ -71,16 +77,30 @@ export default function SignInModal(props: SignInModalProps) {
                         </Form.Group>
                         <Form.Group controlId="password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
+                            <div className="d-flex">
+                                <Form.Control
+                                    style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+                                    type={showPassword ? 'text' : 'password'}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                                <Button
+                                    style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+                                    variant="outline-secondary"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? (
+                                        <i className="bi bi-eye-slash-fill"></i>
+                                    ) : (
+                                        <i className="bi bi-eye"></i>
+                                    )}
+                                </Button>
+                            </div>
                         </Form.Group>
                     </Form>
                     <br></br>
-                        <p>
-                            Don't have an account? Contact your Administrator.
-                        </p>
+                    <p>
+                        Don't have an account? Contact your Administrator.
+                    </p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={props.toggleSignInModal}>

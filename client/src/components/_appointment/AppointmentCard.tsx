@@ -8,6 +8,8 @@ import { Card, Button } from 'react-bootstrap';
 import Appointment from '../../interfaces/Appointment';
 import DeleteConfirmModal from '../DeleteConfirmModal';
 
+import { toast } from 'react-toastify';
+
 import '../../styles/_appointment/AppointmentCard.css';
 
 interface AppointmentCardProps {
@@ -45,6 +47,7 @@ function AppointmentCard({ appointment, onDeleteClick, height }: AppointmentCard
       }
     } catch (error) {
       setErrors([`Error fetching vehicle or customer details: ${error}`]);
+      toast.error(`Error fetching vehicle or customer details: ${error}`);
       setVehicleInfo('Error');
       setCustomerInfo('Error');
     }

@@ -5,6 +5,8 @@ import Vehicle from '../../interfaces/Vehicle';
 import CustomerVehicleTableItem from './CustomerVehicleTableItem';
 import Table from 'react-bootstrap/Table';
 
+import { toast } from 'react-toastify';
+
 import '../../styles/_vehicle/VehicleTable.css';
 
 interface CustomerVehicleTableProps {
@@ -20,7 +22,7 @@ export default function CustomerVehicleTable({ data, setVehicleInfo }: CustomerV
             const updatedVehicles = data.filter(vehicle => vehicle.vehicleId !== vehicleId);
             setVehicleInfo(updatedVehicles);
         } catch (error) {
-            console.error('Error deleting vehicle:', error);
+            toast.error(`Error deleting vehicle: ${error}`);
         }
     };
 

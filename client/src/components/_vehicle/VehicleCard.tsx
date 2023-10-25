@@ -6,6 +6,8 @@ import { useAuth } from '../../context/AuthProvider';
 import Vehicle from '../../interfaces/Vehicle';
 import DeleteConfirmModal from '../DeleteConfirmModal';
 
+import { toast } from 'react-toastify';
+
 import '../../styles/_vehicle/VehicleCard.css'
 
 interface VehicleCardProps {
@@ -34,6 +36,7 @@ function VehicleCard({ vehicle, onDeleteClick, height }: VehicleCardProps) {
             }
         } catch (error) {
             setErrors([`Error fetching customer details: ${error}`]);
+            toast.error(`Error fetching customer details: ${error}`)
             setCustomerInfo('Error');
         }
     };

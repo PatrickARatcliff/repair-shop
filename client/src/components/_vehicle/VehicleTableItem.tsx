@@ -8,6 +8,8 @@ import Vehicle from '../../interfaces/Vehicle';
 import Button from 'react-bootstrap/Button';
 import DeleteConfirmModal from '../DeleteConfirmModal';
 
+import { toast } from 'react-toastify';
+
 interface VehicleTableItemProps {
     data: Vehicle;
     onDelete: (vehicleId: number) => void;
@@ -41,7 +43,7 @@ interface VehicleTableItemProps {
                 setCustomerInfo('Customer not found');
             }
         } catch (error) {
-            console.error("Error fetching customer details:", error);
+            toast.error(`Error fetching customer details: ${error}`);
             setCustomerInfo('Error');
         }
     }

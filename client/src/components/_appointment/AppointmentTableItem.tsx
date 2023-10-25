@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Appointment from '../../interfaces/Appointment';
 import { formatDateString } from '../../utils/formatDates';
 import Button from 'react-bootstrap/Button';
 import { findVehicleById } from '../../services/vehicleService';
 import { findCustomerById } from '../../services/customerService';
-import DeleteConfirmModal from '../DeleteConfirmModal';
 import { useAuth } from '../../context/AuthProvider';
+
+import Appointment from '../../interfaces/Appointment';
+import DeleteConfirmModal from '../DeleteConfirmModal';
+
+import { toast } from 'react-toastify';
 
 interface AppointmentTableItemProps {
   data: Appointment;
@@ -45,6 +48,7 @@ export default function AppointmentTableItem({ data, onDelete }: AppointmentTabl
       }
     } catch (error) {
       setErrors([`Error fetching vehicle details: ${error}`]);
+      toast.error(`Error fetching vehicle details: ${error}`);
       setVehicleInfo('Error');
     }
   }
@@ -60,6 +64,7 @@ export default function AppointmentTableItem({ data, onDelete }: AppointmentTabl
       }
     } catch (error) {
       setErrors([`Error fetching customer details: ${error}`]);
+      toast.error(`Error fetching customer details: ${error}`)
       setCustomerInfo('Error');
     }
   }

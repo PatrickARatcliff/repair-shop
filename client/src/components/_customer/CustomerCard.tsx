@@ -9,6 +9,8 @@ import Vehicle from '../../interfaces/Vehicle';
 import CustomerVehicleTable from '../_customer/CustomerVehicleTable';
 import DeleteConfirmModal from '../DeleteConfirmModal';
 
+import { toast } from 'react-toastify';
+
 import '../../styles/_customer/CustomerCard.css';
 
 interface CustomerCardProps {
@@ -34,7 +36,7 @@ function CustomerCard({ customer, onDeleteClick, height }: CustomerCardProps) {
                 setVehicleInfo(vehicles);
             }
         } catch (error) {
-            console.error("Error fetching vehicle details:", error);
+            toast.error(`Error fetching vehicle details: ${error}`);
         }
     }
 
@@ -45,7 +47,7 @@ function CustomerCard({ customer, onDeleteClick, height }: CustomerCardProps) {
             await saveCustomer(updatedCustomer);
             setIsImportant(newIsImportant);
         } catch (error) {
-            console.error('Error updating customer:', error);
+            toast.error(`Error updating customer: ${error}`);
         }
     }
 
