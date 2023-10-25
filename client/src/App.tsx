@@ -35,7 +35,7 @@ function App() {
           <Routes>
           <Route path="/" element={user ? <Home /> : <Landing />} />
             <Route path="/appointment/*" element={signedIn ? <Appointments /> : <Landing />} />
-            <Route path="/appointment/:appointmentId" element={signedIn ? <AppointmentDetail /> : <Landing />} />
+            <Route path="/appointment/:appointmentId" element={<AppointmentDetail />} />
             <Route path="/vehicle/*" element={signedIn ? <Vehicles /> : <Landing />} />
             <Route path="/vehicle/:vehicleId" element={signedIn ? <VehicleDetail /> : <Landing />} />
             <Route path="/customer/*" element={signedIn ? <Customers /> : <Landing />} />

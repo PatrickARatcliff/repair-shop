@@ -3,7 +3,6 @@ import { BASE_URL } from './baseUrl';
 export async function findAll(model: string) {
 
     const response = await fetch(`${BASE_URL}/${model}`);
-    console.log(response);
     if (response.ok) {
         return response.json();
     }
