@@ -6,7 +6,8 @@
   }
 
 .fc-toolbar-title {
-    font-size: 18px;
+    font-size: 3em !important;
+    font-family: 'Alumni Sans', sans-serif;
   }
 
   .event-pointer {
@@ -16,7 +17,7 @@
   
   @media (max-width: 505px) {
     .fc-toolbar-title {
-      font-size: 14px;
+      font-size: 2em;
     }
   }
   

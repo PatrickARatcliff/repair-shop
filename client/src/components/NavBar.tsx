@@ -33,12 +33,12 @@ export default function NavBar() {
                     <Container>
                         <LinkContainer to="/">
                             <Navbar.Brand>
-                                <span className="navbar-title">Repair Shop</span><img src={Logo} alt="Repair Shop logo." className="navbar-logo" style={{ height: "30px" }}></img>
+                                <span className="navbar-title">Repair Shop</span><img src={Logo} alt="Repair Shop logo." className="navbar-logo" style={{ height: "40px" }}></img>
                             </Navbar.Brand>
                         </LinkContainer>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
-                            <Nav className="me-auto">
+                            <Nav className="me-auto navbar-links">
                                 {user && (
                                     <>
                                         <LinkContainer to="/">
@@ -61,26 +61,25 @@ export default function NavBar() {
                                     </LinkContainer>
                                 )}
                             </Nav>
-                            <Navbar.Text>
+                            <Navbar.Text className="navbar-text">
                                 {user && signedIn ? (
                                     <>
                                         Signed in as: {user.username}{" "}
                                         <Button
-                                            className="btn btn-danger"
-                                            style={{ height: "30px", fontSize: "10px", marginLeft: "10px" }}
+                                            className="btn btn-danger navbar-button"
                                             onClick={handleSignOutClick}
                                         >
-                                            <i className="bi bi-box-arrow-left"></i> Sign Out
+                                            <i className="bi bi-box-arrow-left"></i> <span className="navbar-button-text"> Sign Out</span>
+                                            
                                         </Button>
                                     </>
                                 ) : (
                                     <>
                                         <Button
-                                            className="btn btn-secondary"
-                                            style={{ height: "30px", fontSize: "10px" }}
+                                            className="btn btn-secondary navbar-button"
                                             onClick={toggleSignInModal}
                                         >
-                                            <i className="bi bi-box-arrow-in-right"></i> Sign In
+                                            <i className="bi bi-box-arrow-in-right"></i>{" "}<span className="navbar-button-text"> Sign In</span>
                                         </Button>
                                     </>
                                 )}

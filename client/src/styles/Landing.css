@@ -10,16 +10,17 @@
     flex-direction: column;
     justify-content: center;
     height: 80vh;
+    font-family: 'Alumni Sans', sans-serif;
   }
   
   
   .landing-card h1 {
-    font-size: 24px;
+    font-size: 4em;
     margin: 0 0 10px;
   }
   
   .landing-card p {
-    font-size: 16px;
+    font-size: 3em;
     color: #555;
   }
   

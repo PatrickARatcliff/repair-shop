@@ -2,4 +2,31 @@
     background-color: rgb(29, 41, 56);
     color: #fff;
     box-shadow: 1px 1px 5px #5b616c;
+    font-family: 'Alumni Sans', sans-serif;
   }
+
+.navbar-title {
+  font-size: 1.5em;
+}
+
+.navbar-links {
+  font-size: 1.4em;
+}
+
+.navbar-text {
+  font-size: 1.4em;
+}
+
+.navbar-button {
+  margin-left: 10px;
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; */
+}
+
+.navbar-button-text {
+  font-size: 1.4em;
+  margin-left: .25em;
+}
+

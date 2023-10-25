@@ -11,7 +11,7 @@
 
 .not-found-container {
     background-color: rgba(255, 255, 255, 0.5);
-    height: 87vh;
+    height: 75vh;
     padding: 20px;
     border-radius: 5px;
     border: 1px solid rgb(255, 255, 255);
@@ -20,6 +20,7 @@
 .text-background {
     background-color: rgba(255, 255, 255, 0.75);
     border-radius: 7px;
+    font-family: 'Alumni Sans', sans-serif;
 }
 
 .text-background h2 {
