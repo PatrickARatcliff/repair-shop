@@ -25,30 +25,34 @@ function AppointmentCard({ user, onDeleteClick, height }: UserCardProps) {
   };
 
   return (
-    <Card className="user-card" style={{ maxHeight: height }}>
-      <Card.Header>
-        <Card.Title className="card-title">User {user && `ID: ${user.userId}`}</Card.Title>
-      </Card.Header>
-      <Card.Body>
-        <Card.Text>
-          <strong>Username:</strong> {user.username}<br />
-          <strong>Enabled:</strong> {(user.enabled).toString()}<br />
-          <strong>Authorization:</strong> {user.authorities[0]}<br />
-          <strong>Account Expired:</strong> {(!user.accountNonExpired).toString()}<br />
-          <strong>Account Locked:</strong> {(!user.accountNonLocked).toString()}<br />
-          <strong>Credentials Expired:</strong> {(!user.credentialsNonExpired).toString()}<br />
-        </Card.Text>
-        <Button className="w-100" variant="danger" onClick={handleDeleteClick}>
-          <i className="bi bi-trash3"></i> Delete
-        </Button>
-      </Card.Body>
-      <DeleteConfirmModal
-        show={showDeleteModal}
-        onHide={() => setShowDeleteModal(false)}
-        onConfirmDelete={handleDeleteConfirmed}
-        message={`Delete user ${user.username}?`}
-      />
-    </Card>
+    <>
+      <section aria-label='Card displaying information for a user'>
+        <Card className="user-card" style={{ maxHeight: height }}>
+          <Card.Header>
+            <Card.Title className="card-title">User {user && `ID: ${user.userId}`}</Card.Title>
+          </Card.Header>
+          <Card.Body>
+            <Card.Text>
+              <strong>Username:</strong> {user.username}<br />
+              <strong>Enabled:</strong> {(user.enabled).toString()}<br />
+              <strong>Authorization:</strong> {user.authorities[0]}<br />
+              <strong>Account Expired:</strong> {(!user.accountNonExpired).toString()}<br />
+              <strong>Account Locked:</strong> {(!user.accountNonLocked).toString()}<br />
+              <strong>Credentials Expired:</strong> {(!user.credentialsNonExpired).toString()}<br />
+            </Card.Text>
+            <Button className="w-100" variant="danger" onClick={handleDeleteClick}>
+              <i className="bi bi-trash3"></i> Delete
+            </Button>
+          </Card.Body>
+          <DeleteConfirmModal
+            show={showDeleteModal}
+            onHide={() => setShowDeleteModal(false)}
+            onConfirmDelete={handleDeleteConfirmed}
+            message={`Delete user ${user.username}?`}
+          />
+        </Card>
+      </section>
+    </>
   );
 }
 

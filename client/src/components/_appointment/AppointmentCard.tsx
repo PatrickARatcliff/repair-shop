@@ -63,32 +63,36 @@ function AppointmentCard({ appointment, onDeleteClick, height }: AppointmentCard
   };
 
   return (
-    <Card className="appointment-card" style={{ maxHeight: height }}>
-      <Card.Header>
-        <Card.Title className="card-title">Appointment {appointment && `ID: ${appointment.appointmentId}`}</Card.Title>
-      </Card.Header>
-      <Card.Body>
-        <Card.Text>
-          <strong>Date:</strong> {formatDateString(appointment.appointmentDate)}<br />
-          <strong>Vehicle:</strong> {vehicleInfo}<br />
-          <strong>Customer:</strong> {customerInfo}<br />
-          {user && (
-            <>
-              <strong>Scheduled By:</strong> {user.username}<br />
-            </>
-          )}
-        </Card.Text>
-        <Button className="w-100" variant="danger" onClick={handleDeleteClick}>
-          <i className="bi bi-trash3"></i> Delete
-        </Button>
-      </Card.Body>
-      <DeleteConfirmModal
-        show={showDeleteModal}
-        onHide={() => setShowDeleteModal(false)}
-        onConfirmDelete={handleDeleteConfirmed}
-        message={`Delete appointment for ${formatDateString(appointment.appointmentDate)}?`}
-      />
-    </Card>
+    <>
+      <section aria-label='Card displaying date, vehicle and customer for appointment'>
+        <Card className="appointment-card" style={{ maxHeight: height }}>
+          <Card.Header>
+            <Card.Title className="card-title">Appointment {appointment && `ID: ${appointment.appointmentId}`}</Card.Title>
+          </Card.Header>
+          <Card.Body>
+            <Card.Text>
+              <strong>Date:</strong> {formatDateString(appointment.appointmentDate)}<br />
+              <strong>Vehicle:</strong> {vehicleInfo}<br />
+              <strong>Customer:</strong> {customerInfo}<br />
+              {user && (
+                <>
+                  <strong>Scheduled By:</strong> {user.username}<br />
+                </>
+              )}
+            </Card.Text>
+            <Button className="w-100" variant="danger" onClick={handleDeleteClick}>
+              <i className="bi bi-trash3"></i> Delete
+            </Button>
+          </Card.Body>
+          <DeleteConfirmModal
+            show={showDeleteModal}
+            onHide={() => setShowDeleteModal(false)}
+            onConfirmDelete={handleDeleteConfirmed}
+            message={`Delete appointment for ${formatDateString(appointment.appointmentDate)}?`}
+          />
+        </Card>
+      </section>
+    </>
   );
 }
 

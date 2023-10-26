@@ -9,29 +9,33 @@ interface AppointmentTableProps {
     users: UserData[];
     height: string;
     onDelete: (userId: number) => void;
-  }
+}
 
 export default function UserTable({ users, height, onDelete }: AppointmentTableProps) {
     return (
-        <div className="table-container" style={{ height: height }}>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Authorization</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map((user) => (
-                        <UserTableItem 
-                        key={user.userId} 
-                        data={user}
-                        onDelete={onDelete}
-                        />
-                    ))}
-                </tbody>
-            </Table>
-        </div>
+        <>
+            <section aria-label='Table displaying information for each user'>
+                <div className="table-container" style={{ height: height }}>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Authorization</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {users.map((user) => (
+                                <UserTableItem
+                                    key={user.userId}
+                                    data={user}
+                                    onDelete={onDelete}
+                                />
+                            ))}
+                        </tbody>
+                    </Table>
+                </div>
+            </section>
+        </>
     )
 }

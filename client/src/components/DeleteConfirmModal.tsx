@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
 interface DeleteConfirmModalProps {
@@ -15,22 +15,26 @@ const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
   message,
 }) => {
   return (
-    <Modal show={show} onHide={onHide} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>Confirm Delete</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <p>{message}</p>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
-          Cancel
-        </Button>
-        <Button variant="danger" onClick={onConfirmDelete}>
-          Delete
-        </Button>
-      </Modal.Footer>
-    </Modal>
+    <>
+      <section aria-label="delete confirmation modal">
+        <Modal show={show} onHide={onHide} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirm Delete</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{message}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={onHide}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={onConfirmDelete}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </section>
+    </>
   );
 };
 

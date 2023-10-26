@@ -81,48 +81,52 @@ function VehicleDetail() {
     };
 
     return (
-        <div className="container mt-3 vehicle-detail-container">
-            <Accordion activeKey={isAccordionOpen ? '0' : ''}>
-                <Button
-                    variant="warning"
-                    className="w-100"
-                    onClick={handleEditVehicleClick}
-                    style={{ borderBottomRightRadius: 0, borderBottomLeftRadius: 0 }}
-                >
-                    <i className="bi bi-pencil-square"></i> Edit Vehicle
-                </Button>
-                <Accordion.Collapse eventKey="0">
-                    <div className="accordion">
-                        {vehicle && (
-                            <VehicleForm
-                                newVehicle={vehicle}
-                                handleFormSubmit={handleFormSubmit}
-                                setNewVehicle={setVehicle}
-                                errors={errors}
-                                setErrors={setErrors}
-                            />
-                        )}
-                    </div>
-                </Accordion.Collapse>
-            </Accordion>
-            {isLoading ? (
-                <div className="container mt-3 spinner-container">
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
-                </div>
-            ) : (
-                <div>
-                    {vehicle && (
-                        <VehicleCard
-                            vehicle={vehicle}
-                            onDeleteClick={handleDeleteVehicle}
-                            height={containerHeight}
-                        />
+        <>
+            <section aria-label='vehicle detail page'>
+                <div className="container mt-3 vehicle-detail-container">
+                    <Accordion activeKey={isAccordionOpen ? '0' : ''}>
+                        <Button
+                            variant="warning"
+                            className="w-100"
+                            onClick={handleEditVehicleClick}
+                            style={{ borderBottomRightRadius: 0, borderBottomLeftRadius: 0 }}
+                        >
+                            <i className="bi bi-pencil-square"></i> Edit Vehicle
+                        </Button>
+                        <Accordion.Collapse eventKey="0">
+                            <div className="accordion">
+                                {vehicle && (
+                                    <VehicleForm
+                                        newVehicle={vehicle}
+                                        handleFormSubmit={handleFormSubmit}
+                                        setNewVehicle={setVehicle}
+                                        errors={errors}
+                                        setErrors={setErrors}
+                                    />
+                                )}
+                            </div>
+                        </Accordion.Collapse>
+                    </Accordion>
+                    {isLoading ? (
+                        <div className="container mt-3 spinner-container">
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </div>
+                    ) : (
+                        <div>
+                            {vehicle && (
+                                <VehicleCard
+                                    vehicle={vehicle}
+                                    onDeleteClick={handleDeleteVehicle}
+                                    height={containerHeight}
+                                />
+                            )}
+                        </div>
                     )}
                 </div>
-            )}
-        </div>
+            </section>
+        </>
     );
 }
 

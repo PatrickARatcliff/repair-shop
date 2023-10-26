@@ -130,18 +130,22 @@ const FullCalendar: React.FC = () => {
   }
 
   return (
-    <div className="calendar-container rounded" >
-      {isLoading ? (
-        <div className="spinner-container">
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
+    <>
+      <section aria-label='Calendar displaying all appointments'>
+        <div className="calendar-container rounded" >
+          {isLoading ? (
+            <div className="spinner-container">
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <div ref={calendarEl} className="calendar-content">
+            </div>
+          )}
         </div>
-      ) : (
-        <div ref={calendarEl} className="calendar-content">
-        </div>
-      )}
-    </div>
+      </section>
+    </>
   );
 };
 

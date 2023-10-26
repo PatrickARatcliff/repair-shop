@@ -13,26 +13,30 @@ interface CustomerTableProps {
 
 export default function CustomerTable({ customers, height, onDelete }: CustomerTableProps) {
     return (
-        <div className="table-container" style={{ height: height }}>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>E-mail</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {customers.map((customer) => (
-                        <CustomerTableItem 
-                        key={customer.customerId} 
-                        data={customer}
-                        onDelete={onDelete}
-                         />
-                    ))}
-                </tbody>
-            </Table>
-        </div>
+        <>
+            <section aria-label='Card displaying name, phone and email for customer'>
+                <div className="table-container" style={{ height: height }}>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>E-mail</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {customers.map((customer) => (
+                                <CustomerTableItem
+                                    key={customer.customerId}
+                                    data={customer}
+                                    onDelete={onDelete}
+                                />
+                            ))}
+                        </tbody>
+                    </Table>
+                </div>
+            </section>
+        </>
     )
 }

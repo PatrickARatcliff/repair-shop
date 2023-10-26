@@ -40,7 +40,7 @@ function CustomerCard({ customer, onDeleteClick, height }: CustomerCardProps) {
         }
     }
 
-    const handleUpdateCustomer = async (newIsImportant: boolean) => {
+    const handleUpdateCustomer: any = async (newIsImportant: boolean) => {
         const updatedCustomer = { ...customer, important: newIsImportant };
 
         try {
@@ -69,43 +69,47 @@ function CustomerCard({ customer, onDeleteClick, height }: CustomerCardProps) {
     };
 
     return (
-        <Card className="appointment-card" style={{ maxHeight: height }}>
-            <Card.Header>
-                <div className="d-flex justify-content-between">
-                    <Card.Title className="mb-0 card-title">
-                        Customer {customer && `ID: ${customer.customerId}`}
-                    </Card.Title>
-                    <span className="star-checkbox" onClick={handleStarClick} ref={starRef}>
-                        {isImportant ? (
-                            <i className="bi bi-star-fill text-warning star-icon"></i>
-                        ) : (
-                            <i className="bi bi-star star-icon"></i>
-                        )}
-                    </span>
-                </div>
-            </Card.Header>
-            <Card.Body>
-                <Card.Text>
-                    <strong>First:</strong> {customer.customerFirstName}<br />
-                    <strong>Last:</strong> {customer.customerLastName}<br />
-                    <strong>Phone:</strong> {customer.customerPhone}<br />
-                    <strong>Email:</strong> {customer.customerEmail}<br />
-                </Card.Text>
-                <CustomerVehicleTable 
-                data={vehicleInfo} 
-                setVehicleInfo={setVehicleInfo}
-                />
-                <Button className="w-100" variant="danger" onClick={handleDeleteClick}>
-                    <i className="bi bi-trash3"></i> Delete
-                </Button>
-            </Card.Body>
-            <DeleteConfirmModal
-                show={showDeleteModal}
-                onHide={() => setShowDeleteModal(false)}
-                onConfirmDelete={handleDeleteConfirmed}
-                message={`Delete appointment for ${customer.customerLastName}, ${customer.customerFirstName}? This will delete all associated vehicles and appointments!`}
-            />
-        </Card>
+        <>
+            <section aria-label='Card displaying first-name, last-name, phone, email and vehicles for customer'>
+                <Card className="customer-card" style={{ maxHeight: height }}>
+                    <Card.Header>
+                        <div className="d-flex justify-content-between">
+                            <Card.Title className="mb-0 card-title">
+                                Customer {customer && `ID: ${customer.customerId}`}
+                            </Card.Title>
+                            <span className="star-checkbox" onClick={handleStarClick} ref={starRef}>
+                                {isImportant ? (
+                                    <i className="bi bi-star-fill text-warning star-icon"></i>
+                                ) : (
+                                    <i className="bi bi-star star-icon"></i>
+                                )}
+                            </span>
+                        </div>
+                    </Card.Header>
+                    <Card.Body>
+                        <Card.Text>
+                            <strong>First:</strong> {customer.customerFirstName}<br />
+                            <strong>Last:</strong> {customer.customerLastName}<br />
+                            <strong>Phone:</strong> {customer.customerPhone}<br />
+                            <strong>Email:</strong> {customer.customerEmail}<br />
+                        </Card.Text>
+                        <CustomerVehicleTable
+                            data={vehicleInfo}
+                            setVehicleInfo={setVehicleInfo}
+                        />
+                        <Button className="w-100" variant="danger" onClick={handleDeleteClick}>
+                            <i className="bi bi-trash3"></i> Delete
+                        </Button>
+                    </Card.Body>
+                    <DeleteConfirmModal
+                        show={showDeleteModal}
+                        onHide={() => setShowDeleteModal(false)}
+                        onConfirmDelete={handleDeleteConfirmed}
+                        message={`Delete appointment for ${customer.customerLastName}, ${customer.customerFirstName}? This will delete all associated vehicles and appointments!`}
+                    />
+                </Card>
+            </section>
+        </>
     );
 }
 

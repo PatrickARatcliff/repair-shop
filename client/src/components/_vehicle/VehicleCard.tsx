@@ -51,28 +51,32 @@ function VehicleCard({ vehicle, onDeleteClick, height }: VehicleCardProps) {
     };
 
     return (
-        <Card className="appointment-card" style={{ maxHeight: height }}>
-            <Card.Header>
-                <Card.Title className="card-title">Vehicle {vehicle && `ID: ${vehicle.vehicleId}`}</Card.Title>
-            </Card.Header>
-            <Card.Body>
-                <Card.Text>
-                    <strong>Make:</strong> {vehicle.vehicleMake}<br />
-                    <strong>Model:</strong> {vehicle.vehicleModel}<br />
-                    <strong>Year:</strong> {vehicle.vehicleYear}<br />
-                    <strong>Customer:</strong> {customerInfo}<br />
-                </Card.Text>
-                <Button className="w-100" variant="danger" onClick={handleDeleteClick}>
-                    <i className="bi bi-trash3"></i> Delete
-                </Button>
-            </Card.Body>
-            <DeleteConfirmModal
-                show={showDeleteModal}
-                onHide={() => setShowDeleteModal(false)}
-                onConfirmDelete={handleDeleteConfirmed}
-                message={`Delete vehicle ${vehicle.vehicleMake} ${vehicle.vehicleModel} (${vehicle.vehicleYear})? This will delete all associated appointments!`}
-            />
-        </Card>
+        <>
+            <section aria-label='Card displaying information for a vehicle'>
+                <Card className="vehicle-card" style={{ maxHeight: height }}>
+                    <Card.Header>
+                        <Card.Title className="card-title">Vehicle {vehicle && `ID: ${vehicle.vehicleId}`}</Card.Title>
+                    </Card.Header>
+                    <Card.Body>
+                        <Card.Text>
+                            <strong>Make:</strong> {vehicle.vehicleMake}<br />
+                            <strong>Model:</strong> {vehicle.vehicleModel}<br />
+                            <strong>Year:</strong> {vehicle.vehicleYear}<br />
+                            <strong>Customer:</strong> {customerInfo}<br />
+                        </Card.Text>
+                        <Button className="w-100" variant="danger" onClick={handleDeleteClick}>
+                            <i className="bi bi-trash3"></i> Delete
+                        </Button>
+                    </Card.Body>
+                    <DeleteConfirmModal
+                        show={showDeleteModal}
+                        onHide={() => setShowDeleteModal(false)}
+                        onConfirmDelete={handleDeleteConfirmed}
+                        message={`Delete vehicle ${vehicle.vehicleMake} ${vehicle.vehicleModel} (${vehicle.vehicleYear})? This will delete all associated appointments!`}
+                    />
+                </Card>
+            </section>
+        </>
     );
 }
 

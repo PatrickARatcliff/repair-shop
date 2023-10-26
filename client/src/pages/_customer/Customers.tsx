@@ -65,7 +65,7 @@ function Customers() {
                 toast.error(`An error occurred: ${error}`);
             }
         };
-        
+
         saveCustomerAsync(newCustomer);
     };
 
@@ -100,44 +100,48 @@ function Customers() {
 
 
     return (
-        <div className="container mt-3 customers-container">
-            <Accordion activeKey={isAccordionOpen ? '0' : ''}>
-                <Button
-                    variant="success"
-                    className="w-100"
-                    onClick={handleAddCustomerClick}
-                    style={{ borderBottomRightRadius: 0, borderBottomLeftRadius: 0 }}
-                >
-                    <i className="bi bi-person-add"></i> Add New Customer
-                </Button>
-                <Accordion.Collapse eventKey="0">
-                    <div className="accordion">
-                        <CustomerForm
-                            newCustomer={newCustomer}
-                            handleFormSubmit={handleFormSubmit}
-                            setNewCustomer={setNewCustomer}
-                            errors={errors}
-                            setErrors={setErrors}
-                        />
-                    </div>
-                </Accordion.Collapse>
-            </Accordion>
-            {isLoading ? (
-                <div className="container mt-3 spinner-container">
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
+        <>
+            <section aria-label='page for managing customers'>
+                <div className="container mt-3 customers-container">
+                    <Accordion activeKey={isAccordionOpen ? '0' : ''}>
+                        <Button
+                            variant="success"
+                            className="w-100"
+                            onClick={handleAddCustomerClick}
+                            style={{ borderBottomRightRadius: 0, borderBottomLeftRadius: 0 }}
+                        >
+                            <i className="bi bi-person-add"></i> Add New Customer
+                        </Button>
+                        <Accordion.Collapse eventKey="0">
+                            <div className="accordion">
+                                <CustomerForm
+                                    newCustomer={newCustomer}
+                                    handleFormSubmit={handleFormSubmit}
+                                    setNewCustomer={setNewCustomer}
+                                    errors={errors}
+                                    setErrors={setErrors}
+                                />
+                            </div>
+                        </Accordion.Collapse>
+                    </Accordion>
+                    {isLoading ? (
+                        <div className="container mt-3 spinner-container">
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </div>
+                    ) : (
+                        <div>
+                            <CustomerTable
+                                customers={customers}
+                                height={containerHeight}
+                                onDelete={handleDelete}
+                            />
+                        </div>
+                    )}
                 </div>
-            ) : (
-                <div>
-                    <CustomerTable
-                        customers={customers}
-                        height={containerHeight}
-                        onDelete={handleDelete}
-                    />
-                </div>
-            )}
-        </div>
+            </section>
+        </>
     );
 }
 

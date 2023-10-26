@@ -64,60 +64,62 @@ export default function SignInModal(props: SignInModalProps) {
 
     return (
         <>
-            <Modal show={props.showSignInModal} onHide={props.toggleSignInModal} className="custom-modal">
-                <Form onSubmit={handleSignIn}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Sign In</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    
-                        <Form.Group controlId="username">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control
-                                type="text"
-                                onChange={(e) => setUsername(e.target.value)}
-                                required
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="password">
-                            <Form.Label>Password</Form.Label>
-                            <div className="d-flex">
+            <section aria-label='Modal for signing-in'>
+                <Modal show={props.showSignInModal} onHide={props.toggleSignInModal} className="custom-modal">
+                    <Form onSubmit={handleSignIn}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Sign In</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+
+                            <Form.Group controlId="username">
+                                <Form.Label>Username</Form.Label>
                                 <Form.Control
-                                    style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
-                                    type={showPassword ? 'text' : 'password'}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    type="text"
+                                    onChange={(e) => setUsername(e.target.value)}
                                     required
                                 />
-                                <Button
-                                    style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-                                    variant="outline-secondary"
-                                    onClick={() => setShowPassword
-                                        (!showPassword)}
-                                >
-                                    {showPassword ? (
-                                        <i className="bi bi-eye-slash-fill"></i>
-                                    ) : (
-                                        <i className="bi bi-eye"></i>
-                                    )}
-                                </Button>
-                            </div>
-                        </Form.Group>
-                    
-                    <br></br>
-                    <p>
-                        Don't have an account? Contact your <a href="mailto:fitti@puppy.com">Administrator</a>.
-                    </p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={props.toggleSignInModal}>
-                        Close
-                    </Button>
-                    <Button variant="primary" type="submit">
-                        Sign In
-                    </Button>
-                </Modal.Footer>
-                </Form>
-            </Modal>
+                            </Form.Group>
+                            <Form.Group controlId="password">
+                                <Form.Label>Password</Form.Label>
+                                <div className="d-flex">
+                                    <Form.Control
+                                        style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+                                        type={showPassword ? 'text' : 'password'}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+                                    <Button
+                                        style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+                                        variant="outline-secondary"
+                                        onClick={() => setShowPassword
+                                            (!showPassword)}
+                                    >
+                                        {showPassword ? (
+                                            <i className="bi bi-eye-slash-fill"></i>
+                                        ) : (
+                                            <i className="bi bi-eye"></i>
+                                        )}
+                                    </Button>
+                                </div>
+                            </Form.Group>
+
+                            <br></br>
+                            <p>
+                                Don't have an account? Contact your <a href="mailto:fitti@puppy.com">Administrator</a>.
+                            </p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={props.toggleSignInModal}>
+                                Close
+                            </Button>
+                            <Button variant="primary" type="submit">
+                                Sign In
+                            </Button>
+                        </Modal.Footer>
+                    </Form>
+                </Modal>
+            </section>
         </>
     );
 }

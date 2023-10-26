@@ -110,44 +110,48 @@ function Appointments() {
 
 
     return (
-        <div className="container mt-3 appointment-container">
-            <Accordion activeKey={isAccordionOpen ? '0' : ''}>
-                <Button
-                    variant="success"
-                    className="w-100"
-                    onClick={handleScheduleAppointmentClick}
-                    style={{ borderBottomRightRadius: 0, borderBottomLeftRadius: 0 }}
-                >
-                    <i className="bi bi-calendar-plus"></i> Schedule Appointment
-                </Button>
-                <Accordion.Collapse eventKey="0">
-                    <div className="accordion">
-                        <AppointmentForm
-                            newAppointment={newAppointment}
-                            handleFormSubmit={handleFormSubmit}
-                            setNewAppointment={setNewAppointment}
-                            errors={errors}
-                            setErrors={setErrors}
-                        />
-                    </div>
-                </Accordion.Collapse>
-            </Accordion>
-            {isLoading ? (
-                <div className="container mt-3 spinner-container">
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
+        <>
+            <section aria-label='page for managing appointments'>
+                <div className="container mt-3 appointment-container">
+                    <Accordion activeKey={isAccordionOpen ? '0' : ''}>
+                        <Button
+                            variant="success"
+                            className="w-100"
+                            onClick={handleScheduleAppointmentClick}
+                            style={{ borderBottomRightRadius: 0, borderBottomLeftRadius: 0 }}
+                        >
+                            <i className="bi bi-calendar-plus"></i> Schedule Appointment
+                        </Button>
+                        <Accordion.Collapse eventKey="0">
+                            <div className="accordion">
+                                <AppointmentForm
+                                    newAppointment={newAppointment}
+                                    handleFormSubmit={handleFormSubmit}
+                                    setNewAppointment={setNewAppointment}
+                                    errors={errors}
+                                    setErrors={setErrors}
+                                />
+                            </div>
+                        </Accordion.Collapse>
+                    </Accordion>
+                    {isLoading ? (
+                        <div className="container mt-3 spinner-container">
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </div>
+                    ) : (
+                        <div>
+                            <AppointmentTable
+                                appointments={appointments}
+                                height={containerHeight}
+                                onDelete={handleDelete}
+                            />
+                        </div>
+                    )}
                 </div>
-            ) : (
-                <div>
-                    <AppointmentTable
-                        appointments={appointments}
-                        height={containerHeight}
-                        onDelete={handleDelete}
-                    />
-                </div>
-            )}
-        </div>
+            </section>
+        </>
     );
 }
 

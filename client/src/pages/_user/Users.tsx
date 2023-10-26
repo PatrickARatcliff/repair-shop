@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Spinner, Button, Accordion } from 'react-bootstrap';
 
-import { createUser, findAllUsers, findByUsername } from '../../services/userService';
+import { createUser, findAllUsers } from '../../services/userService';
 import { useAuth } from "../../context/AuthProvider";
 import { deleteUserById } from '../../services/userService';
 
@@ -21,7 +21,6 @@ function Users() {
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const userId = userData ? userData.userId : 0;
     const [newUser, setNewUser] = useState<Credentials>({
         username: "",
         password: "",
@@ -90,42 +89,46 @@ function Users() {
 
 
     return (
-        <div className="container mt-3 user-container">
-            <Accordion activeKey={isAccordionOpen ? '0' : ''}>
-                <Button
-                    variant="success"
-                    className="w-100"
-                    onClick={handleAddUserClick}
-                    style={{ borderBottomRightRadius: 0, borderBottomLeftRadius: 0 }}
-                >
-                    <i className="bi bi-person-vcard"></i> Add New User
-                </Button>
-                <Accordion.Collapse eventKey="0">
-                    <div className="accordion">
-                        <UserForm
-                            newUser={newUser}
-                            handleFormSubmit={handleFormSubmit}
-                            setNewUser={setNewUser}
-                        />
-                    </div>
-                </Accordion.Collapse>
-            </Accordion>
-            {isLoading ? (
-                <div className="container mt-3 spinner-container">
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
+        <>
+            <section aria-label='user page'>
+                <div className="container mt-3 user-container">
+                    <Accordion activeKey={isAccordionOpen ? '0' : ''}>
+                        <Button
+                            variant="success"
+                            className="w-100"
+                            onClick={handleAddUserClick}
+                            style={{ borderBottomRightRadius: 0, borderBottomLeftRadius: 0 }}
+                        >
+                            <i className="bi bi-person-vcard"></i> Add New User
+                        </Button>
+                        <Accordion.Collapse eventKey="0">
+                            <div className="accordion">
+                                <UserForm
+                                    newUser={newUser}
+                                    handleFormSubmit={handleFormSubmit}
+                                    setNewUser={setNewUser}
+                                />
+                            </div>
+                        </Accordion.Collapse>
+                    </Accordion>
+                    {isLoading ? (
+                        <div className="container mt-3 spinner-container">
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </div>
+                    ) : (
+                        <div>
+                            <UserTable
+                                users={users}
+                                height={containerHeight}
+                                onDelete={handleDelete}
+                            />
+                        </div>
+                    )}
                 </div>
-            ) : (
-                <div>
-                    <UserTable
-                        users={users}
-                        height={containerHeight}
-                        onDelete={handleDelete}
-                    />
-                </div>
-            )}
-        </div>
+            </section>
+        </>
     );
 }
 

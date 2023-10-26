@@ -60,7 +60,7 @@ function UserDetail() {
 
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-    
+
         if (user) {
             try {
                 const errors = await updateUser(user);
@@ -77,7 +77,7 @@ function UserDetail() {
             }
         }
     };
-    
+
     const handleDeleteUser = async (userId: number) => {
         try {
             await deleteUserById(userId);
@@ -89,46 +89,50 @@ function UserDetail() {
     };
 
     return (
-        <div className="container mt-3">
-            <Accordion activeKey={isAccordionOpen ? '0' : ''}>
-                <Button
-                    variant="warning"
-                    className="w-100"
-                    onClick={handleEditUserClick}
-                    style={{ borderBottomRightRadius: 0, borderBottomLeftRadius: 0 }}
-                >
-                    <i className="bi bi-pencil-square"></i> Edit User
-                </Button>
-                <Accordion.Collapse eventKey="0">
-                    <div className="accordion">
-                        {user && (
-                            <UserDataForm
-                                newUser={user}
-                                handleFormSubmit={handleFormSubmit}
-                                setNewUser={setUser}
-                            />
-                        )}
-                    </div>
-                </Accordion.Collapse>
-            </Accordion>
-            {isLoading ? (
-                <div className="container mt-3 spinner-container">
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
-                </div>
-            ) : (
-                <div>
-                    {user && (
-                        <UserCard 
-                            user={user}
-                            onDeleteClick={handleDeleteUser}
-                            height={containerHeight}
-                        />
+        <>
+            <section aria-label='user detail page'>
+                <div className="container mt-3 user-detail-container">
+                    <Accordion activeKey={isAccordionOpen ? '0' : ''}>
+                        <Button
+                            variant="warning"
+                            className="w-100"
+                            onClick={handleEditUserClick}
+                            style={{ borderBottomRightRadius: 0, borderBottomLeftRadius: 0 }}
+                        >
+                            <i className="bi bi-pencil-square"></i> Edit User
+                        </Button>
+                        <Accordion.Collapse eventKey="0">
+                            <div className="accordion">
+                                {user && (
+                                    <UserDataForm
+                                        newUser={user}
+                                        handleFormSubmit={handleFormSubmit}
+                                        setNewUser={setUser}
+                                    />
+                                )}
+                            </div>
+                        </Accordion.Collapse>
+                    </Accordion>
+                    {isLoading ? (
+                        <div className="container mt-3 spinner-container">
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </div>
+                    ) : (
+                        <div>
+                            {user && (
+                                <UserCard
+                                    user={user}
+                                    onDeleteClick={handleDeleteUser}
+                                    height={containerHeight}
+                                />
+                            )}
+                        </div>
                     )}
                 </div>
-            )}
-        </div>
+            </section>
+        </>
     );
 }
 

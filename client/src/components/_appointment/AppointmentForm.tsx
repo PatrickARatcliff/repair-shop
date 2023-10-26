@@ -54,47 +54,51 @@ function AppointmentForm({ newAppointment, handleFormSubmit, setNewAppointment, 
     };
 
     return (
-        <div className="card mb-2 custom-card">
-            <div className="card-body">
-                <Form onSubmit={handleFormSubmit}>
-                    <Form.Group controlId="formDate" className="mb-2">
-                        <Form.Label>Appointment Date</Form.Label>
-                        <Form.Control
-                            type="date"
-                            value={newAppointment.appointmentDate}
-                            onChange={(e) =>
-                                setNewAppointment({
-                                    ...newAppointment,
-                                    appointmentDate: e.target.value,
-                                })
-                            }
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="formVehicle" className="mb-2">
-                        <Form.Label>Vehicle</Form.Label>
-                        <Form.Select
-                            value={newAppointment.vehicleId}
-                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                                setNewAppointment({
-                                    ...newAppointment,
-                                    vehicleId: parseInt(e.target.value, 10),
-                                })
-                            }
-                        >
-                            <option value={0}>Select a vehicle</option>
-                            {vehicles.map((vehicle) => (
-                                <option key={vehicle.vehicleId} value={vehicle.vehicleId}>
-                                    {`${vehicle.vehicleYear} ${vehicle.vehicleMake} ${vehicle.vehicleModel} | ${getCustomerName(vehicle.customerId)}`}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </Form.Group>
-                    <Button type="submit" variant="primary" className="mt-2 w-100">
-                        <i className="bi bi-box-arrow-up"></i> Submit
-                    </Button>
-                </Form>
-            </div>
-        </div>
+        <>
+            <section aria-label='Form for appointment date and select for vehicle'>
+                <div className="card mb-2 custom-card">
+                    <div className="card-body">
+                        <Form onSubmit={handleFormSubmit}>
+                            <Form.Group controlId="formDate" className="mb-2">
+                                <Form.Label>Appointment Date</Form.Label>
+                                <Form.Control
+                                    type="date"
+                                    value={newAppointment.appointmentDate}
+                                    onChange={(e) =>
+                                        setNewAppointment({
+                                            ...newAppointment,
+                                            appointmentDate: e.target.value,
+                                        })
+                                    }
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="formVehicle" className="mb-2">
+                                <Form.Label>Vehicle</Form.Label>
+                                <Form.Select
+                                    value={newAppointment.vehicleId}
+                                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                                        setNewAppointment({
+                                            ...newAppointment,
+                                            vehicleId: parseInt(e.target.value, 10),
+                                        })
+                                    }
+                                >
+                                    <option value={0}>Select a vehicle</option>
+                                    {vehicles.map((vehicle) => (
+                                        <option key={vehicle.vehicleId} value={vehicle.vehicleId}>
+                                            {`${vehicle.vehicleYear} ${vehicle.vehicleMake} ${vehicle.vehicleModel} | ${getCustomerName(vehicle.customerId)}`}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                            <Button type="submit" variant="primary" className="mt-2 w-100">
+                                <i className="bi bi-box-arrow-up"></i> Submit
+                            </Button>
+                        </Form>
+                    </div>
+                </div>
+            </section>
+        </>
     );
 
     function getCustomerName(customerId: number) {
