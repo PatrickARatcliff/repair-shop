@@ -207,9 +207,9 @@ The UI will be constructed with React and employ `TypeScript` and employ `FullCa
 
 ### API Checklist
 
-#### [ ] SQL Schema (8 Hours Total)
+#### [x] SQL Schema (8 Hours Total)
 
-##### [ ] Create Production Schema (4.0 hours)
+##### [x] Create Production Schema (4.0 hours)
 
 - `Appointment`
     +       one-to-one `Vehicle`
@@ -228,13 +228,13 @@ The UI will be constructed with React and employ `TypeScript` and employ `FullCa
 * Create data for `insert`
 * Craft CRUD queries for all tables (for Data Mappers)
 
-##### [ ] Create Test Schema (2.0 Hours)
+##### [x] Create Test Schema (2.0 Hours)
 
 - Duplicate Production Schema
 
 - Create `KnownGoodState` procedure
 
-#### [ ]  Create Models (2.0 Hours Total)
+#### [x]  Create Models (2.0 Hours Total)
 
 ```java
 public class Appointment{
@@ -275,92 +275,92 @@ public class User implements UserDetails {
 }
 ```
 
-#### [ ] Data Layer (12.0 Hours Total)
+#### [x] Data Layer (12.0 Hours Total)
 
-    [ ] `AppointmentJdbcTemplateRepository` and `AppointmentMapper` (2.0 Hours)
-    [ ] `VehicleJdbcTemplateRepository` and `VehicleMapper` (2.0 Hours)
-    [ ] `CustomerJdbcTemplateRepository` and `CustomerMapper` (2.0 Hours)
-    [ ] `UserdbcTemplateRepository` and `UserMapper` (2.0 Hours)
-    [ ] Create tests for above repositories; Create `KnownGoodState` class (4.0 Hours)
+    [x] `AppointmentJdbcTemplateRepository` and `AppointmentMapper` (2.0 Hours)
+    [x] `VehicleJdbcTemplateRepository` and `VehicleMapper` (2.0 Hours)
+    [x] `CustomerJdbcTemplateRepository` and `CustomerMapper` (2.0 Hours)
+    [x] `UserdbcTemplateRepository` and `UserMapper` (2.0 Hours)
+    [x] Create tests for above repositories; Create `KnownGoodState` class (4.0 Hours)
 
-#### [ ] Domain Layer (8.0 Hours Total)
+#### [x] Domain Layer (8.0 Hours Total)
 
-    [ ] Create `Result` class; Create `Validation` class (2.0 Hours)
-    [ ] Create `AppointmentService` (1.0 Hours)
-    [ ] Create `VehicleService` (1.0 Hours)
-    [ ] Create `CustomerService` (1.0 Hours)
-    [ ] Create `UserService` in `security` (1.0 Hours)
-    [ ] Create tests for above services; (2.0 Hours)
+    [x] Create `Result` class; Create `Validation` class (2.0 Hours)
+    [x] Create `AppointmentService` (1.0 Hours)
+    [x] Create `VehicleService` (1.0 Hours)
+    [x] Create `CustomerService` (1.0 Hours)
+    [x] Create `UserService` in `security` (1.0 Hours)
+    [x] Create tests for above services; (2.0 Hours)
 
-#### [ ] API Controllers (5.0 Hours Total)
+#### [x] API Controllers (5.0 Hours Total)
 
-    [ ] Create `GlobalErrHandler` class (1.0 Hours)
-    [ ] Create `AppointmentController` (1.0 Hours)
-    [ ] Create `VehicleController` (1.0 Hours)
-    [ ] Create `CustomerController` (1.0 Hours)
-    [ ] Create `UserController` (1.0 Hours)
+    [x] Create `GlobalErrHandler` class (1.0 Hours)
+    [x] Create `AppointmentController` (1.0 Hours)
+    [x] Create `VehicleController` (1.0 Hours)
+    [x] Create `CustomerController` (1.0 Hours)
+    [x] Create `UserController` (1.0 Hours)
 
-#### [ ] API Security (3.0 Hours Total)
+#### [x] API Security (3.0 Hours Total)
 
-    [ ] Create `SecurityConfig` class (1.0 Hours)
-    [ ] Create `JwtConverter` class (1.0 Hours)
-    [ ] Create `JwtRequestFilter` class (1.0 Hours)
+    [x] Create `SecurityConfig` class (1.0 Hours)
+    [x] Create `JwtConverter` class (1.0 Hours)
+    [x] Create `JwtRequestFilter` class (1.0 Hours)
 
-#### [ ] HTTP Requests (2.0 Hours Total)
+#### [x] HTTP Requests (2.0 Hours Total)
 
-    [ ] Create `appointment.http` (0.5 Hours)
-    [ ] Create `vehicle.http` (0.5 Hours)
-    [ ] Create `customer.http` (0.5 Hours)
-    [ ] Create `user.http` (0.5 Hours)
+    [x] Create `appointment.http` (0.5 Hours)
+    [x] Create `vehicle.http` (0.5 Hours)
+    [x] Create `customer.http` (0.5 Hours)
+    [x] Create `user.http` (0.5 Hours)
 
 ### UI Checklist 
 
-#### [ ] UI Services (4.0 Hours Total)
+#### [x] UI Services (4.0 Hours Total)
 
-    [ ] Create `baseUrl` class (0.0 Hours)
-    [ ] Create `appointmentService` (1.0 Hours)
-    [ ] Create `vehicleService` (1.0 Hours)
-    [ ] Create `customerService` (1.0 Hours)
-    [ ] Create `userService` (1.0 Hours)
+    [x] Create `baseUrl` class (0.0 Hours)
+    [x] Create `appointmentService` (1.0 Hours)
+    [x] Create `vehicleService` (1.0 Hours)
+    [x] Create `customerService` (1.0 Hours)
+    [x] Create `userService` (1.0 Hours)
 
-#### [ ] Styles (1.0 Hours Total)
+#### [x] Styles (1.0 Hours Total)
 
-    [ ] `<link> bootstrap cdn`
-    [ ] `import react-bootstrap`
-    [ ] Create style sheets for all pages (and components if required)
+    [x] `<link> bootstrap cdn`
+    [x] `import react-bootstrap`
+    [x] Create style sheets for all pages (and components if required)
 
-#### [ ] Pages (12.0 Hours Total)
+#### [x] Pages (12.0 Hours Total)
 
-    [ ] Create `AuthProvider` class; wrap `App` in `AuthProvider` (1.0 Hours)
-    [ ] Create `NavBar` (1.0 Hours)
-    [ ] Create `Landing` page (1.0 Hours)
-    [ ] Create `Calendar` page (1.0 Hours)
-    [ ] Create `Appointment Detail` page (1.0 Hours)
-    [ ] Create `Appointment Form` page (1.0 Hours)
-    [ ] Create `Vehicle Detail` page (1.0 Hours)
-    [ ] Create `Vehicle Form` page (1.0 Hours)
-    [ ] Create `Customer Detail` page (1.0 Hours)
-    [ ] Create `Customer Form` page (1.0 Hours)
-    [ ] Create `User Detail` page (1.0 Hours)
-    [ ] Create `User Form` page (1.0 Hours)
+    [x] Create `AuthProvider` class; wrap `App` in `AuthProvider` (1.0 Hours)
+    [x] Create `NavBar` (1.0 Hours)
+    [x] Create `Landing` page (1.0 Hours)
+    [x] Create `Calendar` page (1.0 Hours)
+    [x] Create `Appointment Detail` page (1.0 Hours)
+    [x] Create `Appointment Form` page (1.0 Hours)
+    [x] Create `Vehicle Detail` page (1.0 Hours)
+    [x] Create `Vehicle Form` page (1.0 Hours)
+    [x] Create `Customer Detail` page (1.0 Hours)
+    [x] Create `Customer Form` page (1.0 Hours)
+    [x] Create `User Detail` page (1.0 Hours)
+    [x] Create `User Form` page (1.0 Hours)
 
 #### Router (1.0 Hours Total)
 
-    [ ] Create Routes for above Pages (1.0 Hours)
+    [x] Create Routes for above Pages (1.0 Hours)
 
-#### [ ] Components (3.0 Hours Total)
+#### [x] Components (3.0 Hours Total)
 
-    [ ] Sign-In/Out/Up Modal (2.0 Hours)
-    [ ] `FormErrors` (0.25 Hours)
-    [ ] `Appointment` card (0.25 Hours)
-    [ ] `Vehicle` card (0.25 Hours)
-    [ ] `Customer` card (0.25 Hours)
+    [x] Sign-In/Out/Up Modal (2.0 Hours)
+    [x] `FormErrors` (0.25 Hours)
+    [x] `Appointment` card (0.25 Hours)
+    [x] `Vehicle` card (0.25 Hours)
+    [x] `Customer` card (0.25 Hours)
 
 
 ## Stretch Goals
 
-### [ ] Integrate `Labor Items` full CRUD
-### [ ] Refactor all UI forms into modals/accordians
+### [x] Integrate `Labor Items` full CRUD
+### [x] Refactor all UI forms into modals/accordians
 
 <br><hr>
 <a href="#capstone-repair-shop--repair-shop">🔼 Back to top</a>
