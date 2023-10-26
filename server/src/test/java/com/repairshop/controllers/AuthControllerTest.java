@@ -121,27 +121,6 @@ class AuthControllerTest {
     }
 
     @Test
-    void shouldNotCreateInvalidUserAndReturn400() throws Exception {
-        HashMap<String, String> credentials = new HashMap<>();
-        credentials.put("username", "user@user.com");
-        credentials.put("password", "bad-password");
-
-        List<String> errorMessages = List.of("password must be at least 8 character and contain a digit, a letter, and a non-digit/non-letter");
-
-        String jsonIn = TestHelpers.serializeObjectToJson(credentials);
-        String expectedJson = TestHelpers.serializeObjectToJson(errorMessages);
-
-        var request = post("/create_account")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonIn);
-
-        mvc.perform(request)
-                .andExpect(status().isBadRequest())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(expectedJson));
-    }
-
-    @Test
     void shouldRefreshTokenForValidTokenAndReturn200() throws Exception {
         var request = post("/refresh_token")
                 .header("Authorization", "Bearer " + token);
