@@ -1,0 +1,15 @@
+.customer-card {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+  }
+
+  .star-icon {
+    font-size: 2em !important;
+    /* position: relative;
+    top: -2px;  */
+  }
+
+  .card-title {
+    font-size: 3em !important;
+    font-family: 'Alumni Sans', sans-serif;
+  }

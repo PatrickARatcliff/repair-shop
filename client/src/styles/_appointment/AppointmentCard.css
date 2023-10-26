@@ -1,0 +1,10 @@
+.appointment-card {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+  }
+
+  .card-title {
+    font-size: 3em !important;
+    font-family: 'Alumni Sans', sans-serif;
+  }
+  

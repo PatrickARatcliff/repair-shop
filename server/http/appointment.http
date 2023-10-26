@@ -1,0 +1,83 @@
+@url = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZXBhaXItc2hvcCIsInN1YiI6ImZpdHRpQHB1cHB5LmNvbSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiQURNSU4iLCJleHAiOjE2OTgwNzM0MjN9.6JPKq1HXjNCuc4RhZsMuXXmXjX9gWo4OJly4FEXQm9A
+
+###
+// sign-in "ADMIN"
+// 200
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "fitti@puppy.com",
+    "password": "P@ssw0rd!"
+}
+
+###
+// sign-in "USER"
+// 200
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "patrick@ratcliff.com",
+    "password": "P@ssw0rd!"
+}
+
+###
+// view all appointments
+
+GET {{url}}/appointment HTTP/1.1
+
+###
+// view appointmentId 1
+
+GET {{url}}/appointment/1 HTTP/1.1
+
+###
+// view appointments by userId 1
+
+GET {{url}}/appointment/user/1 HTTP/1.1
+
+###
+// view appointments by vehicleId 1
+
+GET {{url}}/appointment/vehicle/1 HTTP/1.1
+
+###
+// create new appointment
+
+POST {{url}}/appointment HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "appointmentId": 0,
+  "appointmentDate": "2024-01-01",
+  "vehicleId": 1,
+  "userId": 1
+}
+
+###
+// update appointment
+
+PUT {{url}}/appointment/24 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "appointmentId": 24,
+  "appointmentDate": "2099-01-01",
+  "vehicleId": 1,
+  "userId": 1
+}
+
+###
+// delete appointment
+
+DELETE {{url}}/appointment/13 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+###

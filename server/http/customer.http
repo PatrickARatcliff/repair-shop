@@ -1,0 +1,77 @@
+@url = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZXBhaXItc2hvcCIsInN1YiI6ImZpdHRpQHB1cHB5LmNvbSIsInVzZXJfaWQiOjEsImF1dGhvcml0aWVzIjoiQURNSU4iLCJleHAiOjE2OTgwOTgwNjJ9.mUG30wO7C6X6H5yIWpKmOgGtcwyPfutNoEWPWtrCOX8
+
+
+###
+// sign-in "ADMIN"
+// 200
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "fitti@puppy.com",
+    "password": "P@ssw0rd!"
+}
+
+###
+// sign-in "USER"
+// 200
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "patrick@ratcliff.com",
+    "password": "P@ssw0rd!"
+}
+
+###
+// view all customers
+
+GET {{url}}/customer HTTP/1.1
+
+###
+// view customerId 1
+
+GET {{url}}/customer/1 HTTP/1.1
+
+
+###
+// create new customer
+
+POST {{url}}/customer HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "customerId": 0,
+  "customerFirstName": "Izzy",
+  "customerLastName": "Ratcliff",
+  "customerPhone": "111-222-3333",
+  "customerEmail": "izzy@ratcliff.com",
+  "important": true
+}
+
+###
+// update customer
+
+PUT {{url}}/customer/1 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "customerId": 1,
+    "customerFirstName": "Corbin",
+    "customerLastName": "March",
+    "customerPhone": "111-222-3333",
+    "customerEmail": "corbin@march.com",
+    "important": true
+  }
+
+###
+// delete appointment
+
+DELETE {{url}}/customer/6 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}

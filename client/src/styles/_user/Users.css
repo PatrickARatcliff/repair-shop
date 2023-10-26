@@ -1,0 +1,12 @@
+.spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.user-container {
+    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
