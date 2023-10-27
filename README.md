@@ -18,7 +18,7 @@
 ```
 AS the owner of a vehicle repair business
 
-I WANT employees and managers to be able to log into an application that gives them all of the tools and information necessary to the requirements of their position.
+I WANT employees and managers to be able to log into an application that gives them all of the tools and information necessary to the requirements of their position
 
 SO THAT they can manage the business through a single page application
 ````
@@ -121,3 +121,56 @@ Contributor Covenant Code of Conduct
 
 [![License:  MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 This project is licensed under the terms of the <span style="color:red">The MIT License</span>. Please click on the license badge for more information.
+
+User Story: AS the owner of a vehicle repair business I WANT employees and managers to be able to log into an application that gives them all of the tools and information necessary to the requirements of their position SO THAT they can manage the business through a single page application
+
+Overview of the "Repair Shop" Application:
+
+The "Repair Shop" is a single-page application (SPA) created using MySQL, Java, and React. The database schema was designed using MySQL Workbench. The application has a robust backend (API) with data, domain, and controller layers implemented in Java, along with comprehensive JUnit testing. The frontend (UI) was constructed using React and coded in TypeScript.
+
+Development Approach:
+
+I followed a detailed plan (available in the directory as PLAN.md) to guide the development process. The project was developed back-to-front, with the following phases:
+
+For the API, I first constructed the database, followed by the data layer, domain layer, and finally the controller layer.
+For the UI, I began by creating services for each model, then designed the associated pages, and finished by creating the necessary components.
+Key Application Features:
+
+Login Page: The application is a single-page application built using SQL, Java, and TypeScript. When users first access the page, they are greeted with a landing page that prompts them to sign in.
+
+Home Page: Upon logging in, users are taken to the home page, which displays a calendar of appointments. The navigation bar at the top allows users to move between the Appointments, Vehicles, and Customers pages. Administrators have the additional ability to access the Users page.
+
+Interactive Calendar: The calendar is interactive and can be viewed in either a month-grid or list format. Clicking on an event in the calendar takes the user to the appointment detail page.
+
+Appointments Page: Users can add appointments via an accordion-form at the top, delete appointments, or navigate to an appointment's detail page.
+
+Vehicles Page: Users can add vehicles via an accordion-form at the top, delete vehicles, or navigate to a vehicle's detail page.
+
+Customers Page: Users can add customers via an accordion-form at the top, delete customers, or navigate to a customer's detail page.
+
+Users Page (Administrators Only): Administrators can add users via an accordion-form at the top, delete users, or navigate to a user's detail page.
+
+Appointment Detail Page: Users can edit appointments via an accordion-form at the top or delete the appointment.
+
+Vehicle Detail Page: Users can edit vehicle details via an accordion-form at the top or delete the vehicle.
+
+Customer Detail Page: Users can edit customer details via an accordion-form at the top, select/de-select a star to indicate customer importance, or delete the customer.
+
+User Detail Page (Administrators Only): Administrators can edit user details via an accordion-form at the top or delete the user.
+
+User Creation: Users can only be created by the Administrator. If a potential user lacks login credentials, they can contact the admin via the link in the sign-up modal. This link will open the default email application to send an email to the admin's email address.
+
+***A more detailed explanation of the application is available in README.md located in the projects root directory***
+
+GitHub Repo: https://github.com/PatrickARatcliff/repair-shop
+
+1. React: App created with the TypeScript template.
+2. Git/GitHub: Repository and version management.
+3. MySQL: Database.
+4. React-Bootstrap: Used for most of the CSS styling.
+5. Java: Backend data, domain, and controller layers.
+6. JUnit: Backend testing for data, domain, and controller layers.
+7. SON Web Token (jsonwebtoken/JWT): Used for user authentication.
+8. Spring MVC, Spring Boot, Spring Security: Backend frameworks and security.
+9. TypeScript: Programming language.
+10. NPM Packages: React-Bootstrap, FullCalendar.io, React-Lottie, Bootstrap-icons, Toast.
