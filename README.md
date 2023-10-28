@@ -85,7 +85,7 @@ Full unit-testing suite for back-end available via JUnit testing. Best employed 
 ## Installation
 
 Setup: 
-- (1) Fork the repo, (2) Clone the forked repo locally, (3) Run "npm install" from client directory (to install the dependencies).
+- (1) Fork the repo, (2) Clone the forked repo locally, (3) Run "npm install" from client directory (to install the dependencies). (3) Build the Maven project in IntelliJ.
 
 Setup the Database Schema: 
 - (1) Run the sql scripts (repair-shop/server/sql) using MySQLWorkbench
