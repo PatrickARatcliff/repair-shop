@@ -88,13 +88,18 @@ Setup:
 - (1) Fork the repo, (2) Clone the forked repo locally, (3) Run "npm install" from client directory (to install the dependencies).
 
 Setup the Database Schema: 
-- (1) Run the sql scripts (repair-shop/server/sql) using MySQLWorkbench, (2) edit your run configurations or edit the application.properties file (repair-shop/server/src/main/resources && repair-shop/server/src/test/resources).
+- (1) Run the sql scripts (repair-shop/server/sql) using MySQLWorkbench
+
+Setup Back-End Configurations/Start the Server:
+- (1) edit your run configurations or edit the application.properties file (repair-shop/server/src/main/resources && repair-shop/server/src/test/resources). (2) Run all tests from the server/src/test/java directory twice, ensure that all 54 tests pass. (3) Start the server via App.java.
 
   Server-Side 'application.properties:
   * spring.datasource.url=${REPAIR_DB_URL}
   * spring.datasource.username=${REPAIR_DB_USERNAME}
   * spring.datasource.password=${REPAIR_DB_PASSWORD}
 
+Start the Client-Side Application:
+- (1) Using the terminal, cd into the client directory, (2) enter the command `npm start` into the terminal.
 
 Either obtain credentials from the user table (SELECT * FROM user;) or use an option noted below:
 
